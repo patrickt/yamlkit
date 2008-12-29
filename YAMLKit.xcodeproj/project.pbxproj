@@ -15,6 +15,12 @@
 		CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */; };
 		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; };
 		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
+		CD69C23B0F098A2F0011BAB6 /* TestParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2390F098A2F0011BAB6 /* TestParsing.h */; };
+		CD69C23C0F098A2F0011BAB6 /* TestParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23A0F098A2F0011BAB6 /* TestParsing.m */; };
+		CD69C23F0F098A4C0011BAB6 /* TestEmitting.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */; };
+		CD69C2400F098A4C0011BAB6 /* TestEmitting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */; };
+		CD69C2430F098A540011BAB6 /* TestHighLevelAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */; };
+		CD69C2440F098A540011BAB6 /* TestHighLevelAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,12 @@
 		CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKEmitter.m; sourceTree = "<group>"; };
 		CD69C2330F0983A90011BAB6 /* YKParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKParser.h; sourceTree = "<group>"; };
 		CD69C2340F0983A90011BAB6 /* YKParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKParser.m; sourceTree = "<group>"; };
+		CD69C2390F098A2F0011BAB6 /* TestParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestParsing.h; sourceTree = "<group>"; };
+		CD69C23A0F098A2F0011BAB6 /* TestParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestParsing.m; sourceTree = "<group>"; };
+		CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestEmitting.h; sourceTree = "<group>"; };
+		CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEmitting.m; sourceTree = "<group>"; };
+		CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHighLevelAccess.h; sourceTree = "<group>"; };
+		CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHighLevelAccess.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +140,12 @@
 		CD1DE6830F0949A6006FDAB3 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CD69C2390F098A2F0011BAB6 /* TestParsing.h */,
+				CD69C23A0F098A2F0011BAB6 /* TestParsing.m */,
+				CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */,
+				CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */,
+				CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */,
+				CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */,
 			);
 			name = Tests;
 			path = test;
@@ -143,6 +161,9 @@
 				CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */,
 				CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */,
 				CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */,
+				CD69C23B0F098A2F0011BAB6 /* TestParsing.h in Headers */,
+				CD69C23F0F098A4C0011BAB6 /* TestEmitting.h in Headers */,
+				CD69C2430F098A540011BAB6 /* TestHighLevelAccess.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +226,9 @@
 			files = (
 				CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */,
 				CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */,
+				CD69C23C0F098A2F0011BAB6 /* TestParsing.m in Sources */,
+				CD69C2400F098A4C0011BAB6 /* TestEmitting.m in Sources */,
+				CD69C2440F098A540011BAB6 /* TestHighLevelAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

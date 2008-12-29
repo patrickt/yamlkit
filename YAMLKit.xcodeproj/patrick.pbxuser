@@ -151,4 +151,25 @@
 			sepNavVisRange = "{0, 194}";
 		};
 	};
+	CD69C2330F0983A90011BAB6 /* YKParser.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {519, 253}}";
+			sepNavSelRange = "{174, 0}";
+			sepNavVisRange = "{0, 174}";
+		};
+	};
+	CD69C2390F098A2F0011BAB6 /* TestParsing.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {519, 253}}";
+			sepNavSelRange = "{222, 0}";
+			sepNavVisRange = "{0, 231}";
+		};
+	};
+	CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {519, 253}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 233}";
+		};
+	};
 }

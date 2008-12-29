@@ -15,4 +15,5 @@
 + (NSString *)dump:(id)object;
 + (id)load:(NSString *)aString;
 
+
 @end
