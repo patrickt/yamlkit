@@ -45,6 +45,7 @@
 		0867D691FE84028FC02AAC07 /* YAMLKit */ = {
 			isa = PBXGroup;
 			children = (
+				CD1DE6830F0949A6006FDAB3 /* Tests */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -77,6 +78,7 @@
 			children = (
 			);
 			name = Classes;
+			path = src;
 			sourceTree = "<group>";
 		};
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
@@ -103,6 +105,14 @@
 				32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		CD1DE6830F0949A6006FDAB3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
+			path = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
