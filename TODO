@@ -1,0 +1,11 @@
+Classes that need to support toYAML/fromYAML:
+NSArray/NSMutableArray
+NSDictionary/NSMutableDictionary
+NSString/NSMutableString
+NSValue
+NSNumber
+
+Classes that 
+
+Long-term milestones:
+tags

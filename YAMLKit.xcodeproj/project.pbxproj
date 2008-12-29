@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		CD1DE6850F094ACC006FDAB3 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = CD1DE6840F094ACC006FDAB3 /* TODO */; };
+		CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */; };
+		CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */; };
+		CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */; };
+		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; };
+		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* YAMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD1DE6840F094ACC006FDAB3 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit.h; sourceTree = "<group>"; };
+		CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKEmitter.h; sourceTree = "<group>"; };
+		CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKEmitter.m; sourceTree = "<group>"; };
+		CD69C2330F0983A90011BAB6 /* YKParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKParser.h; sourceTree = "<group>"; };
+		CD69C2340F0983A90011BAB6 /* YKParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKParser.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -51,6 +63,7 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				CD1DE6840F094ACC006FDAB3 /* TODO */,
 			);
 			name = YAMLKit;
 			sourceTree = "<group>";
@@ -76,6 +89,11 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */,
+				CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */,
+				CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */,
+				CD69C2330F0983A90011BAB6 /* YKParser.h */,
+				CD69C2340F0983A90011BAB6 /* YKParser.m */,
 			);
 			name = Classes;
 			path = src;
@@ -122,6 +140,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */,
+				CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */,
+				CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				CD1DE6850F094ACC006FDAB3 /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +203,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */,
+				CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

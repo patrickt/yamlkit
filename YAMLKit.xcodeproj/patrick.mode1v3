@@ -274,12 +274,14 @@
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>CD1DE6830F0949A6006FDAB3</string>
 								<string>08FB77AEFE84172EC02AAC07</string>
+								<string>32C88DFF0371C24200C91783</string>
+								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>1</integer>
+									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -319,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MyNewFile14.java</string>
+								<string>YAMLKit.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,7 +329,20 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MyNewFile14.java</string>
+										<string>YAMLKit.h</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>CD69C21A0F097CD70011BAB6</string>
+										<key>history</key>
+										<array>
+											<string>CD1DE6890F096260006FDAB3</string>
+											<string>CD1DE68C0F096260006FDAB3</string>
+										</array>
+										<key>prevStack</key>
+										<array>
+											<string>CD1DE68B0F096260006FDAB3</string>
+										</array>
 									</dict>
 									<key>SplitCount</key>
 									<string>1</string>
@@ -384,9 +399,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>CD1DE67E0F094968006FDAB3</string>
+				<string>CD69C21B0F097CD70011BAB6</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>CD1DE67F0F094968006FDAB3</string>
+				<string>CD69C21C0F097CD70011BAB6</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
