@@ -21,6 +21,7 @@
 		CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */; };
 		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; };
 		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
+		CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CDAD33310F0ACCE20054CF3F /* moderate.yaml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHighLevelAccess.h; sourceTree = "<group>"; };
 		CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHighLevelAccess.m; sourceTree = "<group>"; };
 		CD69C24F0F098D8D0011BAB6 /* Run Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Run Tests-Info.plist"; sourceTree = "<group>"; };
+		CDAD33310F0ACCE20054CF3F /* moderate.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moderate.yaml; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				CD4669520F0A98330047C2BF /* verysimple.yaml */,
+				CDAD33310F0ACCE20054CF3F /* moderate.yaml */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */,
+				CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +387,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -399,6 +404,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include/;

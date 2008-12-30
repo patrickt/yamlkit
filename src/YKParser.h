@@ -11,9 +11,10 @@
 @interface YKParser : NSObject {
     yaml_parser_t parser;
     FILE* fileInput;
+	const char *stringInput;
 }
 
 - (id)initWithFile:(NSString *)aString;
-- (id)parse;
+- (NSArray *)parse;
 
 @end

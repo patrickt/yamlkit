@@ -285,13 +285,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
 									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 53}, {300, 571}}</string>
+							<string>{{0, 0}, {300, 571}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -310,7 +310,7 @@
 							<real>300</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>169 248 1039 630 0 0 1440 878 </string>
+						<string>33 248 1039 630 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -328,7 +328,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>YKParser.m</string>
+								<string>moderate.yaml</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -336,29 +336,30 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>YKParser.m</string>
+										<string>moderate.yaml</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CDAD32F60F0AB1880054CF3F</string>
+										<string>CDAD33770F0AD9AA0054CF3F</string>
 										<key>history</key>
 										<array>
 											<string>CD1DE6890F096260006FDAB3</string>
 											<string>CD4669690F0A99780047C2BF</string>
 											<string>CD46696D0F0A99780047C2BF</string>
-											<string>CD4669D20F0A9C8E0047C2BF</string>
 											<string>CDAD32670F0AA77E0054CF3F</string>
 											<string>CDAD326A0F0AA77E0054CF3F</string>
 											<string>CDAD326E0F0AA77E0054CF3F</string>
-											<string>CDAD326F0F0AA77E0054CF3F</string>
-											<string>CDAD32700F0AA77E0054CF3F</string>
-											<string>CDAD32A30F0AA9570054CF3F</string>
 											<string>CDAD32A40F0AA9570054CF3F</string>
-											<string>CDAD32A50F0AA9570054CF3F</string>
-											<string>CDAD32A70F0AA9570054CF3F</string>
-											<string>CDAD32EF0F0AB14B0054CF3F</string>
-											<string>CDAD32F00F0AB14B0054CF3F</string>
-											<string>CDAD32F10F0AB14B0054CF3F</string>
+											<string>CDAD330F0F0AC9AE0054CF3F</string>
+											<string>CDAD33120F0AC9AE0054CF3F</string>
+											<string>CDAD33340F0ACD6F0054CF3F</string>
+											<string>CDAD333E0F0ACE1E0054CF3F</string>
+											<string>CDAD333F0F0ACE1E0054CF3F</string>
+											<string>CDAD33400F0ACE1E0054CF3F</string>
+											<string>CDAD33410F0ACE1E0054CF3F</string>
+											<string>CDAD33570F0AD30C0054CF3F</string>
+											<string>CDAD33730F0AD8F40054CF3F</string>
+											<string>CDAD33580F0AD30C0054CF3F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -408,6 +409,43 @@
 											<string>CDAD32EC0F0AB1230054CF3F</string>
 											<string>CDAD32F20F0AB14B0054CF3F</string>
 											<string>CDAD32F30F0AB14B0054CF3F</string>
+											<string>CDAD32FF0F0AB23F0054CF3F</string>
+											<string>CDAD33000F0AB23F0054CF3F</string>
+											<string>CDAD33010F0AB23F0054CF3F</string>
+											<string>CDAD33070F0AB2910054CF3F</string>
+											<string>CDAD330B0F0AB6970054CF3F</string>
+											<string>CDAD33140F0AC9AE0054CF3F</string>
+											<string>CDAD33150F0AC9AE0054CF3F</string>
+											<string>CDAD33160F0AC9AE0054CF3F</string>
+											<string>CDAD33170F0AC9AE0054CF3F</string>
+											<string>CDAD33180F0AC9AE0054CF3F</string>
+											<string>CDAD33190F0AC9AE0054CF3F</string>
+											<string>CDAD331A0F0AC9AE0054CF3F</string>
+											<string>CDAD331B0F0AC9AE0054CF3F</string>
+											<string>CDAD331C0F0AC9AE0054CF3F</string>
+											<string>CDAD331D0F0AC9AE0054CF3F</string>
+											<string>CDAD331E0F0AC9AE0054CF3F</string>
+											<string>CDAD331F0F0AC9AE0054CF3F</string>
+											<string>CDAD33200F0AC9AE0054CF3F</string>
+											<string>CDAD33210F0AC9AE0054CF3F</string>
+											<string>CDAD33220F0AC9AE0054CF3F</string>
+											<string>CDAD33230F0AC9AE0054CF3F</string>
+											<string>CDAD332A0F0ACA0B0054CF3F</string>
+											<string>CDAD33370F0ACD6F0054CF3F</string>
+											<string>CDAD33380F0ACD6F0054CF3F</string>
+											<string>CDAD33430F0ACE1E0054CF3F</string>
+											<string>CDAD33440F0ACE1E0054CF3F</string>
+											<string>CDAD33450F0ACE1E0054CF3F</string>
+											<string>CDAD33460F0ACE1E0054CF3F</string>
+											<string>CDAD33470F0ACE1E0054CF3F</string>
+											<string>CDAD33480F0ACE1E0054CF3F</string>
+											<string>CDAD33490F0ACE1E0054CF3F</string>
+											<string>CDAD334A0F0ACE1E0054CF3F</string>
+											<string>CDAD334B0F0ACE1E0054CF3F</string>
+											<string>CDAD335A0F0AD30C0054CF3F</string>
+											<string>CDAD335B0F0AD30C0054CF3F</string>
+											<string>CDAD335C0F0AD30C0054CF3F</string>
+											<string>CDAD33740F0AD8F40054CF3F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -421,7 +459,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {717, 409}}</string>
 								<key>RubberWindowFrame</key>
-								<string>169 248 1039 630 0 0 1440 878 </string>
+								<string>33 248 1039 630 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -441,7 +479,7 @@
 								<key>Frame</key>
 								<string>{{0, 414}, {717, 175}}</string>
 								<key>RubberWindowFrame</key>
-								<string>169 248 1039 630 0 0 1440 878 </string>
+								<string>33 248 1039 630 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -601,16 +639,17 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>CDAD33780F0AD9AA0054CF3F</string>
+		<string>CDAD33790F0AD9AA0054CF3F</string>
 		<string>CDAD32950F0AA77E0054CF3F</string>
 		<string>CDAD32960F0AA77E0054CF3F</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>CD69C2880F098E630011BAB6</string>
-		<string>CDAD32B50F0AA9570054CF3F</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/patrick/Repositories/YAMLKit/YAMLKit.xcodeproj</string>
+		<string>CD69C2880F098E630011BAB6</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
-	<string>169 248 1039 630 0 0 1440 878 </string>
+	<string>33 248 1039 630 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -626,12 +665,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RunPlatformUnitTests.include</string>
+								<string>YKParser.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -648,8 +689,6 @@
 							<string>315pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -731,8 +770,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {392, 271}}</string>
-											<string>{{392, 0}, {467, 271}}</string>
+											<string>{{0, 0}, {444, 286}}</string>
+											<string>{{444, 0}, {529, 286}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -747,8 +786,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {859, 271}}</string>
-											<string>{{0, 271}, {859, 260}}</string>
+											<string>{{0, 0}, {973, 286}}</string>
+											<string>{{0, 286}, {973, 275}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -768,7 +807,7 @@
 								<key>DebugSTDIOWindowFrame</key>
 								<string>{{200, 200}, {500, 300}}</string>
 								<key>Frame</key>
-								<string>{{0, 0}, {859, 531}}</string>
+								<string>{{0, 0}, {973, 561}}</string>
 								<key>PBXDebugSessionStackFrameViewKey</key>
 								<dict>
 									<key>DebugVariablesTableConfiguration</key>
@@ -783,21 +822,21 @@
 										<real>80</real>
 									</array>
 									<key>Frame</key>
-									<string>{{392, 0}, {467, 271}}</string>
+									<string>{{444, 0}, {529, 286}}</string>
 									<key>RubberWindowFrame</key>
-									<string>259 299 859 572 0 0 1440 878 </string>
+									<string>259 269 973 602 0 0 1440 878 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>259 299 859 572 0 0 1440 878 </string>
+								<string>259 269 973 602 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
 							<key>Proportion</key>
-							<string>531pt</string>
+							<string>561pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>531pt</string>
+					<string>561pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -822,7 +861,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>259 299 859 572 0 0 1440 878 </string>
+			<string>259 269 973 602 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
