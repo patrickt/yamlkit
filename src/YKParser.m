@@ -15,9 +15,8 @@
     if(self = [super init]) {
         memset(&parser, 0, sizeof(parser));
         yaml_parser_initialize(&parser);
-        fileInput = NULL;
-        fileInput = fopen([aString UTF8String], "r");
-        NSAssert(fileInput != NULL, @"Could not open the file");
+        fileInput = fopen([aString UTF8String], "r+");
+		NSAssert1(fileInput != NULL, @"Could not open specified file - current path is %@", [[NSFileManager defaultManager] currentDirectoryPath]);
 		yaml_parser_set_input_file(&parser, fileInput);
     }
     return self;
@@ -31,12 +30,13 @@
     NSMutableArray *stack = [NSMutableArray array];
     
     while(!done) {
-        yaml_parser_parse(&parser, &event);
+        if(!yaml_parser_parse(&parser, &event)) {
+			break;
+		}
         done = (event.type == YAML_STREAM_END_EVENT);
-        if(parser.error) break;
         switch(event.type) {
             case YAML_SCALAR_EVENT:
-                obj = [NSString stringWithUTF8String:(char *)event.data.scalar.value];
+                obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
                 temp = [stack lastObject];
                 
                 if([temp isKindOfClass:[NSMutableArray class]]) {
@@ -63,13 +63,18 @@
                 break;
             case YAML_SEQUENCE_END_EVENT:
             case YAML_MAPPING_END_EVENT:
-                temp = [[stack lastObject] retain];
+                temp = [stack lastObject];
                 [stack removeLastObject];
+				NSLog(@"%d", [temp retainCount]);
                 
                 id last = [stack lastObject];
-                if([last isKindOfClass:[NSMutableArray class]]) {
+				if(last == nil) {
+					[stack addObject:temp];
+					NSLog(@"%d", [temp retainCount]);
+					break;
+				} else if([last isKindOfClass:[NSArray class]]) {
                     [last addObject:temp];
-                } else if ([last isKindOfClass:[NSMutableDictionary class]]) {
+                } else if ([last isKindOfClass:[NSDictionary class]]) {
                     [stack addObject:temp];
                 } else if ([last isKindOfClass:[NSString class]]) {
                     obj = [[stack lastObject] retain];
@@ -78,8 +83,6 @@
                         @"last object in stack was not a dictionary!");
                     [[stack lastObject] setObject:temp forKey:obj];
                 }
-                [temp release];
-                temp = nil;
                 break;
             case YAML_NO_EVENT:
                 NSLog(@"ERROR: no event found!");
@@ -90,7 +93,7 @@
         }
         yaml_event_delete(&event);
     }
-    return [[stack lastObject] lastObject];
+    return [stack lastObject];
 }
 
 - (void)dealloc
