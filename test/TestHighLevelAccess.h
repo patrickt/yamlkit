@@ -12,4 +12,10 @@
 
 }
 
+- (void)testStringLoading;
+- (void)testFileLoading;
+
+- (void)testStringDumping;
+- (void)testFileDumping;
+
 @end

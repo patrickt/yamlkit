@@ -7,6 +7,9 @@
  *
  */
 
+#import "YKParser.h"
+#import "YKEmitter.h"
+
 @interface YAMLKit : NSObject
 {
     
@@ -14,6 +17,5 @@
 
 + (NSString *)dump:(id)object;
 + (id)load:(NSString *)aString;
-
 
 @end

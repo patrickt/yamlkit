@@ -6,8 +6,28 @@
 //
 
 #import "TestHighLevelAccess.h"
-
+#import "YAMLKit.h"
 
 @implementation TestHighLevelAccess
+
+- (void)testStringLoading
+{
+    
+}
+
+- (void)testFileLoading
+{
+    
+}
+
+- (void)testStringDumping
+{
+	
+}
+
+- (void)testFileDumping
+{
+    
+}
 
 @end

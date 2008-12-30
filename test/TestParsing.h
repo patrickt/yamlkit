@@ -12,4 +12,6 @@
 
 }
 
+- (void)testVerySimpleLoadingFromFile;
+
 @end
