@@ -14,5 +14,6 @@
 }
 
 - (id)initWithFile:(NSString *)aString;
+- (id)parse;
 
 @end

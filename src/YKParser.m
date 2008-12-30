@@ -15,7 +15,10 @@
     if(self = [super init]) {
         memset(&parser, 0, sizeof(parser));
         yaml_parser_initialize(&parser);
+        fileInput = NULL;
         fileInput = fopen([aString UTF8String], "r");
+        NSAssert(fileInput != NULL, @"Could not open the file");
+		yaml_parser_set_input_file(&parser, fileInput);
     }
     return self;
 }
@@ -30,7 +33,7 @@
     while(!done) {
         yaml_parser_parse(&parser, &event);
         done = (event.type == YAML_STREAM_END_EVENT);
-        
+        if(parser.error) break;
         switch(event.type) {
             case YAML_SCALAR_EVENT:
                 obj = [NSString stringWithUTF8String:(char *)event.data.scalar.value];

@@ -12,7 +12,9 @@
 
 - (void)testVerySimpleLoadingFromFile
 {
-	STFail(@"Let's see if this works");
+	YKParser *p = [[YKParser alloc] initWithFile:@"/Users/patrick/Repositories/YAMLKit/test"];
+	id o = [p parse];
+	STAssertNotNil(o, @"Parsing error encountered.");
 }
 
 @end
