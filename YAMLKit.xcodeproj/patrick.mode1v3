@@ -340,7 +340,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CDAD32F40F0AB14B0054CF3F</string>
+										<string>CDAD32F60F0AB1880054CF3F</string>
 										<key>history</key>
 										<array>
 											<string>CD1DE6890F096260006FDAB3</string>
@@ -606,8 +606,8 @@
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CD69C2880F098E630011BAB6</string>
 		<string>CDAD32B50F0AA9570054CF3F</string>
-		<string>/Users/patrick/Repositories/YAMLKit/YAMLKit.xcodeproj</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/patrick/Repositories/YAMLKit/YAMLKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>169 248 1039 630 0 0 1440 878 </string>

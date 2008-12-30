@@ -88,7 +88,6 @@
                 NSLog(@"ERROR: no event found!");
                 break;
             default:
-                NSLog(@"Warning: no event caught!");
                 break;
         }
         yaml_event_delete(&event);
