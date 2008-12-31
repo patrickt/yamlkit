@@ -13,5 +13,12 @@
 }
 
 - (void)testSimpleEmitting;
+- (void)testComplicatedEmitting;
+- (void)testLineBreakModification;
+- (void)testDifferentEncodings;
+- (void)testCanonicalOutput;
+- (void)testIndentation;
+- (void)testEscapingUnicodeCharacters;
+- (void)testLineWidthModification;
 
 @end
