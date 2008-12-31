@@ -150,6 +150,8 @@
 			CD230A2D0F0BFDB600F02DC7 /* PBXTextBookmark */ = CD230A2D0F0BFDB600F02DC7 /* PBXTextBookmark */;
 			CD230A2F0F0BFDEC00F02DC7 /* PBXTextBookmark */ = CD230A2F0F0BFDEC00F02DC7 /* PBXTextBookmark */;
 			CD230A310F0BFDFA00F02DC7 /* PBXTextBookmark */ = CD230A310F0BFDFA00F02DC7 /* PBXTextBookmark */;
+			CD230A330F0C02A400F02DC7 /* PBXTextBookmark */ = CD230A330F0C02A400F02DC7 /* PBXTextBookmark */;
+			CD230A350F0C02B800F02DC7 /* PBXTextBookmark */ = CD230A350F0C02B800F02DC7 /* PBXTextBookmark */;
 			CD312F9A0F09A3120004C345 = CD312F9A0F09A3120004C345 /* PBXTextBookmark */;
 			CD4669690F0A99780047C2BF = CD4669690F0A99780047C2BF /* PBXTextBookmark */;
 			CD4669720F0A99780047C2BF = CD4669720F0A99780047C2BF /* PBXTextBookmark */;
@@ -675,6 +677,26 @@
 		vrLen = 589;
 		vrLoc = 0;
 	};
+	CD230A330F0C02A400F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */;
+		name = "TestEmitting.m: 24";
+		rLen = 0;
+		rLoc = 595;
+		rType = 0;
+		vrLen = 595;
+		vrLoc = 0;
+	};
+	CD230A350F0C02B800F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */;
+		name = "TestEmitting.m: 24";
+		rLen = 0;
+		rLoc = 595;
+		rType = 0;
+		vrLen = 595;
+		vrLoc = 0;
+	};
 	CD312F550F09A0A40004C345 /* Run Tests */ = {
 		activeExec = 0;
 	};
@@ -873,7 +895,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
 			sepNavSelRange = "{595, 0}";
-			sepNavVisRange = "{0, 589}";
+			sepNavVisRange = "{0, 595}";
 		};
 	};
 	CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */ = {
