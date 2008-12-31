@@ -175,6 +175,13 @@
 			CD230A550F0C0A2600F02DC7 /* PBXTextBookmark */ = CD230A550F0C0A2600F02DC7 /* PBXTextBookmark */;
 			CD230A560F0C0A2600F02DC7 /* PBXTextBookmark */ = CD230A560F0C0A2600F02DC7 /* PBXTextBookmark */;
 			CD230A570F0C0A2600F02DC7 /* PBXTextBookmark */ = CD230A570F0C0A2600F02DC7 /* PBXTextBookmark */;
+			CD230A580F0C0B0200F02DC7 /* PBXTextBookmark */ = CD230A580F0C0B0200F02DC7 /* PBXTextBookmark */;
+			CD230A5A0F0C0B2900F02DC7 /* PBXTextBookmark */ = CD230A5A0F0C0B2900F02DC7 /* PBXTextBookmark */;
+			CD230A5E0F0C0D2300F02DC7 /* PBXTextBookmark */ = CD230A5E0F0C0D2300F02DC7 /* PBXTextBookmark */;
+			CD230A600F0C0D3700F02DC7 /* PBXTextBookmark */ = CD230A600F0C0D3700F02DC7 /* PBXTextBookmark */;
+			CD230A620F0C103E00F02DC7 /* PBXTextBookmark */ = CD230A620F0C103E00F02DC7 /* PBXTextBookmark */;
+			CD230A630F0C104800F02DC7 /* PBXTextBookmark */ = CD230A630F0C104800F02DC7 /* PBXTextBookmark */;
+			CD230A650F0C105600F02DC7 /* PBXTextBookmark */ = CD230A650F0C105600F02DC7 /* PBXTextBookmark */;
 			CD312F9A0F09A3120004C345 = CD312F9A0F09A3120004C345 /* PBXTextBookmark */;
 			CD4669690F0A99780047C2BF = CD4669690F0A99780047C2BF /* PBXTextBookmark */;
 			CD4669720F0A99780047C2BF = CD4669720F0A99780047C2BF /* PBXTextBookmark */;
@@ -540,8 +547,8 @@
 		ignoreCount = 0;
 		lineNumber = 17;
 		location = "Run Tests";
-		modificationTime = 252443907.348018;
-		state = 1;
+		modificationTime = 252447525.674489;
+		state = 2;
 	};
 	CD230A100F0BFB4F00F02DC7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -946,6 +953,76 @@
 		vrLen = 883;
 		vrLoc = 287;
 	};
+	CD230A580F0C0B0200F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 883;
+		vrLoc = 287;
+	};
+	CD230A5A0F0C0B2900F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 881;
+		vrLoc = 287;
+	};
+	CD230A5E0F0C0D2300F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 1170;
+	};
+	CD230A600F0C0D3700F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 1170;
+	};
+	CD230A620F0C103E00F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 1170;
+	};
+	CD230A630F0C104800F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 1170;
+	};
+	CD230A650F0C105600F02DC7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */;
+		name = "YKEmitter.m: 71";
+		rLen = 0;
+		rLoc = 2364;
+		rType = 0;
+		vrLen = 1189;
+		vrLoc = 1170;
+	};
 	CD312F550F09A0A40004C345 /* Run Tests */ = {
 		activeExec = 0;
 	};
@@ -1012,7 +1089,7 @@
 		ignoreCount = 0;
 		lineNumber = 15;
 		location = "Run Tests";
-		modificationTime = 252443903.82615;
+		modificationTime = 252447515.802431;
 		state = 2;
 	};
 	CD4669D40F0A9C8E0047C2BF /* PBXTextBookmark */ = {
@@ -1100,9 +1177,9 @@
 	};
 	CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 1134}}";
-			sepNavSelRange = "{698, 0}";
-			sepNavVisRange = "{287, 883}";
+			sepNavIntBoundsRect = "{{0, 0}, {1200, 1022}}";
+			sepNavSelRange = "{2364, 0}";
+			sepNavVisRange = "{1170, 1189}";
 		};
 	};
 	CD69C2330F0983A90011BAB6 /* YKParser.h */ = {
@@ -1128,9 +1205,9 @@
 	};
 	CD69C23A0F098A2F0011BAB6 /* TestParsing.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {883, 616}}";
-			sepNavSelRange = "{1359, 0}";
-			sepNavVisRange = "{604, 755}";
+			sepNavIntBoundsRect = "{{0, 0}, {883, 714}}";
+			sepNavSelRange = "{1443, 0}";
+			sepNavVisRange = "{959, 484}";
 		};
 	};
 	CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */ = {
@@ -1271,7 +1348,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 317;
-		modificationTime = 252443962.610109;
+		modificationTime = 252448025.781437;
 		state = 1;
 	};
 	CDAD32660F0AA7350054CF3F /* YKParser.m:44 */ = {
@@ -1288,7 +1365,7 @@
 		ignoreCount = 0;
 		lineNumber = 44;
 		location = YAMLKit;
-		modificationTime = 252443903.826207;
+		modificationTime = 252447515.802587;
 		state = 2;
 	};
 	CDAD32670F0AA77E0054CF3F /* PBXTextBookmark */ = {
@@ -1383,7 +1460,7 @@
 		ignoreCount = 0;
 		lineNumber = 61;
 		location = YAMLKit;
-		modificationTime = 252443903.82623;
+		modificationTime = 252447515.802626;
 		state = 2;
 	};
 	CDAD32A00F0AA9170054CF3F /* YKParser.m:80 */ = {
@@ -1400,7 +1477,7 @@
 		ignoreCount = 0;
 		lineNumber = 80;
 		location = YAMLKit;
-		modificationTime = 252443903.826245;
+		modificationTime = 252447515.802651;
 		state = 2;
 	};
 	CDAD32A40F0AA9570054CF3F /* PBXTextBookmark */ = {
@@ -1464,7 +1541,7 @@
 		ignoreCount = 0;
 		lineNumber = 37;
 		location = "Run Tests";
-		modificationTime = 252443903.82626;
+		modificationTime = 252447515.802669;
 		state = 2;
 	};
 	CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */ = {

@@ -13,5 +13,14 @@
 }
 
 - (void)testVerySimpleLoadingFromFile;
+- (void)testVerySimpleStringParsing;
+- (void)testModerateLoadingFromFile;
+- (void)testWithNonexistentFile;
+- (void)testWithMalformedStringInput;
+- (void)testSuccessfulLoadingUsingErrors;
+- (void)testUnsuccessfulLoadingUsingErrors;
+- (void)testUnsuccessfulLoadingUsingExceptions;
+- (void)testDifferentEncodings;
+- (void)testWithCustomInputHandler;
 
 @end
