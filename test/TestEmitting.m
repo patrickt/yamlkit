@@ -15,7 +15,7 @@
     YKEmitter *e = [[[YKEmitter alloc] initWithCapacity:20] autorelease];
     [e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
     NSString *str = [e emittedString];
-    NSString *expected = @"---\n- One\n- Two\n- Three\n...\n";
+    NSString *expected = @"- One\n- Two\n- Three\n";
 	STAssertNotNil(str, @"Did not get a result from emitting");
     STAssertEqualObjects(str, expected, @"Recieved incorrect result from emitting");
 }

@@ -10,12 +10,9 @@
 
 @interface YKEmitter : NSObject {
     yaml_emitter_t emitter;
-    yaml_document_t document;
-    FILE *output;
     NSMutableData *buffer;
 }
 
-- (id)initWithFile:(NSString *)string;
 - (id)initWithCapacity:(int)bSize;
 - (NSString *)emittedString;
 - (void)emitItem:(id)item;

@@ -9,32 +9,18 @@
 
 @implementation YKEmitter
 
-- (id)initWithFile:(NSString *)aString
-{
-    if(self = [super init]) {
-        memset(&emitter, 0, sizeof(emitter));
-        memset(&document, 0, sizeof(document));
-        buffer = nil;
-        
-        yaml_emitter_initialize(&emitter);
-        output = fopen([aString fileSystemRepresentation], "w");
-        NSAssert(output != NULL, @"Could not create/open the file at the desired location");
-        yaml_emitter_set_output_file(&emitter, output);
-    }
-	return self;
-}
-
 - (id)initWithCapacity:(int)bSize
 {
     if(self = [super init]) {
         memset(&emitter, 0, sizeof(emitter));
-        memset(&document, 0, sizeof(document));
-        output = NULL;
-        
         yaml_emitter_initialize(&emitter);
+        
+        
         buffer = [NSMutableData dataWithCapacity:bSize];
-        // If this works I will be tickled pink.
-        // Update: it does. I am thrilled.
+        // I am overjoyed that this works.
+        // Coincidentally, the order of arguments to CFDataAppendBytes are just right
+        // such that if I pass the buffer as the data parameter, I can just use 
+        // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
         yaml_emitter_set_output(&emitter, CFDataAppendBytes, buffer);
     }
 	return self;
@@ -42,7 +28,11 @@
 
 - (void)emitItem:(id)item
 {
-    yaml_document_initialize(&document, NULL, NULL, NULL, 0, 0);
+    // Create and initialize a document to hold this.
+    yaml_document_t document;
+    memset(&document, 0, sizeof(document));
+    yaml_document_initialize(&document, NULL, NULL, NULL, 1, 1);
+    
     [self writeItem:item toDocument:&document];
     yaml_emitter_dump(&emitter, &document);
     yaml_document_delete(&document);
