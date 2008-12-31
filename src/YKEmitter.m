@@ -15,7 +15,6 @@
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
         
-        
         buffer = [NSMutableData dataWithCapacity:bSize];
         // I am overjoyed that this works.
         // Coincidentally, the order of arguments to CFDataAppendBytes are just right

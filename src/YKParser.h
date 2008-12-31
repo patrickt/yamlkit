@@ -14,7 +14,8 @@
 	const char *stringInput;
 }
 
-- (id)initWithFile:(NSString *)aString;
+- (id)initWithFile:(NSString *)path;
+- (id)initWithString:(NSString *)aString;
 - (NSArray *)parse;
 
 @end

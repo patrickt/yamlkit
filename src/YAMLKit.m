@@ -14,11 +14,18 @@
 {
     YKParser *p = [[[YKParser alloc] initWithString:str] autorelease];
     NSArray *result = [p parse];
-    // TODO: If parse returns a one-element array, extract it.
+    // If parse returns a one-element array, extract it.
     if([result count] == 1) {
         return [result objectAtIndex:0];
     }
     return result;
+}
+
++ (NSString *)dump:(id)object
+{
+    YKEmitter *e = [[[YKEmitter alloc] initWithCapacity:250] autorelease];
+    [e emitItem:object];
+    return [e emittedString];
 }
 
 
