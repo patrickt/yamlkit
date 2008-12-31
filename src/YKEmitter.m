@@ -9,13 +9,13 @@
 
 @implementation YKEmitter
 
-- (id)initWithCapacity:(int)bSize
+- (id)init
 {
     if(self = [super init]) {
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
         
-        buffer = [NSMutableData dataWithCapacity:bSize];
+        buffer = [NSMutableData data];
         // I am overjoyed that this works.
         // Coincidentally, the order of arguments to CFDataAppendBytes are just right
         // such that if I pass the buffer as the data parameter, I can just use 
@@ -32,12 +32,12 @@
     memset(&document, 0, sizeof(document));
     yaml_document_initialize(&document, NULL, NULL, NULL, 1, 1);
     
-    [self writeItem:item toDocument:&document];
+    [self _writeItem:item toDocument:&document];
     yaml_emitter_dump(&emitter, &document);
     yaml_document_delete(&document);
 }
 
-- (int)writeItem:(id)item toDocument:(yaml_document_t *)doc;
+- (int)_writeItem:(id)item toDocument:(yaml_document_t *)doc;
 {
 	int nodeID = 0;
 	if([item isKindOfClass:[NSArray class]] || [item isKindOfClass:[NSSet class]]) {
@@ -45,15 +45,15 @@
 		nodeID = yaml_document_add_sequence(doc, (yaml_char_t *)YAML_DEFAULT_SEQUENCE_TAG, YAML_ANY_SEQUENCE_STYLE);
 		for(id subitem in item) {
 			NSLog([subitem description]);
-			int newItem = [self writeItem:subitem toDocument:doc];
+			int newItem = [self _writeItem:subitem toDocument:doc];
 			yaml_document_append_sequence_item(doc, nodeID, newItem);
 		}
 	} else if([item isKindOfClass:[NSDictionary class]]) {
 		// emit beginning mapping
 		nodeID = yaml_document_add_mapping(doc, (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG, YAML_ANY_MAPPING_STYLE);
 		for(id key in item) {
-			int keyID = [self writeItem:key toDocument:doc];
-			int valueID = [self writeItem:[item objectForKey:key] toDocument:doc];
+			int keyID = [self _writeItem:key toDocument:doc];
+			int valueID = [self _writeItem:[item objectForKey:key] toDocument:doc];
 			yaml_document_append_mapping_pair(doc, nodeID, keyID, valueID);
 		}
 	} else {

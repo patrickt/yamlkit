@@ -12,7 +12,7 @@
 
 - (void)testSimpleEmitting
 {
-    YKEmitter *e = [[[YKEmitter alloc] initWithCapacity:20] autorelease];
+    YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
     [e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
     NSString *str = [e emittedString];
     NSString *expected = @"- One\n- Two\n- Three\n";
