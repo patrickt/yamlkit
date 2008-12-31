@@ -7,7 +7,75 @@
 
 #import "YKEmitter.h"
 
-
 @implementation YKEmitter
+
+- (id)initWithFile:(NSString *)aString
+{
+    if(self = [super init]) {
+        memset(&emitter, 0, sizeof(emitter));
+        memset(&document, 0, sizeof(document));
+        buffer = nil;
+        
+        yaml_emitter_initialize(&emitter);
+        output = fopen([aString fileSystemRepresentation], "w");
+        NSAssert(output != NULL, @"Could not create/open the file at the desired location");
+        yaml_emitter_set_output_file(&emitter, output);
+    }
+	return self;
+}
+
+- (id)initWithCapacity:(int)bSize
+{
+    if(self = [super init]) {
+        memset(&emitter, 0, sizeof(emitter));
+        memset(&document, 0, sizeof(document));
+        output = NULL;
+        
+        yaml_emitter_initialize(&emitter);
+        buffer = [NSMutableData dataWithCapacity:bSize];
+        // If this works I will be tickled pink.
+        // Update: it does. I am thrilled.
+        yaml_emitter_set_output(&emitter, CFDataAppendBytes, buffer);
+    }
+	return self;
+}
+
+- (void)emitItem:(id)item
+{
+    yaml_document_initialize(&document, NULL, NULL, NULL, 0, 0);
+    [self writeItem:item toDocument:&document];
+    yaml_emitter_dump(&emitter, &document);
+    yaml_document_delete(&document);
+}
+
+- (int)writeItem:(id)item toDocument:(yaml_document_t *)doc;
+{
+	int nodeID = 0;
+	if([item isKindOfClass:[NSArray class]] || [item isKindOfClass:[NSSet class]]) {
+		// emit beginning sequence
+		nodeID = yaml_document_add_sequence(doc, (yaml_char_t *)YAML_DEFAULT_SEQUENCE_TAG, YAML_ANY_SEQUENCE_STYLE);
+		for(id subitem in item) {
+			NSLog([subitem description]);
+			int newItem = [self writeItem:subitem toDocument:doc];
+			yaml_document_append_sequence_item(doc, nodeID, newItem);
+		}
+	} else if([item isKindOfClass:[NSDictionary class]]) {
+		// emit beginning mapping
+		nodeID = yaml_document_add_mapping(doc, (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG, YAML_ANY_MAPPING_STYLE);
+		for(id key in item) {
+			int keyID = [self writeItem:key toDocument:doc];
+			int valueID = [self writeItem:[item objectForKey:key] toDocument:doc];
+			yaml_document_append_mapping_pair(doc, nodeID, keyID, valueID);
+		}
+	} else {
+		nodeID = yaml_document_add_scalar(doc, (yaml_char_t *)YAML_DEFAULT_SCALAR_TAG, (yaml_char_t*)[[item description] UTF8String], strlen([[item description] UTF8String]), YAML_ANY_SCALAR_STYLE);
+	}
+	return nodeID;
+}
+
+- (NSString *)emittedString
+{
+    return [[[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding] autorelease];
+}
 
 @end

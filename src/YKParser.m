@@ -15,7 +15,7 @@
     if(self = [super init]) {
         memset(&parser, 0, sizeof(parser));
         yaml_parser_initialize(&parser);
-        fileInput = fopen([aString UTF8String], "r");
+        fileInput = fopen([aString fileSystemRepresentation], "r");
 		NSAssert1(fileInput != NULL, @"Could not open specified file - current path is %@", [[NSFileManager defaultManager] currentDirectoryPath]);
 		yaml_parser_set_input_file(&parser, fileInput);
     }
@@ -107,9 +107,16 @@
     return stack;
 }
 
+- (void)finalize
+{
+	yaml_parser_delete(&parser);
+	if(fileInput != NULL) fclose(fileInput);
+	[super finalize];
+}
+
 - (void)dealloc
 {
-    yaml_parser_delete(&parser);
+	yaml_parser_delete(&parser);
 	if(fileInput != NULL) fclose(fileInput);
     [super dealloc];
 }

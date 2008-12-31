@@ -12,7 +12,7 @@
 
 @interface YAMLKit : NSObject
 {
-    
+
 }
 
 + (NSString *)dump:(id)object;

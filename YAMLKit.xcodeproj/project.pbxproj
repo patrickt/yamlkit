@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		CD1DE6850F094ACC006FDAB3 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = CD1DE6840F094ACC006FDAB3 /* TODO */; };
 		CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */; };
+		CD2309EA0F0BF9AB00F02DC7 /* TestEmitting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */; };
 		CD312F630F09A0E50004C345 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD312F620F09A0E50004C345 /* SenTestingKit.framework */; };
 		CD312F930F09A1A00004C345 /* TestHighLevelAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */; };
 		CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CD4669520F0A98330047C2BF /* verysimple.yaml */; };
@@ -42,7 +42,6 @@
 		32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* YAMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD1DE6840F094ACC006FDAB3 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit.h; sourceTree = "<group>"; };
 		CD312F560F09A0A40004C345 /* Run Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Run Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD312F620F09A0E50004C345 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -60,6 +59,7 @@
 		CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHighLevelAccess.m; sourceTree = "<group>"; };
 		CD69C24F0F098D8D0011BAB6 /* Run Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Run Tests-Info.plist"; sourceTree = "<group>"; };
 		CDAD33310F0ACCE20054CF3F /* moderate.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moderate.yaml; sourceTree = "<group>"; };
+		CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLKit.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -104,7 +104,6 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				CD1DE6840F094ACC006FDAB3 /* TODO */,
 				CD69C24F0F098D8D0011BAB6 /* Run Tests-Info.plist */,
 			);
 			name = YAMLKit;
@@ -132,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */,
+				CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */,
 				CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */,
 				CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */,
 				CD69C2330F0983A90011BAB6 /* YKParser.h */,
@@ -271,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
-				CD1DE6850F094ACC006FDAB3 /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD312F930F09A1A00004C345 /* TestHighLevelAccess.m in Sources */,
+				CD2309EA0F0BF9AB00F02DC7 /* TestEmitting.m in Sources */,
 				CD4669650F0A996A0047C2BF /* TestParsing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
