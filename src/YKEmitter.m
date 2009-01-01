@@ -48,7 +48,6 @@
 		// emit beginning sequence
 		nodeID = yaml_document_add_sequence(doc, (yaml_char_t *)YAML_DEFAULT_SEQUENCE_TAG, YAML_ANY_SEQUENCE_STYLE);
 		for(id subitem in item) {
-			NSLog([subitem description]);
 			int newItem = [self _writeItem:subitem toDocument:doc];
 			yaml_document_append_sequence_item(doc, nodeID, newItem);
 		}
