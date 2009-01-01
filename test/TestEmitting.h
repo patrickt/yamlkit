@@ -14,6 +14,7 @@
 
 - (void)testSimpleEmitting;
 - (void)testComplicatedEmitting;
+- (void)testExplicitDelimitation;
 - (void)testLineBreakModification;
 - (void)testDifferentEncodings;
 - (void)testCanonicalOutput;

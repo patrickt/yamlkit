@@ -20,4 +20,13 @@
     STAssertEqualObjects(str, expected, @"Recieved incorrect result from emitting");
 }
 
+- (void)testExplicitDelimitation
+{
+	YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
+	[e setUsesExplicitDelimiters:YES];
+	[e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
+	NSString *expected = @"---\n- One\n- Two\n- Three\n...\n";
+	STAssertEqualObjects([e emittedString], expected, @"Did not display document beginnings and endings correctly");
+}
+
 @end

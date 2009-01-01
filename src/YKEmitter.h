@@ -18,6 +18,6 @@
 - (void)emitItem:(id)item;
 - (int)_writeItem:(id)item toDocument:(yaml_document_t *)document;
 
-
+@property(assign) BOOL usesExplicitDelimiters;
 
 @end

@@ -9,6 +9,9 @@
 
 @implementation YKEmitter
 
+
+@synthesize usesExplicitDelimiters;
+
 - (id)init
 {
     if(self = [super init]) {
@@ -21,6 +24,7 @@
         // such that if I pass the buffer as the data parameter, I can just use 
         // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
         yaml_emitter_set_output(&emitter, CFDataAppendBytes, buffer);
+        [self setUsesExplicitDelimiters:NO];
     }
 	return self;
 }
@@ -30,7 +34,7 @@
     // Create and initialize a document to hold this.
     yaml_document_t document;
     memset(&document, 0, sizeof(document));
-    yaml_document_initialize(&document, NULL, NULL, NULL, 1, 1);
+    yaml_document_initialize(&document, NULL, NULL, NULL, !usesExplicitDelimiters, !usesExplicitDelimiters);
     
     [self _writeItem:item toDocument:&document];
     yaml_emitter_dump(&emitter, &document);
