@@ -234,6 +234,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -286,13 +288,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
-									<integer>4</integer>
+									<integer>17</integer>
+									<integer>11</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {300, 571}}</string>
+							<string>{{0, 105}, {300, 571}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -322,14 +324,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TestEmitting.m</string>
+								<string>YKParser.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -337,11 +337,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TestEmitting.m</string>
-										<key>_historyCapacity</key>
-										<integer>0</integer>
-										<key>bookmark</key>
-										<string>CDA336E70F0D701F0073C528</string>
+										<string>YKParser.m</string>
 										<key>history</key>
 										<array>
 											<string>CD4669690F0A99780047C2BF</string>
@@ -353,15 +349,9 @@
 											<string>CDAD33A90F0AFB6E0054CF3F</string>
 											<string>CDAD33AA0F0AFB6E0054CF3F</string>
 											<string>CDB1E6910F0BBD2B001413A9</string>
-											<string>CD230A540F0C0A2600F02DC7</string>
 											<string>CD2233510F0C39E800813CA0</string>
-											<string>CD2233520F0C39E800813CA0</string>
-											<string>CD2233560F0C39E800813CA0</string>
-											<string>CDA336D70F0D700B0073C528</string>
-											<string>CDA336D80F0D700B0073C528</string>
-											<string>CDA336D90F0D700B0073C528</string>
 											<string>CDA336DA0F0D700B0073C528</string>
-											<string>CDA336DB0F0D700B0073C528</string>
+											<string>CDA336D80F0D700B0073C528</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -383,15 +373,6 @@
 											<string>CDAD33380F0ACD6F0054CF3F</string>
 											<string>CDAD33B90F0AFB6E0054CF3F</string>
 											<string>CDB1E6990F0BBD2B001413A9</string>
-											<string>CDA336DC0F0D700B0073C528</string>
-											<string>CDA336DD0F0D700B0073C528</string>
-											<string>CDA336DE0F0D700B0073C528</string>
-											<string>CDA336DF0F0D700B0073C528</string>
-											<string>CDA336E00F0D700B0073C528</string>
-											<string>CDA336E10F0D700B0073C528</string>
-											<string>CDA336E20F0D700B0073C528</string>
-											<string>CDA336E30F0D700B0073C528</string>
-											<string>CDA336E40F0D700B0073C528</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -449,9 +430,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>CDA336CA0F0D6ED40073C528</string>
+				<string>CDA3370F0F0D8DB10073C528</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>CDA336CB0F0D6ED40073C528</string>
+				<string>CDA337100F0D8DB10073C528</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -587,7 +568,6 @@
 	<array>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/patrick/Repositories/YAMLKit/YAMLKit.xcodeproj</string>
-		<string>CD69C2880F098E630011BAB6</string>
 	</array>
 	<key>WindowString</key>
 	<string>33 248 1039 630 0 0 1440 878 </string>
@@ -606,14 +586,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TestEmitting.m</string>
+								<string>RunPlatformUnitTests.include</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -630,10 +608,10 @@
 							<string>315pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
-								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-								<string>{{0, 93}, {944, 143}}</string>
 								<key>PBXProjectModuleGUID</key>
 								<string>XCMainBuildResultsModuleGUID</string>
 								<key>PBXProjectModuleLabel</key>
@@ -791,13 +769,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>CDA336CD0F0D6ED40073C528</string>
+				<string>CDA337110F0D8DB10073C528</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>CDA336CE0F0D6ED40073C528</string>
-				<string>CDA336CF0F0D6ED40073C528</string>
-				<string>CDA336D00F0D6ED40073C528</string>
-				<string>CDA336D10F0D6ED40073C528</string>
-				<string>CDA336D20F0D6ED40073C528</string>
+				<string>CDA337120F0D8DB10073C528</string>
+				<string>CDA337130F0D8DB10073C528</string>
+				<string>CDA337140F0D8DB10073C528</string>
+				<string>CDA337150F0D8DB10073C528</string>
+				<string>CDA337160F0D8DB10073C528</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -961,7 +939,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>CD2233680F0C39E800813CA0</string>
+				<string>CDA336F60F0D83A70073C528</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

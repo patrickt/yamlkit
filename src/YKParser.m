@@ -14,10 +14,11 @@
 {
     if(self = [super init]) {
         memset(&parser, 0, sizeof(parser));
-        yaml_parser_initialize(&parser);
         fileInput = fopen([aString fileSystemRepresentation], "r");
-		NSAssert1(fileInput != NULL, @"Could not open specified file - current path is %@", [[NSFileManager defaultManager] currentDirectoryPath]);
-		yaml_parser_set_input_file(&parser, fileInput);
+        if((!yaml_parser_initialize(&parser)) || (fileInput == NULL)) {
+            [self release]; return nil;
+        }
+        yaml_parser_set_input_file(&parser, fileInput);
     }
     return self;
 }
@@ -26,8 +27,10 @@
 {
 	if(self = [super init]) {
 		memset(&parser, 0, sizeof(parser));
-        yaml_parser_initialize(&parser);
 		stringInput = [aString UTF8String];
+        if(!yaml_parser_initialize(&parser)) {
+            [self release]; return nil;
+        };
 		yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [aString length]);
 	}
 	return self;
