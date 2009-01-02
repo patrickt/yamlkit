@@ -6,6 +6,7 @@
 		activeTarget = CD312F550F09A0A40004C345 /* Run Tests */;
 		addToTargets = (
 			CD312F550F09A0A40004C345 /* Run Tests */,
+			8DC2EF4F0486A6940098B216 /* YAMLKit */,
 		);
 		breakpoints = (
 		);
@@ -177,7 +178,7 @@
 	};
 	CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
 			sepNavSelRange = "{217, 0}";
 			sepNavVisRange = "{0, 290}";
 		};
@@ -307,71 +308,71 @@
 	};
 	CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
-			sepNavSelRange = "{393, 0}";
-			sepNavVisRange = "{0, 423}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
+			sepNavSelRange = "{389, 0}";
+			sepNavVisRange = "{0, 448}";
 		};
 	};
 	CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {708, 1078}}";
-			sepNavSelRange = "{1031, 0}";
-			sepNavVisRange = "{0, 768}";
+			sepNavIntBoundsRect = "{{0, 0}, {708, 1148}}";
+			sepNavSelRange = "{818, 0}";
+			sepNavVisRange = "{479, 1166}";
 		};
 	};
 	CD69C2330F0983A90011BAB6 /* YKParser.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
-			sepNavSelRange = "{254, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
+			sepNavSelRange = "{181, 0}";
 			sepNavVisRange = "{0, 409}";
 		};
 	};
 	CD69C2340F0983A90011BAB6 /* YKParser.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 2086}}";
-			sepNavSelRange = "{3847, 0}";
-			sepNavVisRange = "{162, 820}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 2086}}";
+			sepNavSelRange = "{161, 0}";
+			sepNavVisRange = "{77, 903}";
 		};
 	};
 	CD69C2390F098A2F0011BAB6 /* TestParsing.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 392}}";
-			sepNavSelRange = "{282, 35}";
-			sepNavVisRange = "{0, 598}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
+			sepNavSelRange = "{570, 0}";
+			sepNavVisRange = "{0, 645}";
 		};
 	};
 	CD69C23A0F098A2F0011BAB6 /* TestParsing.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {883, 796}}";
-			sepNavSelRange = "{1685, 5}";
-			sepNavVisRange = "{1095, 595}";
+			sepNavIntBoundsRect = "{{0, 0}, {883, 880}}";
+			sepNavSelRange = "{1875, 0}";
+			sepNavVisRange = "{1160, 715}";
 		};
 	};
 	CD69C23D0F098A4C0011BAB6 /* TestEmitting.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
 			sepNavSelRange = "{231, 0}";
 			sepNavVisRange = "{0, 467}";
 		};
 	};
 	CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {708, 462}}";
+			sepNavIntBoundsRect = "{{0, 0}, {708, 530}}";
 			sepNavSelRange = "{939, 0}";
-			sepNavVisRange = "{84, 862}";
+			sepNavVisRange = "{0, 946}";
 		};
 	};
 	CD69C2410F098A540011BAB6 /* TestHighLevelAccess.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 377}}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
 			sepNavSelRange = "{87, 0}";
 			sepNavVisRange = "{0, 296}";
 		};
 	};
 	CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {883, 283}}";
-			sepNavSelRange = "{182, 5}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 461}}";
+			sepNavSelRange = "{143, 0}";
 			sepNavVisRange = "{0, 187}";
 		};
 	};
@@ -390,7 +391,7 @@
 		fRef = CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */;
 		name = "YKEmitter.h: 16";
 		rLen = 0;
-		rLoc = 246;
+		rLoc = 245;
 		rType = 0;
 		vrLen = 194;
 		vrLoc = 0;
@@ -510,7 +511,7 @@
 		fRef = CD69C2330F0983A90011BAB6 /* YKParser.h */;
 		name = "YKParser.h: 15";
 		rLen = 0;
-		rLoc = 254;
+		rLoc = 285;
 		rType = 0;
 		vrLen = 409;
 		vrLoc = 0;
@@ -630,7 +631,7 @@
 		fRef = CD69C2340F0983A90011BAB6 /* YKParser.m */;
 		name = "YKParser.m: 38";
 		rLen = 0;
-		rLoc = 982;
+		rLoc = 4014;
 		rType = 0;
 		vrLen = 1270;
 		vrLoc = 921;
@@ -640,7 +641,7 @@
 		fRef = CD69C2330F0983A90011BAB6 /* YKParser.h */;
 		name = "YKParser.h: 15";
 		rLen = 0;
-		rLoc = 254;
+		rLoc = 285;
 		rType = 0;
 		vrLen = 409;
 		vrLoc = 0;
@@ -650,7 +651,7 @@
 		fRef = CD69C2340F0983A90011BAB6 /* YKParser.m */;
 		name = "YKParser.m: 58";
 		rLen = 0;
-		rLoc = 1511;
+		rLoc = 4652;
 		rType = 0;
 		vrLen = 1317;
 		vrLoc = 1421;
@@ -660,7 +661,7 @@
 		fRef = CD69C2330F0983A90011BAB6 /* YKParser.h */;
 		name = "YKParser.h: 15";
 		rLen = 0;
-		rLoc = 254;
+		rLoc = 285;
 		rType = 0;
 		vrLen = 409;
 		vrLoc = 0;
@@ -672,7 +673,7 @@
 		rLen = 0;
 		rLoc = 231;
 		rType = 0;
-		vrLen = 496;
+		vrLen = 467;
 		vrLoc = 0;
 	};
 	CDA337420F0DADF30073C528 /* PBXTextBookmark */ = {
@@ -692,7 +693,7 @@
 		rLen = 0;
 		rLoc = 939;
 		rType = 0;
-		vrLen = 850;
+		vrLen = 815;
 		vrLoc = 131;
 	};
 	CDA337440F0DADF30073C528 /* PBXTextBookmark */ = {
@@ -750,7 +751,7 @@
 		fRef = CD69C2340F0983A90011BAB6 /* YKParser.m */;
 		name = "YKParser.m: 58";
 		rLen = 0;
-		rLoc = 1511;
+		rLoc = 4652;
 		rType = 0;
 		vrLen = 1259;
 		vrLoc = 1421;
@@ -770,7 +771,7 @@
 		fRef = CD69C2340F0983A90011BAB6 /* YKParser.m */;
 		name = "YKParser.m: 111";
 		rLen = 0;
-		rLoc = 3847;
+		rLoc = 7029;
 		rType = 0;
 		vrLen = 820;
 		vrLoc = 162;
@@ -882,9 +883,9 @@
 	};
 	CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {656, 476}}";
-			sepNavSelRange = "{157, 0}";
-			sepNavVisRange = "{133, 511}";
+			sepNavIntBoundsRect = "{{0, 0}, {685, 476}}";
+			sepNavSelRange = "{182, 0}";
+			sepNavVisRange = "{0, 628}";
 		};
 	};
 	CDAD33A90F0AFB6E0054CF3F /* PBXTextBookmark */ = {
