@@ -60,6 +60,7 @@
 			yaml_document_append_mapping_pair(doc, nodeID, keyID, valueID);
 		}
 	} else {
+		// TODO: Add optional support for tagging emitted items.
 		nodeID = yaml_document_add_scalar(doc, (yaml_char_t *)YAML_DEFAULT_SCALAR_TAG, (yaml_char_t*)[[item description] UTF8String], strlen([[item description] UTF8String]), YAML_ANY_SCALAR_STYLE);
 	}
 	return nodeID;
@@ -68,6 +69,11 @@
 - (NSString *)emittedString
 {
     return [[[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding] autorelease];
+}
+
+- (NSData *)emittedData
+{
+	return [NSData dataWithData:buffer];
 }
 
 @end
