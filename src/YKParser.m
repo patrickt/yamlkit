@@ -39,22 +39,6 @@
 	return self;
 }
 
-//- (NSArray *)parseWithError:(NSError **)e
-//{
-//	yaml_event_t event;
-//	int done = 0;
-//	id obj, temp;
-//	NSMutableArray *stack = [NSMutableArray array];
-//	
-//	while(!done) {
-//		if(!yaml_parser_parse(&parser, &event)) {
-//			if(e != NULL) {
-//				e = [self _constructError
-//			}
-//		}
-//	}
-//}
-
 - (NSArray *)parse
 {
     yaml_event_t event;
