@@ -11,32 +11,41 @@
 
 @synthesize castsNumericScalars;
 
-- (id)initWithFile:(NSString *)aString
+- (id)init
 {
     if(self = [super init]) {
-        memset(&parser, 0, sizeof(parser));
-        fileInput = fopen([aString fileSystemRepresentation], "r");
-        if((!yaml_parser_initialize(&parser)) || (fileInput == NULL)) {
-            [self release]; return nil;
-        }
-        yaml_parser_set_input_file(&parser, fileInput);
-		[self setCastsNumericScalars:YES];
+        parsedObjects = nil;
+        [self setCastsNumericScalars:YES];
     }
-    return self;
+	return self;
 }
 
-- (id)initWithString:(NSString *)aString
+- (void)reset
 {
-	if(self = [super init]) {
-		memset(&parser, 0, sizeof(parser));
-		stringInput = [aString UTF8String];
-        if(!yaml_parser_initialize(&parser)) {
-            [self release]; return nil;
-        };
-		yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [aString length]);
-		[self setCastsNumericScalars:YES];
-	}
-	return self;
+    if(fileInput) {
+        fclose(fileInput);
+    }
+	yaml_parser_delete(&parser);
+    memset(&parser, 0, sizeof(parser));
+    parsedObjects = nil;
+}
+
+- (BOOL)readFile:(NSString *)path
+{
+    [self reset];
+    fileInput = fopen([path fileSystemRepresentation], "r");
+    BOOL succeeded = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
+    if(succeeded) yaml_parser_set_input_file(&parser, fileInput);
+    return succeeded;
+}
+
+- (BOOL)readString:(NSString *)str
+{
+    [self reset];
+    stringInput = [str UTF8String];
+    BOOL succeeded = yaml_parser_initialize(&parser);
+    if(succeeded) yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
+    return succeeded;
 }
 
 - (NSArray *)parse
@@ -48,7 +57,7 @@
     
     while(!done) {
         if(!yaml_parser_parse(&parser, &event)) {
-			break;
+            return nil;
 		}
         done = (event.type == YAML_STREAM_END_EVENT);
         switch(event.type) {

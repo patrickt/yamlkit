@@ -6,10 +6,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
+#import "YAMLKit.h"
 
 @interface TestParsing : SenTestCase {
-
+    YKParser *p;
 }
 
 - (void)testVerySimpleLoadingFromFile;
