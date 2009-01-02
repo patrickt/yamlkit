@@ -234,8 +234,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -288,13 +286,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>17</integer>
-									<integer>11</integer>
+									<integer>8</integer>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 105}, {300, 571}}</string>
+							<string>{{0, 0}, {300, 571}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -324,12 +322,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>YKParser.m</string>
+								<string>TestParsing.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -337,21 +337,30 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>YKParser.m</string>
+										<string>TestParsing.m</string>
+										<key>_historyCapacity</key>
+										<integer>0</integer>
+										<key>bookmark</key>
+										<string>CDA337480F0DADF30073C528</string>
 										<key>history</key>
 										<array>
-											<string>CD4669690F0A99780047C2BF</string>
 											<string>CDAD32670F0AA77E0054CF3F</string>
 											<string>CDAD326A0F0AA77E0054CF3F</string>
-											<string>CDAD32A40F0AA9570054CF3F</string>
-											<string>CDAD330F0F0AC9AE0054CF3F</string>
 											<string>CDAD33340F0ACD6F0054CF3F</string>
 											<string>CDAD33A90F0AFB6E0054CF3F</string>
 											<string>CDAD33AA0F0AFB6E0054CF3F</string>
 											<string>CDB1E6910F0BBD2B001413A9</string>
 											<string>CD2233510F0C39E800813CA0</string>
-											<string>CDA336DA0F0D700B0073C528</string>
-											<string>CDA336D80F0D700B0073C528</string>
+											<string>CDA3372B0F0DADF30073C528</string>
+											<string>CDA3372C0F0DADF30073C528</string>
+											<string>CDA3372D0F0DADF30073C528</string>
+											<string>CDA3372E0F0DADF30073C528</string>
+											<string>CDA3372F0F0DADF30073C528</string>
+											<string>CDA337300F0DADF30073C528</string>
+											<string>CDA337310F0DADF30073C528</string>
+											<string>CDA337320F0DADF30073C528</string>
+											<string>CDA337330F0DADF30073C528</string>
+											<string>CDA337340F0DADF30073C528</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -373,6 +382,25 @@
 											<string>CDAD33380F0ACD6F0054CF3F</string>
 											<string>CDAD33B90F0AFB6E0054CF3F</string>
 											<string>CDB1E6990F0BBD2B001413A9</string>
+											<string>CDA337350F0DADF30073C528</string>
+											<string>CDA337360F0DADF30073C528</string>
+											<string>CDA337370F0DADF30073C528</string>
+											<string>CDA337380F0DADF30073C528</string>
+											<string>CDA337390F0DADF30073C528</string>
+											<string>CDA3373A0F0DADF30073C528</string>
+											<string>CDA3373B0F0DADF30073C528</string>
+											<string>CDA3373C0F0DADF30073C528</string>
+											<string>CDA3373D0F0DADF30073C528</string>
+											<string>CDA3373E0F0DADF30073C528</string>
+											<string>CDA3373F0F0DADF30073C528</string>
+											<string>CDA337400F0DADF30073C528</string>
+											<string>CDA337410F0DADF30073C528</string>
+											<string>CDA337420F0DADF30073C528</string>
+											<string>CDA337430F0DADF30073C528</string>
+											<string>CDA337440F0DADF30073C528</string>
+											<string>CDA337450F0DADF30073C528</string>
+											<string>CDA337460F0DADF30073C528</string>
+											<string>CDA337470F0DADF30073C528</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -566,7 +594,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>CD69C2880F098E630011BAB6</string>
+		<string>CDA3371D0F0DA6240073C528</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/patrick/Repositories/YAMLKit/YAMLKit.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -591,7 +622,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RunPlatformUnitTests.include</string>
+								<string>TestParsing.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -649,7 +680,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>CD69C2880F098E630011BAB6</string>
-				<string>CDA336CC0F0D6ED40073C528</string>
+				<string>CDA3371C0F0DA6240073C528</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -660,7 +691,7 @@
 			<key>WindowToolGUID</key>
 			<string>CD69C2880F098E630011BAB6</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -939,7 +970,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>CDA336F60F0D83A70073C528</string>
+				<string>CDA3372A0F0DADF10073C528</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -1201,8 +1232,8 @@
 			<true/>
 			<key>TableOfContents</key>
 			<array>
-				<string>CD230A7B0F0C159500F02DC7</string>
-				<string>CD230A7C0F0C159500F02DC7</string>
+				<string>CDA3371D0F0DA6240073C528</string>
+				<string>CDA3371E0F0DA6240073C528</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
 				<string>1CA1AED706398EBD00589147</string>
 			</array>
@@ -1211,7 +1242,7 @@
 			<key>WindowString</key>
 			<string>118 445 744 409 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
-			<string>CD230A7B0F0C159500F02DC7</string>
+			<string>CDA3371D0F0DA6240073C528</string>
 			<key>WindowToolIsVisible</key>
 			<true/>
 		</dict>

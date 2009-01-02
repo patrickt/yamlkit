@@ -40,4 +40,12 @@
     [p release];
 }
 
+- (void)testAutomaticIntegerCasting
+{
+	YKParser *p = [[[YKParser alloc] initWithString: @"- 1\n- 2\n- 3"] autorelease];
+	NSArray *o = [[p parse] objectAtIndex:0];
+	STAssertTrue([[o objectAtIndex:0] isKindOfClass:[NSNumber class]], @"was not a number");
+	STAssertEquals(1, [[o objectAtIndex:0] intValue], @"was not equal to 1");
+}
+
 @end

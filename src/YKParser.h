@@ -12,10 +12,13 @@
     yaml_parser_t parser;
     FILE* fileInput;
 	const char *stringInput;
+	BOOL castsNumericScalars;
 }
 
 - (id)initWithFile:(NSString *)path;
 - (id)initWithString:(NSString *)aString;
 - (NSArray *)parse;
+
+@property(assign) BOOL castsNumericScalars;
 
 @end

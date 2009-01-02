@@ -7,8 +7,9 @@
 
 #import "YKParser.h"
 
-
 @implementation YKParser
+
+@synthesize castsNumericScalars;
 
 - (id)initWithFile:(NSString *)aString
 {
@@ -19,6 +20,7 @@
             [self release]; return nil;
         }
         yaml_parser_set_input_file(&parser, fileInput);
+		[self setCastsNumericScalars:YES];
     }
     return self;
 }
@@ -32,6 +34,7 @@
             [self release]; return nil;
         };
 		yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [aString length]);
+		[self setCastsNumericScalars:YES];
 	}
 	return self;
 }
@@ -51,6 +54,13 @@
         switch(event.type) {
             case YAML_SCALAR_EVENT:
                 obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+				
+				if((event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) && [self castsNumericScalars]) {
+					NSScanner *scanner = [NSScanner scannerWithString:obj];
+					if([scanner scanInt:NULL]) {
+						obj = [NSNumber numberWithInt:[obj intValue]];
+					}
+				}
 				// TODO: Put in some code here to make educated guesses as to whether
 				// the scalars are strings or numeric literals (by querying event.data.scalar.style).
                 temp = [stack lastObject];
