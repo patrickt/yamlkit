@@ -23,7 +23,7 @@
 
 + (NSString *)dump:(id)object
 {
-    YKEmitter *e = [[[YKEmitter alloc] initWithCapacity:250] autorelease];
+    YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
     [e emitItem:object];
     return [e emittedString];
 }

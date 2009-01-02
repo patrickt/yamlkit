@@ -39,6 +39,22 @@
 	return self;
 }
 
+//- (NSArray *)parseWithError:(NSError **)e
+//{
+//	yaml_event_t event;
+//	int done = 0;
+//	id obj, temp;
+//	NSMutableArray *stack = [NSMutableArray array];
+//	
+//	while(!done) {
+//		if(!yaml_parser_parse(&parser, &event)) {
+//			if(e != NULL) {
+//				e = [self _constructError
+//			}
+//		}
+//	}
+//}
+
 - (NSArray *)parse
 {
     yaml_event_t event;
@@ -68,7 +84,7 @@
                     [temp addObject:obj];
                 } else if([temp isKindOfClass:[NSDictionary class]]) {
                     [stack addObject:obj];
-                } else if([temp isKindOfClass:[NSString class]]) {
+                } else if([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
                     [temp retain];
                     [stack removeLastObject];
                     NSAssert([[stack lastObject] isKindOfClass:[NSMutableDictionary class]], 
