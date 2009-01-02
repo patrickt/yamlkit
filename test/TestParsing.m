@@ -48,4 +48,10 @@
 	STAssertEquals(1, [[o objectAtIndex:0] intValue], @"was not equal to 1");
 }
 
+- (void)testWithNonexistentFile
+{
+	YKParser *p =[[YKParser alloc] initWithFile:@"test/thisdoesnotexist.yaml"];
+	STAssertNil(p, @"was not nil when created with a nonexistent file.");
+}
+
 @end
