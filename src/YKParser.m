@@ -60,9 +60,8 @@
 					if([scanner scanInt:NULL]) {
 						obj = [NSNumber numberWithInt:[obj intValue]];
 					}
+					// TODO: Check for doubles, null (~), true/false
 				}
-				// TODO: Put in some code here to make educated guesses as to whether
-				// the scalars are strings or numeric literals (by querying event.data.scalar.style).
                 temp = [stack lastObject];
                 
                 if([temp isKindOfClass:[NSArray class]]) {
@@ -101,7 +100,7 @@
                     [last addObject:temp];
                 } else if ([last isKindOfClass:[NSDictionary class]]) {
                     [stack addObject:temp];
-                } else if ([last isKindOfClass:[NSString class]]) {
+                } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
                     obj = [[stack lastObject] retain];
                     [stack removeLastObject];
                     NSAssert([[stack lastObject] isKindOfClass:[NSDictionary class]], 
@@ -110,7 +109,6 @@
                 }
                 break;
             case YAML_NO_EVENT:
-                NSLog(@"ERROR: no event found!");
                 break;
             default:
                 break;
