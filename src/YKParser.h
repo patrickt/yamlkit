@@ -9,19 +9,19 @@
 #import "yaml.h"
 
 @interface YKParser : NSObject {
-	BOOL castsNumericScalars;
+	BOOL castsNumericScalars, readyToParse;
     FILE* fileInput;
 	const char *stringInput;
     yaml_parser_t parser;
-    
-    NSMutableArray *parsedObjects;
 }
 
 - (void)reset;
 - (BOOL)readString:(NSString *)path;
 - (BOOL)readFile:(NSString *)path;
 - (NSArray *)parse;
+- (NSArray *)parseWithError:(NSError **)e;
 
 @property(assign) BOOL castsNumericScalars;
+@property(readonly) BOOL readyToParse;
 
 @end

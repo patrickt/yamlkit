@@ -6,15 +6,16 @@
 //
 
 #import "YKParser.h"
+#import "YKConstants.h"
 
 @implementation YKParser
 
-@synthesize castsNumericScalars;
+@synthesize castsNumericScalars, readyToParse;
+
 
 - (id)init
 {
     if(self = [super init]) {
-        parsedObjects = nil;
         [self setCastsNumericScalars:YES];
     }
 	return self;
@@ -27,36 +28,52 @@
     }
 	yaml_parser_delete(&parser);
     memset(&parser, 0, sizeof(parser));
-    parsedObjects = nil;
 }
 
 - (BOOL)readFile:(NSString *)path
 {
     [self reset];
     fileInput = fopen([path fileSystemRepresentation], "r");
-    BOOL succeeded = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
-    if(succeeded) yaml_parser_set_input_file(&parser, fileInput);
-    return succeeded;
+    readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
+    if(readyToParse) 
+		yaml_parser_set_input_file(&parser, fileInput);
+	return readyToParse;
 }
 
 - (BOOL)readString:(NSString *)str
 {
     [self reset];
     stringInput = [str UTF8String];
-    BOOL succeeded = yaml_parser_initialize(&parser);
-    if(succeeded) yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
-    return succeeded;
+    readyToParse = yaml_parser_initialize(&parser);
+    if(readyToParse) 
+		yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
+    return readyToParse;
 }
 
 - (NSArray *)parse
+{
+	return [self parseWithError:NULL];
+}
+
+- (NSArray *)parseWithError:(NSError **)e
 {
     yaml_event_t event;
     int done = 0;
     id obj, temp;
     NSMutableArray *stack = [NSMutableArray array];
+	if(!readyToParse) {
+		if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+			if(e != NULL) {
+				e = [self _constructErrorFromParser:NULL];
+			}
+		}		
+	}
     
     while(!done) {
         if(!yaml_parser_parse(&parser, &event)) {
+			if(e != NULL) {
+				*e = [self _constructErrorFromParser:&parser];
+			}
             return nil;
 		}
         done = (event.type == YAML_STREAM_END_EVENT);
@@ -80,10 +97,11 @@
                 } else if([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
                     [temp retain];
                     [stack removeLastObject];
-                    NSAssert([[stack lastObject] isKindOfClass:[NSMutableDictionary class]], 
-                        @"last object in stack was not a dictionary!");
-                    [[stack lastObject] setObject:obj forKey:temp];
-                    [temp release];
+                    if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+						if(e != NULL) {
+							e = [self _constructErrorFromParser:NULL];
+						}
+					}
                 } else {
                     
                 }
@@ -112,8 +130,11 @@
                 } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
                     obj = [[stack lastObject] retain];
                     [stack removeLastObject];
-                    NSAssert([[stack lastObject] isKindOfClass:[NSDictionary class]], 
-                        @"last object in stack was not a dictionary!");
+                    if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+						if(e != NULL) {
+							e = [self _constructErrorFromParser:NULL];
+						}
+					}					
                     [[stack lastObject] setObject:temp forKey:obj];
                 }
                 break;
@@ -125,6 +146,51 @@
         yaml_event_delete(&event);
     }
     return stack;
+}
+
+- (NSError *)_constructErrorFromParser:(yaml_parser_t *)parser
+{
+	int code = 0;
+	NSMutableDictionary *data = [NSMutableDictionary dictionary];
+	
+	if(parser != NULL) {
+		// actual parser error
+		code = parser->error;
+		// get the string encoding.
+		NSStringEncoding enc = 0;
+		switch (parser->encoding) {
+			case YAML_UTF8_ENCODING:
+				enc = NSUTF8StringEncoding;
+				break;
+			case YAML_UTF16LE_ENCODING:
+				enc = NSUTF16LittleEndianStringEncoding;
+				break;
+			case YAML_UTF16BE_ENCODING:
+				enc = NSUTF16BigEndianStringEncoding;
+				break;
+		}
+		[data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
+		
+		[data setObject:[NSString stringWithUTF8String:parser->problem] forKey:YKProblemDescriptionKey];
+		[data setObject:[NSNumber numberWithInt:parser->problem_offset] forKey:YKProblemOffsetKey];
+		[data setObject:[NSNumber numberWithInt:parser->problem_value] forKey:YKProblemValueKey];
+		[data setObject:[NSNumber numberWithInt:parser->problem_mark.line] forKey:YKProblemLineKey];
+		[data setObject:[NSNumber numberWithInt:parser->problem_mark.index] forKey:YKProblemIndexKey];
+		[data setObject:[NSNumber numberWithInt:parser->problem_mark.column] forKey:YKProblemColumnKey];
+		
+		[data setObject:[NSString stringWithUTF8String:parser->context] forKey:YKErrorContextDescriptionKey];
+		[data setObject:[NSNumber numberWithInt:parser->context_mark.line] forKey:YKErrorContextLineKey];
+		[data setObject:[NSNumber numberWithInt:parser->context_mark.column] forKey:YKErrorContextColumnKey];
+		[data setObject:[NSNumber numberWithInt:parser->context_mark.index] forKey:YKErrorContextIndexKey];
+		
+	} else if(readyToParse) {
+		[data setObject:NSLocalizedString(@"Internal assertion failed, possibly due to specially malformed input.", @"") forKey:NSLocalizedDescriptionKey];
+	} else {
+		[data setObject:NSLocalizedString(@"YAML parser was not ready to parse.", @"") forKey:NSLocalizedFailureReasonErrorKey];
+		[data setObject:NSLocalizedString(@"Did you remember to call readFile: or readString:?", @"") forKey:NSLocalizedDescriptionKey];
+	}
+	
+	return [[NSError alloc] initWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
 - (void)finalize
