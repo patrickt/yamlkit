@@ -64,7 +64,8 @@
 	if(!readyToParse) {
 		if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
 			if(e != NULL) {
-				e = [self _constructErrorFromParser:NULL];
+				*e = [self _constructErrorFromParser:NULL];
+				return nil;
 			}
 		}		
 	}
@@ -73,6 +74,7 @@
         if(!yaml_parser_parse(&parser, &event)) {
 			if(e != NULL) {
 				*e = [self _constructErrorFromParser:&parser];
+				return nil;
 			}
             return nil;
 		}
@@ -99,11 +101,11 @@
                     [stack removeLastObject];
                     if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
 						if(e != NULL) {
-							e = [self _constructErrorFromParser:NULL];
+							*e = [self _constructErrorFromParser:NULL];
+							return nil;
 						}
 					}
-                } else {
-                    
+					[[stack lastObject] setObject:obj forKey:temp];
                 }
                 
                 break;
@@ -132,7 +134,8 @@
                     [stack removeLastObject];
                     if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
 						if(e != NULL) {
-							e = [self _constructErrorFromParser:NULL];
+							*e = [self _constructErrorFromParser:NULL];
+							return nil;
 						}
 					}					
                     [[stack lastObject] setObject:temp forKey:obj];
@@ -148,17 +151,17 @@
     return stack;
 }
 
-- (NSError *)_constructErrorFromParser:(yaml_parser_t *)parser
+- (NSError *)_constructErrorFromParser:(yaml_parser_t *)p
 {
 	int code = 0;
 	NSMutableDictionary *data = [NSMutableDictionary dictionary];
 	
-	if(parser != NULL) {
+	if(p != NULL) {
 		// actual parser error
-		code = parser->error;
+		code = p->error;
 		// get the string encoding.
 		NSStringEncoding enc = 0;
-		switch (parser->encoding) {
+		switch (p->encoding) {
 			case YAML_UTF8_ENCODING:
 				enc = NSUTF8StringEncoding;
 				break;
@@ -171,17 +174,17 @@
 		}
 		[data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
 		
-		[data setObject:[NSString stringWithUTF8String:parser->problem] forKey:YKProblemDescriptionKey];
-		[data setObject:[NSNumber numberWithInt:parser->problem_offset] forKey:YKProblemOffsetKey];
-		[data setObject:[NSNumber numberWithInt:parser->problem_value] forKey:YKProblemValueKey];
-		[data setObject:[NSNumber numberWithInt:parser->problem_mark.line] forKey:YKProblemLineKey];
-		[data setObject:[NSNumber numberWithInt:parser->problem_mark.index] forKey:YKProblemIndexKey];
-		[data setObject:[NSNumber numberWithInt:parser->problem_mark.column] forKey:YKProblemColumnKey];
+		[data setObject:[NSString stringWithUTF8String:p->problem] forKey:YKProblemDescriptionKey];
+		[data setObject:[NSNumber numberWithInt:p->problem_offset] forKey:YKProblemOffsetKey];
+		[data setObject:[NSNumber numberWithInt:p->problem_value] forKey:YKProblemValueKey];
+		[data setObject:[NSNumber numberWithInt:p->problem_mark.line] forKey:YKProblemLineKey];
+		[data setObject:[NSNumber numberWithInt:p->problem_mark.index] forKey:YKProblemIndexKey];
+		[data setObject:[NSNumber numberWithInt:p->problem_mark.column] forKey:YKProblemColumnKey];
 		
-		[data setObject:[NSString stringWithUTF8String:parser->context] forKey:YKErrorContextDescriptionKey];
-		[data setObject:[NSNumber numberWithInt:parser->context_mark.line] forKey:YKErrorContextLineKey];
-		[data setObject:[NSNumber numberWithInt:parser->context_mark.column] forKey:YKErrorContextColumnKey];
-		[data setObject:[NSNumber numberWithInt:parser->context_mark.index] forKey:YKErrorContextIndexKey];
+		[data setObject:[NSString stringWithUTF8String:p->context] forKey:YKErrorContextDescriptionKey];
+		[data setObject:[NSNumber numberWithInt:p->context_mark.line] forKey:YKErrorContextLineKey];
+		[data setObject:[NSNumber numberWithInt:p->context_mark.column] forKey:YKErrorContextColumnKey];
+		[data setObject:[NSNumber numberWithInt:p->context_mark.index] forKey:YKErrorContextIndexKey];
 		
 	} else if(readyToParse) {
 		[data setObject:NSLocalizedString(@"Internal assertion failed, possibly due to specially malformed input.", @"") forKey:NSLocalizedDescriptionKey];
