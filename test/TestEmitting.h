@@ -6,7 +6,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
+#import <YAMLKit/YAMLKit.h>
 
 @interface TestEmitting : SenTestCase {
 

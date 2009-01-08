@@ -6,7 +6,6 @@
 //
 
 #import "TestParsing.h"
-#import "YAMLKit.h"
 
 @implementation TestParsing
 

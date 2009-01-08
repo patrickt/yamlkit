@@ -6,7 +6,6 @@
 //
 
 #import "TestHighLevelAccess.h"
-#import "YAMLKit.h"
 
 @implementation TestHighLevelAccess
 

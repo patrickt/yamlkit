@@ -6,7 +6,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "YAMLKit.h"
+#import <YAMLKit/YAMLKit.h>
 
 @interface TestParsing : SenTestCase {
     YKParser *p;

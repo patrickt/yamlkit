@@ -6,7 +6,6 @@
 //
 
 #import "TestEmitting.h"
-#import "YAMLKit.h"
 
 @implementation TestEmitting
 
