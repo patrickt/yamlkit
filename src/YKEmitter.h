@@ -12,6 +12,7 @@
     yaml_emitter_t emitter;
     NSMutableData *buffer;
 	BOOL usesExplicitDelimiters;
+	NSStringEncoding encoding;
 }
 
 - (void)emitItem:(id)item;
@@ -20,5 +21,6 @@
 - (NSData *)emittedData;
 
 @property(assign) BOOL usesExplicitDelimiters;
+@property(assign) NSStringEncoding encoding;
 
 @end

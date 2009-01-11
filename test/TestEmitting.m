@@ -28,4 +28,16 @@
 	STAssertEqualObjects([e emittedString], expected, @"Did not display document beginnings and endings correctly");
 }
 
+- (void)testDifferentEncodings
+{
+	YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
+	[e setEncoding:NSUTF16BigEndianStringEncoding];
+	[e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
+	NSData *data = [e emittedData];
+	NSString *derived = [[NSString alloc] initWithData:data encoding:NSUTF16BigEndianStringEncoding];
+	NSString *expected = @"- One\n- Two\n- Three\n";
+	// the substringFromIndex is to ignore the UTF16 BOM
+	STAssertEqualObjects([derived substringFromIndex:1], expected, @"choked when given a UTF-16 encoding.");
+}
+
 @end
