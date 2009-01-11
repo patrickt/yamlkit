@@ -9,7 +9,7 @@
 #import <YAMLKit/YAMLKit.h>
 
 @interface TestEmitting : SenTestCase {
-
+	YKEmitter *e;
 }
 
 - (void)testSimpleEmitting;

@@ -9,9 +9,13 @@
 
 @implementation TestEmitting
 
+- (void)setUp
+{
+	e = [[[YKEmitter alloc] init] autorelease];
+}
+
 - (void)testSimpleEmitting
 {
-    YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
     [e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
     NSString *str = [e emittedString];
     NSString *expected = @"- One\n- Two\n- Three\n";
@@ -21,7 +25,6 @@
 
 - (void)testExplicitDelimitation
 {
-	YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
 	[e setUsesExplicitDelimiters:YES];
 	[e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
 	NSString *expected = @"---\n- One\n- Two\n- Three\n...\n";
@@ -30,7 +33,6 @@
 
 - (void)testDifferentEncodings
 {
-	YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
 	[e setEncoding:NSUTF16BigEndianStringEncoding];
 	[e emitItem:[NSArray arrayWithObjects:@"One", @"Two", @"Three", nil]];
 	NSData *data = [e emittedData];
