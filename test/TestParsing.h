@@ -20,7 +20,6 @@
 - (void)testWithMalformedStringInput;
 - (void)testSuccessfulLoadingUsingErrors;
 - (void)testUnsuccessfulLoadingUsingErrors;
-- (void)testUnsuccessfulLoadingUsingExceptions;
 - (void)testWhatHappensWhenParseIsCalledTwice;
 - (void)testDifferentEncodings;
 - (void)testWithCustomInputHandler;
