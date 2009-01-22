@@ -12,8 +12,9 @@
 - (void)testStringDumping
 {
 	NSArray *a = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
+	
 	NSString *dumped = [YAMLKit dump:a];
-	STAssertEqualObjects(dumped, @"- one\n- two\n- three", @"was not the same when dumped");
+	STAssertEqualObjects(dumped, @"- one\n- two\n- three\n", @"was not the same when dumped");
 }
 
 - (void)testStringLoading

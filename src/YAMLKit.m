@@ -12,7 +12,8 @@
 
 + (id)load:(NSString *)str
 {
-    YKParser *p = [[[YKParser alloc] initWithString:str] autorelease];
+    YKParser *p = [[[YKParser alloc] init] autorelease];
+	[p readString:str];
     NSArray *result = [p parse];
     // If parse returns a one-element array, extract it.
     if([result count] == 1) {

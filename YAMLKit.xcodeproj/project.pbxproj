@@ -23,6 +23,7 @@
 		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; };
 		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
 		CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CDAD33310F0ACCE20054CF3F /* moderate.yaml */; };
+		CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */,
 				CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */,
 				CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */,
 			);
