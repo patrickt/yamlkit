@@ -65,7 +65,6 @@
         if(!yaml_parser_parse(&parser, &event)) {
 			if(e != NULL) {
 				*e = [self _constructErrorFromParser:&parser];
-				return nil;
 			}
             return nil;
 		}
@@ -166,6 +165,7 @@
 			case YAML_UTF16BE_ENCODING:
 				enc = NSUTF16BigEndianStringEncoding;
 				break;
+			default: break;
 		}
 		[data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
 		

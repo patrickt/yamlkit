@@ -14,7 +14,7 @@
 
 - (id)init
 {
-    if(self = [super init]) {
+    if((self = [super init])) {
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
         
@@ -34,6 +34,8 @@
     // Create and initialize a document to hold this.
     yaml_document_t document;
     memset(&document, 0, sizeof(document));
+    // The double usage of !usesExplicitDelimiters is to indicate that both the start and the end of the 
+    // document should be delimited, if at all.
     yaml_document_initialize(&document, NULL, NULL, NULL, !usesExplicitDelimiters, !usesExplicitDelimiters);
     
     [self _writeItem:item toDocument:&document];
