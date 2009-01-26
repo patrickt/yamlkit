@@ -9,7 +9,7 @@
 #import "yaml.h"
 
 @interface YKParser : NSObject {
-	BOOL castsNumericScalars, readyToParse;
+	BOOL readyToParse;
     FILE* fileInput;
 	const char *stringInput;
     yaml_parser_t parser;
@@ -21,7 +21,6 @@
 - (NSArray *)parse;
 - (NSArray *)parseWithError:(NSError **)e;
 
-@property(assign) BOOL castsNumericScalars;
 @property(readonly) BOOL readyToParse;
 
 @end

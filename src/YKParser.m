@@ -10,16 +10,7 @@
 
 @implementation YKParser
 
-@synthesize castsNumericScalars, readyToParse;
-
-
-- (id)init
-{
-    if(self = [super init]) {
-        [self setCastsNumericScalars:YES];
-    }
-	return self;
-}
+@synthesize readyToParse;
 
 - (void)reset
 {
@@ -83,13 +74,17 @@
             case YAML_SCALAR_EVENT:
                 obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
 				
-				if((event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) && [self castsNumericScalars]) {
+				if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
 					NSScanner *scanner = [NSScanner scannerWithString:obj];
+					
+					// Integers are automatically casted unless given a !!str tag. I think.
 					if([scanner scanInt:NULL]) {
 						obj = [NSNumber numberWithInt:[obj intValue]];
+					} else if([obj isEqualToString:@"~"]) {
+						obj = [NSNull null];
 					}
-					// TODO: Check for doubles, null (~), true/false
 				}
+				
                 temp = [stack lastObject];
                 
                 if([temp isKindOfClass:[NSArray class]]) {
