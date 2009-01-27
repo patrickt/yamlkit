@@ -71,19 +71,7 @@
         done = (event.type == YAML_STREAM_END_EVENT);
         switch(event.type) {
             case YAML_SCALAR_EVENT:
-                obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
-				
-				if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
-					NSScanner *scanner = [NSScanner scannerWithString:obj];
-					
-					// Integers are automatically casted unless given a !!str tag. I think.
-					if([scanner scanInt:NULL]) {
-						obj = [NSNumber numberWithInt:[obj intValue]];
-					} else if([obj isEqualToString:@"~"]) {
-						obj = [NSNull null];
-					}
-				}
-				
+				obj = [self _interpretObjectFromEvent:event];
                 temp = [stack lastObject];
                 
                 if([temp isKindOfClass:[NSArray class]]) {
@@ -143,6 +131,33 @@
         yaml_event_delete(&event);
     }
     return stack;
+}
+
+// TODO: oof, add tag support.
+
+- (id)_interpretObjectFromEvent:(yaml_event_t)event
+{
+	id obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+	
+	if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
+		NSScanner *scanner = [NSScanner scannerWithString:obj];
+		
+		// Integers are automatically casted unless given a !!str tag. I think.
+		if([scanner scanInt:NULL]) {
+			obj = [NSNumber numberWithInt:[obj intValue]];
+		} else if([scanner scanDouble:NULL]) {
+			obj = [NSNumber numberWithDouble:[obj doubleValue]];
+		// FIXME: Boolean parsing here is not in accordance with the YAML standards.
+		} else if([obj caseInsensitiveCompare:@"true"] == NSOrderedSame)     {
+			obj = [NSNumber numberWithBool:YES];
+		} else if([obj caseInsensitiveCompare:@"false"] == NSOrderedSame)    {
+			obj = [NSNumber numberWithBool:NO];
+		} else if([obj isEqualToString:@"~"]) {
+			obj = [NSNull null];
+		}
+		// TODO: add date parsing.
+	}
+	return obj;
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p

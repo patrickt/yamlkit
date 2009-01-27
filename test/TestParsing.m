@@ -39,6 +39,7 @@
 	STAssertNotNil(o, @"#parse method failed to return anything.");
 	NSDictionary *first = [o objectAtIndex:0];
 	STAssertEqualObjects([first objectForKey:@"receipt"], @"Oz-Ware Purchase Invoice", @"recieved incorrect data from loaded YAML");
+	STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
 }
 
 - (void)testAutomaticIntegerCasting
