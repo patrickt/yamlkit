@@ -8,6 +8,13 @@
 #import "YKParser.h"
 #import "YKConstants.h"
 
+@interface YKParser (YKParserPrivateMethods)
+
+- (id)_interpretObjectFromEvent:(yaml_event_t)event;
+- (NSError *)_constructErrorFromParser:(yaml_parser_t *)p;
+
+@end
+
 @implementation YKParser
 
 @synthesize readyToParse;

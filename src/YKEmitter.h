@@ -16,11 +16,11 @@
 }
 
 - (void)emitItem:(id)item;
-- (int)_writeItem:(id)item toDocument:(yaml_document_t *)document;
 - (NSString *)emittedString;
 - (NSData *)emittedData;
 
 @property(assign) BOOL usesExplicitDelimiters;
 @property(assign) NSStringEncoding encoding;
+
 
 @end

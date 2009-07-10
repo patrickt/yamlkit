@@ -15,7 +15,12 @@
 
 }
 
-+ (NSString *)dump:(id)object;
-+ (id)load:(NSString *)aString;
++ (NSString *)dumpObject:(id)object;
++ (BOOL)dumpObject:(id)object toFile:(NSString *)path;
++ (BOOL)dumpObject:(id)object toURL:(NSURL *)path;
+
++ (id)loadFromString:(NSString *)aString;
++ (id)loadFromFile:(NSString *)path;
++ (id)loadFromURL:(NSURL *)url;
 
 @end

@@ -7,8 +7,13 @@
 
 #import "YKEmitter.h"
 
-@implementation YKEmitter
+@interface YKEmitter (YKEmitterPrivateMEthods)
 
+- (int)_writeItem:(id)item toDocument:(yaml_document_t *)document;
+
+@end
+
+@implementation YKEmitter
 
 @synthesize usesExplicitDelimiters, encoding;
 
@@ -22,7 +27,7 @@
         // Coincidentally, the order of arguments to CFDataAppendBytes are just right
         // such that if I pass the buffer as the data parameter, I can just use 
         // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
-        yaml_emitter_set_output(&emitter, CFDataAppendBytes, buffer);
+        yaml_emitter_set_output(&emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
         [self setUsesExplicitDelimiters:NO];
     }
 	return self;
@@ -42,7 +47,7 @@
     yaml_document_delete(&document);
 }
 
-- (int)_writeItem:(id)item toDocument:(yaml_document_t *)doc;
+- (int)_writeItem:(id)item toDocument:(yaml_document_t *)doc
 {
 	int nodeID = 0;
 	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary 
