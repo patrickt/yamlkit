@@ -144,16 +144,17 @@
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
-	id obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+	NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+	id obj = stringValue;
 	
 	if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
 		NSScanner *scanner = [NSScanner scannerWithString:obj];
 		
 		// Integers are automatically casted unless given a !!str tag. I think.
-		if([scanner scanInt:NULL]) {
-			obj = [NSNumber numberWithInt:[obj intValue]];
-		} else if([scanner scanDouble:NULL]) {
+		if([scanner scanDouble:NULL] && [scanner scanLocation] == [stringValue length]) {
 			obj = [NSNumber numberWithDouble:[obj doubleValue]];
+		} else if([scanner scanInt:NULL] && [scanner scanLocation] == [stringValue length]) {
+			obj = [NSNumber numberWithInt:[obj intValue]];
 		// FIXME: Boolean parsing here is not in accordance with the YAML standards.
 		} else if([obj caseInsensitiveCompare:@"true"] == NSOrderedSame)     {
 			obj = [NSNumber numberWithBool:YES];
