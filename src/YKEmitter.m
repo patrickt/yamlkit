@@ -71,7 +71,7 @@
 	} else {
 		// TODO: Add optional support for tagging emitted items.
 		// TODO: Wrap long lines.
-		nodeID = yaml_document_add_scalar(doc, (yaml_char_t *)YAML_DEFAULT_SCALAR_TAG, (yaml_char_t*)[[item description] UTF8String], strlen([[item description] UTF8String]), YAML_ANY_SCALAR_STYLE);
+		nodeID = yaml_document_add_scalar(doc, (yaml_char_t *)YAML_DEFAULT_SCALAR_TAG, (yaml_char_t*)[[item description] UTF8String], [[item description] length], YAML_ANY_SCALAR_STYLE);
 	}
 	return nodeID;
 }

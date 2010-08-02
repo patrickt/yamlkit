@@ -16,6 +16,7 @@
 - (void)testVerySimpleStringParsing;
 - (void)testModerateLoadingFromFile;
 - (void)testAutomaticIntegerCasting;
+- (void)testAutomaticBooleanCasting;
 - (void)testWithNonexistentFile;
 - (void)testWithMalformedStringInput;
 - (void)testSuccessfulLoadingUsingErrors;

@@ -8,6 +8,10 @@
 #import "YKParser.h"
 #import "YKConstants.h"
 
+
+static BOOL _isBooleanTrue(NSString *aString);
+static BOOL _isBooleanFalse(NSString *aString);
+
 @interface YKParser (YKParserPrivateMethods)
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event;
@@ -144,20 +148,21 @@
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
-	id obj = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+	NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+	id obj = stringValue;
 	
 	if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
 		NSScanner *scanner = [NSScanner scannerWithString:obj];
 		
 		// Integers are automatically casted unless given a !!str tag. I think.
-		if([scanner scanInt:NULL]) {
-			obj = [NSNumber numberWithInt:[obj intValue]];
-		} else if([scanner scanDouble:NULL]) {
+		if([scanner scanDouble:NULL] && [scanner scanLocation] == [stringValue length]) {
 			obj = [NSNumber numberWithDouble:[obj doubleValue]];
+		} else if([scanner scanInt:NULL] && [scanner scanLocation] == [stringValue length]) {
+			obj = [NSNumber numberWithInt:[obj intValue]];
 		// FIXME: Boolean parsing here is not in accordance with the YAML standards.
-		} else if([obj caseInsensitiveCompare:@"true"] == NSOrderedSame)     {
+		} else if(_isBooleanTrue((NSString *)obj))     {
 			obj = [NSNumber numberWithBool:YES];
-		} else if([obj caseInsensitiveCompare:@"false"] == NSOrderedSame)    {
+		} else if(_isBooleanFalse((NSString *)obj))    {
 			obj = [NSNumber numberWithBool:NO];
 		} else if([obj isEqualToString:@"~"]) {
 			obj = [NSNull null];
@@ -228,3 +233,37 @@
 }
 
 @end
+
+static BOOL _isBooleanFalse(NSString *aString)
+{
+	BOOL isFalse = NO;
+	const char *cstr = [aString UTF8String];
+	char *falseValues[] = {
+		"false", "False", "FALSE",
+		"n", "N", "NO", "No", "no",
+		"off", "Off", "OFF"
+	};
+	size_t length = sizeof(falseValues) / sizeof(*falseValues);
+	int index;
+	for(index = 0; index < length && !isFalse; index++) {
+		isFalse = strcmp(cstr, falseValues[index]) == 0;
+	}
+	return isFalse;
+}
+
+static BOOL _isBooleanTrue(NSString *aString)
+{
+	BOOL isTrue = NO;
+	const char *cstr = [aString UTF8String];
+	char *trueValues[] = {
+		"true", "TRUE", "True",
+		"y", "Y", "Yes", "yes", "YES",
+		"on", "On", "ON"
+	};
+	size_t length = sizeof(trueValues) / sizeof(*trueValues);
+	int index;
+	for(index = 0; index < length && !isTrue; index++) {
+		isTrue = strcmp(cstr, trueValues[index]) == 0;
+	}
+	return isTrue;
+}
