@@ -8,5 +8,7 @@ It is written by Patrick Thomson and licensed under the MIT License.
 It is still very preliminary, but can parse YAML and emit some Cocoa data structures.
 
 Thanks to:
+
 * Laurent Sansonetti for the idea and encouragement
 * The LibYAML team
+* Sebastian Nowicki for bringing this project back from the dead
