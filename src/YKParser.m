@@ -187,6 +187,14 @@ static BOOL _isBooleanFalse(NSString *aString);
         } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
             stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
             obj = [NSNumber numberWithInt:[stringValue intValue]];
+        } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
+            int sexagesimalValue = 0;
+            NSArray *components = [stringValue componentsSeparatedByString:@":"];
+            for (NSString *component in components) {
+                sexagesimalValue *= 60;
+                sexagesimalValue += [component intValue];
+            }
+            obj = [NSNumber numberWithInt:sexagesimalValue];
         // FIXME: Boolean parsing here is not in accordance with the YAML standards.
         } else if (_isBooleanTrue((NSString *)obj))     {
             obj = [NSNumber numberWithBool:YES];
