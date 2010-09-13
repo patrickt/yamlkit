@@ -24,7 +24,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (void)reset
 {
-    if(fileInput) {
+    if (fileInput) {
         fclose(fileInput);
         fileInput = NULL;
     }
@@ -40,7 +40,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     [self reset];
     fileInput = fopen([path fileSystemRepresentation], "r");
     readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
-    if(readyToParse)
+    if (readyToParse)
         yaml_parser_set_input_file(&parser, fileInput);
     return readyToParse;
 }
@@ -53,7 +53,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     [self reset];
     stringInput = [str UTF8String];
     readyToParse = yaml_parser_initialize(&parser);
-    if(readyToParse)
+    if (readyToParse)
         yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
     return readyToParse;
 }
@@ -69,9 +69,9 @@ static BOOL _isBooleanFalse(NSString *aString);
     int done = 0;
     id obj, temp;
     NSMutableArray *stack = [NSMutableArray array];
-    if(!readyToParse) {
-        if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-            if(e != NULL) {
+    if (!readyToParse) {
+        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+            if (e != NULL) {
                 *e = [self _constructErrorFromParser:NULL];
                 return nil;
             }
@@ -79,8 +79,8 @@ static BOOL _isBooleanFalse(NSString *aString);
     }
 
     while(!done) {
-        if(!yaml_parser_parse(&parser, &event)) {
-            if(e != NULL) {
+        if (!yaml_parser_parse(&parser, &event)) {
+            if (e != NULL) {
                 *e = [self _constructErrorFromParser:&parser];
             }
             return nil;
@@ -91,15 +91,15 @@ static BOOL _isBooleanFalse(NSString *aString);
                 obj = [self _interpretObjectFromEvent:event];
                 temp = [stack lastObject];
 
-                if([temp isKindOfClass:[NSArray class]]) {
+                if ([temp isKindOfClass:[NSArray class]]) {
                     [temp addObject:obj];
-                } else if([temp isKindOfClass:[NSDictionary class]]) {
+                } else if ([temp isKindOfClass:[NSDictionary class]]) {
                     [stack addObject:obj];
-                } else if([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
+                } else if ([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
                     [temp retain];
                     [stack removeLastObject];
-                    if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                        if(e != NULL) {
+                    if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+                        if (e != NULL) {
                             *e = [self _constructErrorFromParser:NULL];
                             return nil;
                         }
@@ -121,18 +121,18 @@ static BOOL _isBooleanFalse(NSString *aString);
                 [stack removeLastObject];
 
                 id last = [stack lastObject];
-                if(last == nil) {
+                if (last == nil) {
                     [stack addObject:temp];
                     break;
-                } else if([last isKindOfClass:[NSArray class]]) {
+                } else if ([last isKindOfClass:[NSArray class]]) {
                     [last addObject:temp];
                 } else if ([last isKindOfClass:[NSDictionary class]]) {
                     [stack addObject:temp];
                 } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
                     obj = [[stack lastObject] retain];
                     [stack removeLastObject];
-                    if(![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                        if(e != NULL) {
+                    if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+                        if (e != NULL) {
                             *e = [self _constructErrorFromParser:NULL];
                             return nil;
                         }
@@ -157,20 +157,20 @@ static BOOL _isBooleanFalse(NSString *aString);
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
     id obj = stringValue;
 
-    if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
+    if (event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
         NSScanner *scanner = [NSScanner scannerWithString:obj];
 
         // Integers are automatically casted unless given a !!str tag. I think.
-        if([scanner scanDouble:NULL] && [scanner scanLocation] == [stringValue length]) {
+        if ([scanner scanDouble:NULL] && [scanner scanLocation] == [stringValue length]) {
             obj = [NSNumber numberWithDouble:[obj doubleValue]];
-        } else if([scanner scanInt:NULL] && [scanner scanLocation] == [stringValue length]) {
+        } else if ([scanner scanInt:NULL] && [scanner scanLocation] == [stringValue length]) {
             obj = [NSNumber numberWithInt:[obj intValue]];
         // FIXME: Boolean parsing here is not in accordance with the YAML standards.
-        } else if(_isBooleanTrue((NSString *)obj))     {
+        } else if (_isBooleanTrue((NSString *)obj))     {
             obj = [NSNumber numberWithBool:YES];
-        } else if(_isBooleanFalse((NSString *)obj))    {
+        } else if (_isBooleanFalse((NSString *)obj))    {
             obj = [NSNumber numberWithBool:NO];
-        } else if([obj isEqualToString:@"~"]) {
+        } else if ([obj isEqualToString:@"~"]) {
             obj = [NSNull null];
         }
         // TODO: add date parsing.
@@ -183,12 +183,12 @@ static BOOL _isBooleanFalse(NSString *aString);
     int code = 0;
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
 
-    if(p != NULL) {
+    if (p != NULL) {
         // actual parser error
         code = p->error;
         // get the string encoding.
         NSStringEncoding enc = 0;
-        switch (p->encoding) {
+        switch(p->encoding) {
             case YAML_UTF8_ENCODING:
                 enc = NSUTF8StringEncoding;
                 break;
@@ -213,7 +213,7 @@ static BOOL _isBooleanFalse(NSString *aString);
         [data setObject:[NSNumber numberWithInt:p->context_mark.line] forKey:YKErrorContextLineKey];
         [data setObject:[NSNumber numberWithInt:p->context_mark.column] forKey:YKErrorContextColumnKey];
         [data setObject:[NSNumber numberWithInt:p->context_mark.index] forKey:YKErrorContextIndexKey];
-    } else if(readyToParse) {
+    } else if (readyToParse) {
         [data setObject:NSLocalizedString(@"Internal assertion failed, possibly due to specially malformed input.", @"") forKey:NSLocalizedDescriptionKey];
     } else {
         [data setObject:NSLocalizedString(@"YAML parser was not ready to parse.", @"") forKey:NSLocalizedFailureReasonErrorKey];
@@ -248,7 +248,7 @@ static BOOL _isBooleanFalse(NSString *aString)
     };
     size_t length = sizeof(falseValues) / sizeof(*falseValues);
     int index;
-    for(index = 0; index < length && !isFalse; index++) {
+    for (index = 0; index < length && !isFalse; index++) {
         isFalse = strcmp(cstr, falseValues[index]) == 0;
     }
     return isFalse;
@@ -265,7 +265,7 @@ static BOOL _isBooleanTrue(NSString *aString)
     };
     size_t length = sizeof(trueValues) / sizeof(*trueValues);
     int index;
-    for(index = 0; index < length && !isTrue; index++) {
+    for (index = 0; index < length && !isTrue; index++) {
         isTrue = strcmp(cstr, trueValues[index]) == 0;
     }
     return isTrue;

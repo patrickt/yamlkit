@@ -71,8 +71,8 @@
 {
     [p readString:@"- true\n- True\n- TRUE\n- y\n- Y\n- Yes\n- YES\n- yes\n- on\n- On\n- ON\n"];
     NSArray *o = [[p parse] objectAtIndex:0];
-    for(id value in o) {
-        if([value isKindOfClass:[NSNumber class]]) {
+    for (id value in o) {
+        if ([value isKindOfClass:[NSNumber class]]) {
             STAssertTrue([value boolValue], @"boolean value was not true");
         } else {
             STFail(@"was not a boolean");
@@ -80,8 +80,8 @@
     }
     [p readString:@"- false\n- False\n- FALSE\n- n\n- N\n- No\n- NO\n- off\n- Off\n- OFF\n"];
     o = [[p parse] objectAtIndex:0];
-    for(id value in o) {
-        if([value isKindOfClass:[NSNumber class]]) {
+    for (id value in o) {
+        if ([value isKindOfClass:[NSNumber class]]) {
             STAssertFalse([value boolValue], @"boolean value was not false");
         } else {
             STFail(@"was not a boolean");

@@ -19,7 +19,7 @@
 
 - (id)init
 {
-    if((self = [super init])) {
+    if ((self = [super init])) {
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
         
@@ -51,19 +51,19 @@
 {
 	int nodeID = 0;
 	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary 
-	if([item respondsToSelector:@selector(keyEnumerator)]) {
+	if ([item respondsToSelector:@selector(keyEnumerator)]) {
 		// Add a mapping node.
 		nodeID = yaml_document_add_mapping(doc, (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG, YAML_ANY_MAPPING_STYLE);
-		for(id key in item) {
+		for (id key in item) {
 			int keyID = [self _writeItem:key toDocument:doc];
 			int valueID = [self _writeItem:[item objectForKey:key] toDocument:doc];
 			yaml_document_append_mapping_pair(doc, nodeID, keyID, valueID);
 		}
 	// #objectEnumerator covers NSSet/NSArray.
-	} else if([item respondsToSelector:@selector(objectEnumerator)]) {
+	} else if ([item respondsToSelector:@selector(objectEnumerator)]) {
 		// emit beginning sequence
 		nodeID = yaml_document_add_sequence(doc, (yaml_char_t *)YAML_DEFAULT_SEQUENCE_TAG, YAML_ANY_SEQUENCE_STYLE);
-		for(id subitem in item) {
+		for (id subitem in item) {
 			int newItem = [self _writeItem:subitem toDocument:doc];
 			yaml_document_append_sequence_item(doc, nodeID, newItem);
 		}

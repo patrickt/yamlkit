@@ -21,7 +21,7 @@
 
     NSArray *result = [p parse];
     // If parse returns a one-element array, extract it.
-    if([result count] == 1) {
+    if ([result count] == 1) {
         return [result objectAtIndex:0];
     }
     return result;
@@ -35,7 +35,7 @@
     NSString *contents = [NSString stringWithContentsOfFile:path
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
-    if(contents == nil) return nil; // if there was an error reading from the file
+    if (contents == nil) return nil; // if there was an error reading from the file
     return [self loadFromString:contents];
 }
 
@@ -47,7 +47,7 @@
     NSString *contents = [NSString stringWithContentsOfURL:url
                                                   encoding:NSUTF8StringEncoding
                                                      error:NULL];
-    if(contents == nil) return nil; // if there was an error reading from the URL
+    if (contents == nil) return nil; // if there was an error reading from the URL
     return [self loadFromString:contents];
 }
 
