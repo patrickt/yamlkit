@@ -218,15 +218,13 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (void)finalize
 {
-    yaml_parser_delete(&parser);
-    if(fileInput != NULL) fclose(fileInput);
+    [self reset];
     [super finalize];
 }
 
 - (void)dealloc
 {
-    yaml_parser_delete(&parser);
-    if(fileInput != NULL) fclose(fileInput);
+    [self reset];
     [super dealloc];
 }
 
