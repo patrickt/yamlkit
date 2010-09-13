@@ -146,6 +146,9 @@ static BOOL _isBooleanFalse(NSString *aString);
         }
         yaml_event_delete(&event);
     }
+
+    // we've reached the end of the stream, nothing additional to parse
+    readyToParse = NO;
     return stack;
 }
 
