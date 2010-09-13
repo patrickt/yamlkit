@@ -169,6 +169,14 @@ static BOOL _isBooleanFalse(NSString *aString);
                 obj = [NSNumber numberWithUnsignedLongLong:hexValue];
                 return obj;
             }
+        } else if ([stringValue hasPrefix:@"0"]) {
+            [scanner setScanLocation:1];
+            if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
+                int octalValue = 0;
+                sscanf((const char *)(event.data.scalar.value+1), "%o", &octalValue);
+                obj = [NSNumber numberWithInt:octalValue];
+                return obj;
+            }
         }
 
         // Integers are automatically casted unless given a !!str tag. I think.
