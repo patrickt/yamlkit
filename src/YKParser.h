@@ -21,6 +21,6 @@
 - (NSArray *)parse;
 - (NSArray *)parseWithError:(NSError **)e;
 
-@property(readonly) BOOL readyToParse;
+@property (readonly) BOOL isReadyToParse;
 
 @end

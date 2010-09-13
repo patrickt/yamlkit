@@ -20,7 +20,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 @implementation YKParser
 
-@synthesize readyToParse;
+@synthesize isReadyToParse=readyToParse;
 
 - (void)reset
 {
@@ -213,7 +213,7 @@ static BOOL _isBooleanFalse(NSString *aString);
         [data setObject:NSLocalizedString(@"Did you remember to call readFile: or readString:?", @"") forKey:NSLocalizedDescriptionKey];
     }
 
-    return [[NSError alloc] initWithDomain:YKErrorDomain code:code userInfo:data];
+    return [NSError errorWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
 - (void)finalize
