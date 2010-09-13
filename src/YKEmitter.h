@@ -22,5 +22,4 @@
 @property(assign) BOOL usesExplicitDelimiters;
 @property(assign) NSStringEncoding encoding;
 
-
 @end
