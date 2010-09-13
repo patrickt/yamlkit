@@ -26,6 +26,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 {
     if(fileInput) {
         fclose(fileInput);
+        fileInput = NULL;
     }
     yaml_parser_delete(&parser);
     memset(&parser, 0, sizeof(parser));
