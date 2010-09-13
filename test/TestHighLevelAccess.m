@@ -9,19 +9,19 @@
 
 @implementation TestHighLevelAccess
 
-- (void)testStringDumping
-{
-    NSArray *a = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
-    NSString *dumped = [YAMLKit dumpObject:a];
-    STAssertEqualObjects(dumped, @"- one\n- two\n- three\n", @"was not the same when dumped");
-}
-
 - (void)testStringLoading
 {
     NSString *dumped = @"- one\n- two\n- three";
     NSArray *a = [YAMLKit loadFromString:dumped];
     NSArray *b = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
     STAssertEqualObjects(a, b, @"was not the same when loaded");
+}
+
+- (void)testStringDumping
+{
+    NSArray *a = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
+    NSString *dumped = [YAMLKit dumpObject:a];
+    STAssertEqualObjects(dumped, @"- one\n- two\n- three\n", @"was not the same when dumped");
 }
 
 - (void)testFileDumpingAndLoading
