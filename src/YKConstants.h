@@ -6,14 +6,14 @@
  *  Copyright 2009 Patrick Thomson. All rights reserved.
  *
  */
-NSString *YKErrorDomain                = @"YKErrorDomain";
-const NSString *YKProblemValueKey            = @"YKProblemValue";
-const NSString *YKProblemOffsetKey           = @"YKProblemOffset";
-const NSString *YKProblemIndexKey            = @"YKProblemIndex";
-const NSString *YKProblemLineKey             = @"YKProblemLine";
-const NSString *YKProblemColumnKey           = @"YKProblemColumn";
-const NSString *YKProblemDescriptionKey      = @"YKProblemDescription";
-const NSString *YKErrorContextIndexKey       = @"YKErrorContextIndex";
-const NSString *YKErrorContextLineKey        = @"YKErrorContextLine";
-const NSString *YKErrorContextColumnKey      = @"YKErrorContextColumn";
-const NSString *YKErrorContextDescriptionKey = @"YKErrorContext";
+NSString * const YKErrorDomain                = @"YKErrorDomain";
+NSString * const YKProblemValueKey            = @"YKProblemValue";
+NSString * const YKProblemOffsetKey           = @"YKProblemOffset";
+NSString * const YKProblemIndexKey            = @"YKProblemIndex";
+NSString * const YKProblemLineKey             = @"YKProblemLine";
+NSString * const YKProblemColumnKey           = @"YKProblemColumn";
+NSString * const YKProblemDescriptionKey      = @"YKProblemDescription";
+NSString * const YKErrorContextIndexKey       = @"YKErrorContextIndex";
+NSString * const YKErrorContextLineKey        = @"YKErrorContextLine";
+NSString * const YKErrorContextColumnKey      = @"YKErrorContextColumn";
+NSString * const YKErrorContextDescriptionKey = @"YKErrorContext";
