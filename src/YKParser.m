@@ -269,7 +269,6 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 static BOOL _isBooleanFalse(NSString *aString)
 {
-    BOOL isFalse = NO;
     const char *cstr = [aString UTF8String];
     char *falseValues[] = {
         "false", "False", "FALSE",
@@ -278,15 +277,15 @@ static BOOL _isBooleanFalse(NSString *aString)
     };
     size_t length = sizeof(falseValues) / sizeof(*falseValues);
     int index;
-    for (index = 0; index < length && !isFalse; index++) {
-        isFalse = strcmp(cstr, falseValues[index]) == 0;
+    for (index = 0; index < length; index++) {
+        if (strcmp(cstr, falseValues[index]) == 0)
+            return TRUE;
     }
-    return isFalse;
+    return FALSE;
 }
 
 static BOOL _isBooleanTrue(NSString *aString)
 {
-    BOOL isTrue = NO;
     const char *cstr = [aString UTF8String];
     char *trueValues[] = {
         "true", "TRUE", "True",
@@ -295,8 +294,9 @@ static BOOL _isBooleanTrue(NSString *aString)
     };
     size_t length = sizeof(trueValues) / sizeof(*trueValues);
     int index;
-    for (index = 0; index < length && !isTrue; index++) {
-        isTrue = strcmp(cstr, trueValues[index]) == 0;
+    for (index = 0; index < length; index++) {
+        if (strcmp(cstr, trueValues[index]) == 0)
+            return TRUE;
     }
-    return isTrue;
+    return FALSE;
 }
