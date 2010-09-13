@@ -92,7 +92,7 @@
 - (void)testWithNonexistentFile
 {
     STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");
-    STAssertFalse([p readyToParse], @"returned a false value for #readyToParse");
+    STAssertFalse([p isReadyToParse], @"returned a false value for #readyToParse");
     NSError *e;
     NSArray *o = [p parseWithError:&e];
     STAssertNil(o, @"did not return nil when everything went wrong.");
