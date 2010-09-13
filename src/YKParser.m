@@ -24,6 +24,8 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (void)reset
 {
+    stringInput = nil;
+
     if (fileInput) {
         fclose(fileInput);
         fileInput = NULL;
@@ -78,7 +80,7 @@ static BOOL _isBooleanFalse(NSString *aString);
         }
     }
 
-    while(!done) {
+    while (!done) {
         if (!yaml_parser_parse(&parser, &event)) {
             if (e != NULL) {
                 *e = [self _constructErrorFromParser:&parser];
@@ -86,7 +88,7 @@ static BOOL _isBooleanFalse(NSString *aString);
             return nil;
         }
         done = (event.type == YAML_STREAM_END_EVENT);
-        switch(event.type) {
+        switch (event.type) {
             case YAML_SCALAR_EVENT:
                 obj = [self _interpretObjectFromEvent:event];
                 temp = [stack lastObject];
