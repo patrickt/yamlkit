@@ -14,13 +14,14 @@
 {
 
 }
-
-+ (NSString *)dumpObject:(id)object;
-+ (BOOL)dumpObject:(id)object toFile:(NSString *)path;
-+ (BOOL)dumpObject:(id)object toURL:(NSURL *)path;
-
+#pragma mark Parser
 + (id)loadFromString:(NSString *)aString;
 + (id)loadFromFile:(NSString *)path;
 + (id)loadFromURL:(NSURL *)url;
+
+#pragma mark Emitter
++ (NSString *)dumpObject:(id)object;
++ (BOOL)dumpObject:(id)object toFile:(NSString *)path;
++ (BOOL)dumpObject:(id)object toURL:(NSURL *)path;
 
 @end

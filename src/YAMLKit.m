@@ -10,6 +10,7 @@
 
 @implementation YAMLKit
 
+#pragma mark Parser
 + (id)loadFromString:(NSString *)str
 {
     YKParser *p = [[[YKParser alloc] init] autorelease];
@@ -40,6 +41,7 @@
     return [self loadFromString:contents];
 }
 
+#pragma mark Emitter
 + (NSString *)dumpObject:(id)object
 {
     YKEmitter *e = [[[YKEmitter alloc] init] autorelease];
