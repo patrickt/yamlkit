@@ -1,5 +1,14 @@
 receipt:     Oz-Ware Purchase Invoice
 date:        2007-08-06
+canonical:   12345
+decimal:     +12,345
+sexagesimal: 3:25:45
+octal:       014
+hexadecimal: 0xC
+null: ~
+"true": y
+"false": n
+string: '12345'
 customer:
   given:   Dorothy
   family:  Gale

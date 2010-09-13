@@ -49,6 +49,15 @@
     NSDictionary *first = [o objectAtIndex:0];
     STAssertEqualObjects([first objectForKey:@"receipt"], @"Oz-Ware Purchase Invoice", @"recieved incorrect data from loaded YAML");
     STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
+    STAssertTrue([[first valueForKeyPath:@"canonical"] isEqualTo:[NSNumber numberWithInt:12345]], @"did not convert canonical <%@(%@)>", [first valueForKeyPath:@"canonical"], NSStringFromClass([[first valueForKeyPath:@"canonical"] class]));
+    STAssertTrue([[first valueForKeyPath:@"decimal"] isEqualTo:[NSNumber numberWithInt:12345]], @"did not convert decimal <%@(%@)>", [first valueForKeyPath:@"decimal"], NSStringFromClass([[first valueForKeyPath:@"decimal"] class]));
+    STAssertTrue([[first valueForKeyPath:@"sexagesimal"] isEqualTo:[NSNumber numberWithInt:12345]], @"did not convert sexagesimal <%@(%@)>", [first valueForKeyPath:@"sexagesimal"], NSStringFromClass([[first valueForKeyPath:@"sexagesimal"] class]));
+    STAssertTrue([[first valueForKeyPath:@"octal"] isEqualTo:[NSNumber numberWithInt:12]], @"did not convert octal <%@(%@)>", [first valueForKeyPath:@"octal"], NSStringFromClass([[first valueForKeyPath:@"octal"] class]));
+    STAssertTrue([[first valueForKeyPath:@"hexadecimal"] isEqualTo:[NSNumber numberWithInt:12]], @"did not convert hexadecimal <%@(%@)>", [first valueForKeyPath:@"hexadecimal"], NSStringFromClass([[first valueForKeyPath:@"hexadecimal"] class]));
+    STAssertTrue([[first valueForKeyPath:@"null"] isEqualTo:[NSNull null]], @"did not recognize null <%@,%@>", [first valueForKeyPath:@"null"], NSStringFromClass([[first valueForKeyPath:@"null"] class]));
+    STAssertTrue([[first valueForKeyPath:@"true"] boolValue], @"did not recognize true <%@,%@>", [first valueForKeyPath:@"true"], NSStringFromClass([[first valueForKeyPath:@"true"] class]));
+    STAssertFalse([[first valueForKeyPath:@"false"] boolValue], @"did not recognize false <%@,%@>", [first valueForKeyPath:@"false"], NSStringFromClass([[first valueForKeyPath:@"false"] class]));
+    STAssertTrue([[first valueForKeyPath:@"string"] isEqualTo:@"12345"] && [[first valueForKeyPath:@"string"] isKindOfClass:[NSString class]], @"did not recognize string <%@,%@>", [first valueForKeyPath:@"string"], NSStringFromClass([[first valueForKeyPath:@"string"] class]));
 }
 
 - (void)testAutomaticIntegerCasting
