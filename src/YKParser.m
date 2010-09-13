@@ -67,19 +67,16 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (NSArray *)parseWithError:(NSError **)e
 {
+    if (!readyToParse) {
+        if (e != NULL)
+            *e = [self _constructErrorFromParser:NULL];
+        return nil;
+    }
+
     yaml_event_t event;
     int done = 0;
     id obj, temp;
     NSMutableArray *stack = [NSMutableArray array];
-    if (!readyToParse) {
-        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-            if (e != NULL) {
-                *e = [self _constructErrorFromParser:NULL];
-                return nil;
-            }
-        }
-    }
-
     while (!done) {
         if (!yaml_parser_parse(&parser, &event)) {
             if (e != NULL) {
