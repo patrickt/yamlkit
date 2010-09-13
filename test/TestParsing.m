@@ -16,7 +16,7 @@
 
 - (void)testVerySimpleLoadingFromFile
 {
-    [p readFile:@"test/verysimple.yaml"];
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"verysimple" ofType:@"yaml"]];
     id o = [p parse];
     STAssertNotNil(o, @"#parse method failed to return anything.");
     NSArray *needed = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"Escape of the Unicorn" forKey:@"title"]];
@@ -43,7 +43,7 @@
 
 - (void)testModerateLoadingFromFile
 {
-    [p readFile:@"test/moderate.yaml"];
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"moderate" ofType:@"yaml"]];
     NSArray *o = [p parse];
     STAssertNotNil(o, @"#parse method failed to return anything.");
     NSDictionary *first = [o objectAtIndex:0];
