@@ -13,8 +13,12 @@
 #pragma mark Parser
 + (id)loadFromString:(NSString *)str
 {
+    if (!str || [str isEqualToString:@""])
+        return nil;
+
     YKParser *p = [[[YKParser alloc] init] autorelease];
     [p readString:str];
+
     NSArray *result = [p parse];
     // If parse returns a one-element array, extract it.
     if([result count] == 1) {
@@ -25,6 +29,9 @@
 
 + (id)loadFromFile:(NSString *)path
 {
+    if (!path || [path isEqualToString:@""])
+        return nil;
+
     NSString *contents = [NSString stringWithContentsOfFile:path
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
@@ -34,6 +41,9 @@
 
 + (id)loadFromURL:(NSURL *)url
 {
+    if (!url)
+        return nil;
+
     NSString *contents = [NSString stringWithContentsOfURL:url
                                                   encoding:NSUTF8StringEncoding
                                                      error:NULL];

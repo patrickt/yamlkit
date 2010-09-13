@@ -34,6 +34,9 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (BOOL)readFile:(NSString *)path
 {
+    if (!path || [path isEqualToString:@""])
+        return FALSE;
+
     [self reset];
     fileInput = fopen([path fileSystemRepresentation], "r");
     readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
@@ -44,6 +47,9 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (BOOL)readString:(NSString *)str
 {
+    if (!str || [str isEqualToString:@""])
+        return FALSE;
+
     [self reset];
     stringInput = [str UTF8String];
     readyToParse = yaml_parser_initialize(&parser);
