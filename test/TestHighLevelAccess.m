@@ -32,4 +32,13 @@
     STAssertEqualObjects(a, [YAMLKit loadFromFile:path], @"was not the same when loaded");
 }
 
+- (void)testLoadNilAndEmpty
+{
+    STAssertNil([YAMLKit loadFromString:nil], @"did not return nil as expected.");
+    STAssertNil([YAMLKit loadFromString:@""], @"did not return nil as expected.");
+    STAssertNil([YAMLKit loadFromFile:nil], @"did not return nil as expected.");
+    STAssertNil([YAMLKit loadFromFile:@""], @"did not return nil as expected.");
+    STAssertNil([YAMLKit loadFromURL:nil], @"did not return nil as expected.");
+}
+
 @end

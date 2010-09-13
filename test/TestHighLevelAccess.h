@@ -15,5 +15,6 @@
 - (void)testStringLoading;
 - (void)testStringDumping;
 - (void)testFileDumpingAndLoading;
+- (void)testLoadNilAndEmpty;
 
 @end
