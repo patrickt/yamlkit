@@ -158,9 +158,18 @@ static BOOL _isBooleanFalse(NSString *aString);
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
     id obj = stringValue;
+    unsigned long long hexValue = 0;
 
     if (event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
         NSScanner *scanner = [NSScanner scannerWithString:obj];
+
+        if ([stringValue hasPrefix:@"0x"] || [stringValue hasPrefix:@"0X"]) {
+            [scanner setScanLocation:2];
+            if ([scanner scanHexLongLong:&hexValue] && [scanner isAtEnd]) {
+                obj = [NSNumber numberWithUnsignedLongLong:hexValue];
+                return obj;
+            }
+        }
 
         // Integers are automatically casted unless given a !!str tag. I think.
         if ([scanner scanDouble:NULL] && [scanner isAtEnd]) {
