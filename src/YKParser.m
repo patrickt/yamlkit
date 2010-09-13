@@ -184,6 +184,9 @@ static BOOL _isBooleanFalse(NSString *aString);
             obj = [NSNumber numberWithDouble:[obj doubleValue]];
         } else if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
             obj = [NSNumber numberWithInt:[obj intValue]];
+        } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
+            stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
+            obj = [NSNumber numberWithInt:[stringValue intValue]];
         // FIXME: Boolean parsing here is not in accordance with the YAML standards.
         } else if (_isBooleanTrue((NSString *)obj))     {
             obj = [NSNumber numberWithBool:YES];
