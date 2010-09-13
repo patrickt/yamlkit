@@ -11,8 +11,8 @@
 @interface YKEmitter : NSObject {
     yaml_emitter_t emitter;
     NSMutableData *buffer;
-	BOOL usesExplicitDelimiters;
-	NSStringEncoding encoding;
+    BOOL usesExplicitDelimiters;
+    NSStringEncoding encoding;
 }
 
 - (void)emitItem:(id)item;

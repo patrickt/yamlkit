@@ -6,9 +6,6 @@
  *  Copyright 2009 Patrick Thomson. All rights reserved.
  *
  */
-
-
-
 NSString *YKErrorDomain                = @"YKErrorDomain";
 const NSString *YKProblemValueKey            = @"YKProblemValue";
 const NSString *YKProblemOffsetKey           = @"YKProblemOffset";
