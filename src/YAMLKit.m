@@ -32,11 +32,15 @@
     if (!path || [path isEqualToString:@""])
         return nil;
 
-    NSString *contents = [NSString stringWithContentsOfFile:path
-                                                   encoding:NSUTF8StringEncoding
-                                                      error:NULL];
-    if (contents == nil) return nil; // if there was an error reading from the file
-    return [self loadFromString:contents];
+    YKParser *p = [[[YKParser alloc] init] autorelease];
+    [p readFile:path];
+
+    NSArray *result = [p parse];
+    // If parse returns a one-element array, extract it.
+    if ([result count] == 1) {
+        return [result objectAtIndex:0];
+    }
+    return result;
 }
 
 + (id)loadFromURL:(NSURL *)url
