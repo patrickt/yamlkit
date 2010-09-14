@@ -175,55 +175,53 @@ typedef union {
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
-    id obj = stringValue;
+    if (event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE)
+        return stringValue;
+
     scalar_value_t scalar_value;
+    NSScanner *scanner = [NSScanner scannerWithString:stringValue];
 
-    if (event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
-        NSScanner *scanner = [NSScanner scannerWithString:obj];
-
-        if ([stringValue hasPrefix:@"0x"] || [stringValue hasPrefix:@"0X"]) {
-            [scanner setScanLocation:2];
-            if ([scanner scanHexLongLong:&scalar_value.hex_value] && [scanner isAtEnd]) {
-                obj = [NSNumber numberWithUnsignedLongLong:scalar_value.hex_value];
-                return obj;
-            }
-        } else if ([stringValue hasPrefix:@"0"]) {
-            [scanner setScanLocation:1];
-            if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
-                scalar_value.int_value = 0;
-                sscanf((const char *)(event.data.scalar.value+1), "%o", &scalar_value.int_value);
-                obj = [NSNumber numberWithInt:scalar_value.int_value];
-                return obj;
-            }
+    if ([stringValue hasPrefix:@"0x"] || [stringValue hasPrefix:@"0X"]) {
+        [scanner setScanLocation:2];
+        if ([scanner scanHexLongLong:&scalar_value.hex_value] && [scanner isAtEnd]) {
+            return [NSNumber numberWithUnsignedLongLong:scalar_value.hex_value];
         }
-
-        // Integers are automatically casted unless given a !!str tag. I think.
-        if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
-            obj = [NSNumber numberWithDouble:scalar_value.double_value];
-        } else if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
-            obj = [NSNumber numberWithInt:scalar_value.int_value];
-        } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
-            stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
-            obj = [NSNumber numberWithInt:[stringValue intValue]];
-        } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
-            int sexagesimalValue = 0;
-            NSArray *components = [stringValue componentsSeparatedByString:@":"];
-            for (NSString *component in components) {
-                sexagesimalValue *= 60;
-                sexagesimalValue += [component intValue];
-            }
-            obj = [NSNumber numberWithInt:sexagesimalValue];
-        // FIXME: Boolean parsing here is not in accordance with the YAML standards.
-        } else if (_isBooleanTrue((NSString *)obj))     {
-            obj = [NSNumber numberWithBool:YES];
-        } else if (_isBooleanFalse((NSString *)obj))    {
-            obj = [NSNumber numberWithBool:NO];
-        } else if ([obj isEqualToString:@"~"]) {
-            obj = [NSNull null];
+    } else if ([stringValue hasPrefix:@"0"]) {
+        [scanner setScanLocation:1];
+        if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
+            scalar_value.int_value = 0;
+            sscanf((const char *)(event.data.scalar.value+1), "%o", &scalar_value.int_value);
+            return [NSNumber numberWithInt:scalar_value.int_value];
         }
-        // TODO: add date parsing.
     }
-    return obj;
+
+    // Integers are automatically casted unless given a !!str tag. I think.
+    if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
+        return [NSNumber numberWithDouble:scalar_value.double_value];
+    } else if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
+        return [NSNumber numberWithInt:scalar_value.int_value];
+    } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
+        stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
+        return [NSNumber numberWithInt:[stringValue intValue]];
+    } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
+        int sexagesimalValue = 0;
+        NSArray *components = [stringValue componentsSeparatedByString:@":"];
+        for (NSString *component in components) {
+            sexagesimalValue *= 60;
+            sexagesimalValue += [component intValue];
+        }
+        return [NSNumber numberWithInt:sexagesimalValue];
+    // FIXME: Boolean parsing here is not in accordance with the YAML standards.
+    } else if (_isBooleanTrue(stringValue))     {
+        return [NSNumber numberWithBool:YES];
+    } else if (_isBooleanFalse(stringValue))    {
+        return [NSNumber numberWithBool:NO];
+    } else if ([stringValue isEqualToString:@"~"]) {
+        return [NSNull null];
+    }
+    // TODO: add date parsing.
+
+    return stringValue;
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p
