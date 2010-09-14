@@ -61,6 +61,7 @@
 
     STAssertTrue([[first valueForKeyPath:@"float canonical"] isEqualTo:[NSNumber numberWithFloat:1.23015e+3]], @"did not recognize canonical <%@,%@>", [first valueForKeyPath:@"float canonical"], NSStringFromClass([[first valueForKeyPath:@"float canonical"] class]));
     STAssertTrue([[first valueForKeyPath:@"float exponential"] isEqualTo:[NSNumber numberWithFloat:12.3015e+02]], @"did not recognize exponential <%@,%@>", [first valueForKeyPath:@"float exponential"], NSStringFromClass([[first valueForKeyPath:@"float exponential"] class]));
+    STAssertTrue([[first valueForKeyPath:@"float fixed"] isEqualTo:[NSNumber numberWithFloat:1230.15]], @"did not recognize fixed <%@,%@>", [first valueForKeyPath:@"float fixed"], NSStringFromClass([[first valueForKeyPath:@"float fixed"] class]));
 }
 
 - (void)testAutomaticIntegerCasting

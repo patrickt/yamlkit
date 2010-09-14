@@ -198,7 +198,7 @@ typedef union {
     [scanner setScanLocation:0];
 
     // Integers are automatically casted unless given a !!str tag.
-    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*(\\.\\d+)?"] evaluateWithObject:stringValue]) {
         stringValue = [[stringValue stringByReplacingOccurrencesOfString:@"," withString:@""]
                        stringByReplacingOccurrencesOfString:@"+" withString:@""];
         scanner = [NSScanner scannerWithString:stringValue];
