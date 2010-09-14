@@ -58,6 +58,9 @@
     STAssertTrue([[first valueForKeyPath:@"true"] boolValue], @"did not recognize true <%@,%@>", [first valueForKeyPath:@"true"], NSStringFromClass([[first valueForKeyPath:@"true"] class]));
     STAssertFalse([[first valueForKeyPath:@"false"] boolValue], @"did not recognize false <%@,%@>", [first valueForKeyPath:@"false"], NSStringFromClass([[first valueForKeyPath:@"false"] class]));
     STAssertTrue([[first valueForKeyPath:@"string"] isEqualTo:@"12345"] && [[first valueForKeyPath:@"string"] isKindOfClass:[NSString class]], @"did not recognize string <%@,%@>", [first valueForKeyPath:@"string"], NSStringFromClass([[first valueForKeyPath:@"string"] class]));
+
+    STAssertTrue([[first valueForKeyPath:@"float canonical"] isEqualTo:[NSNumber numberWithFloat:1.23015e+3]], @"did not recognize canonical <%@,%@>", [first valueForKeyPath:@"float canonical"], NSStringFromClass([[first valueForKeyPath:@"float canonical"] class]));
+    STAssertTrue([[first valueForKeyPath:@"float exponential"] isEqualTo:[NSNumber numberWithFloat:12.3015e+02]], @"did not recognize exponential <%@,%@>", [first valueForKeyPath:@"float exponential"], NSStringFromClass([[first valueForKeyPath:@"float exponential"] class]));
 }
 
 - (void)testAutomaticIntegerCasting

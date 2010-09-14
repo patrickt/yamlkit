@@ -170,6 +170,7 @@ typedef union {
     int int_value;
     double double_value;
     unsigned long long hex_value;
+    NSDecimal decimal_value;
 } scalar_value_t;
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
@@ -205,6 +206,11 @@ typedef union {
 
     if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
         return [NSNumber numberWithInt:scalar_value.int_value];
+    }
+    [scanner setScanLocation:0];
+
+    if ([scanner scanDecimal:&scalar_value.decimal_value] && [scanner isAtEnd]) {
+        return [NSDecimalNumber decimalNumberWithDecimal:scalar_value.decimal_value];
     }
     [scanner setScanLocation:0];
 
