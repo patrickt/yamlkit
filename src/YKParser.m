@@ -218,12 +218,16 @@ typedef union {
         return [NSNumber numberWithDouble:scalar_value.double_value];
     }
 
-    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*(\\.\\d+)?"] evaluateWithObject:stringValue]) {
         int sexagesimalValue = 0;
-        NSArray *components = [stringValue componentsSeparatedByString:@":"];
+        NSString *decimalComponent = [stringValue pathExtension];
+        NSArray *components = [[stringValue stringByDeletingPathExtension] componentsSeparatedByString:@":"];
         for (NSString *component in components) {
             sexagesimalValue *= 60;
             sexagesimalValue += [component intValue];
+        }
+        if (decimalComponent) {
+            return [NSNumber numberWithFloat:[[NSString stringWithFormat:@"%d.%@", sexagesimalValue, decimalComponent] doubleValue]];
         }
         return [NSNumber numberWithInt:sexagesimalValue];
     }
