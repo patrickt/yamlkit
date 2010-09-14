@@ -77,6 +77,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     BOOL done = NO;
     id obj, temp;
     NSMutableArray *stack = [NSMutableArray array];
+
     while (!done) {
         if (!yaml_parser_parse(&parser, &event)) {
             if (e != NULL) {
@@ -89,27 +90,29 @@ static BOOL _isBooleanFalse(NSString *aString);
             done = (event.type == YAML_STREAM_END_EVENT);
             switch (event.type) {
                 case YAML_SCALAR_EVENT:
-                    obj = [self _interpretObjectFromEvent:event];
                     temp = [stack lastObject];
-
-                    if ([temp isKindOfClass:[NSArray class]]) {
-                        [temp addObject:obj];
-                    } else if ([temp isKindOfClass:[NSDictionary class]]) {
-                        [stack addObject:obj];
-                    } else if ([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
-                        [temp retain];
-                        [stack removeLastObject];
-                        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                            if (e != NULL) {
-                                *e = [self _constructErrorFromParser:NULL];
-                            }
-                            // An error occurred, set the stack to null and exit loop
-                            stack = nil;
-                            done = TRUE;
+                    if ([temp isKindOfClass:[NSDictionary class]]) {
+                        [stack addObject:[NSString stringWithUTF8String:(const char *)event.data.scalar.value]];
+                    } else {
+                        obj = [self _interpretObjectFromEvent:event];
+                        if ([temp isKindOfClass:[NSArray class]]) {
+                            [temp addObject:obj];
                         } else {
-                            [[stack lastObject] setObject:obj forKey:temp];
+                            [temp retain];
+                            [stack removeLastObject];
+
+                            if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]) {
+                                if (e != NULL) {
+                                    *e = [self _constructErrorFromParser:NULL];
+                                }
+                                // An error occurred, set the stack to null and exit loop
+                                done = TRUE;
+                                stack = nil;
+                            } else {
+                                [[stack lastObject] setObject:obj forKey:temp];
+                            }
+                            [temp release];
                         }
-                        [temp release];
                     }
                     break;
                 case YAML_SEQUENCE_START_EVENT:
