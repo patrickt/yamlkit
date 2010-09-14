@@ -141,8 +141,10 @@ static BOOL _isBooleanFalse(NSString *aString);
                         if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
                             if (e != NULL) {
                                 *e = [self _constructErrorFromParser:NULL];
-                                return nil;
                             }
+                            // An error occurred, set the stack to null and exit loop
+                            done = TRUE;
+                            stack = nil;
                         }
                         [[stack lastObject] setObject:temp forKey:obj];
                         [obj release];
