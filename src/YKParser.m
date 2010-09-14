@@ -74,7 +74,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     }
 
     yaml_event_t event;
-    int done = 0;
+    BOOL done = NO;
     id obj, temp;
     NSMutableArray *stack = [NSMutableArray array];
     while (!done) {
@@ -82,67 +82,72 @@ static BOOL _isBooleanFalse(NSString *aString);
             if (e != NULL) {
                 *e = [self _constructErrorFromParser:&parser];
             }
-            return nil;
-        }
-        done = (event.type == YAML_STREAM_END_EVENT);
-        switch (event.type) {
-            case YAML_SCALAR_EVENT:
-                obj = [self _interpretObjectFromEvent:event];
-                temp = [stack lastObject];
+            // An error occurred, set the stack to null and exit loop
+            stack = nil;
+            done = TRUE;
+        } else {
+            done = (event.type == YAML_STREAM_END_EVENT);
+            switch (event.type) {
+                case YAML_SCALAR_EVENT:
+                    obj = [self _interpretObjectFromEvent:event];
+                    temp = [stack lastObject];
 
-                if ([temp isKindOfClass:[NSArray class]]) {
-                    [temp addObject:obj];
-                } else if ([temp isKindOfClass:[NSDictionary class]]) {
-                    [stack addObject:obj];
-                } else if ([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
-                    [temp retain];
-                    [stack removeLastObject];
-                    if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                        if (e != NULL) {
-                            *e = [self _constructErrorFromParser:NULL];
-                            return nil;
+                    if ([temp isKindOfClass:[NSArray class]]) {
+                        [temp addObject:obj];
+                    } else if ([temp isKindOfClass:[NSDictionary class]]) {
+                        [stack addObject:obj];
+                    } else if ([temp isKindOfClass:[NSString class]] || [temp isKindOfClass:[NSValue class]])  {
+                        [temp retain];
+                        [stack removeLastObject];
+                        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+                            if (e != NULL) {
+                                *e = [self _constructErrorFromParser:NULL];
+                            }
+                            // An error occurred, set the stack to null and exit loop
+                            stack = nil;
+                            done = TRUE;
+                        } else {
+                            [[stack lastObject] setObject:obj forKey:temp];
                         }
                     }
-                    [[stack lastObject] setObject:obj forKey:temp];
-                }
-
-                break;
-            case YAML_SEQUENCE_START_EVENT:
-                [stack addObject:[NSMutableArray array]];
-                break;
-            case YAML_MAPPING_START_EVENT:
-                [stack addObject:[NSMutableDictionary dictionary]];
-                break;
-            case YAML_SEQUENCE_END_EVENT:
-            case YAML_MAPPING_END_EVENT:
-                // TODO: Check for retain count errors.
-                temp = [stack lastObject];
-                [stack removeLastObject];
-
-                id last = [stack lastObject];
-                if (last == nil) {
-                    [stack addObject:temp];
                     break;
-                } else if ([last isKindOfClass:[NSArray class]]) {
-                    [last addObject:temp];
-                } else if ([last isKindOfClass:[NSDictionary class]]) {
-                    [stack addObject:temp];
-                } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
-                    obj = [[stack lastObject] retain];
+                case YAML_SEQUENCE_START_EVENT:
+                    [stack addObject:[NSMutableArray array]];
+                    break;
+                case YAML_MAPPING_START_EVENT:
+                    [stack addObject:[NSMutableDictionary dictionary]];
+                    break;
+                case YAML_SEQUENCE_END_EVENT:
+                case YAML_MAPPING_END_EVENT:
+                    // TODO: Check for retain count errors.
+                    temp = [stack lastObject];
                     [stack removeLastObject];
-                    if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                        if (e != NULL) {
-                            *e = [self _constructErrorFromParser:NULL];
-                            return nil;
+
+                    id last = [stack lastObject];
+                    if (last == nil) {
+                        [stack addObject:temp];
+                        break;
+                    } else if ([last isKindOfClass:[NSArray class]]) {
+                        [last addObject:temp];
+                    } else if ([last isKindOfClass:[NSDictionary class]]) {
+                        [stack addObject:temp];
+                    } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
+                        obj = [[stack lastObject] retain];
+                        [stack removeLastObject];
+                        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
+                            if (e != NULL) {
+                                *e = [self _constructErrorFromParser:NULL];
+                                return nil;
+                            }
                         }
+                        [[stack lastObject] setObject:temp forKey:obj];
                     }
-                    [[stack lastObject] setObject:temp forKey:obj];
-                }
-                break;
-            case YAML_NO_EVENT:
-                break;
-            default:
-                break;
+                    break;
+                case YAML_NO_EVENT:
+                    break;
+                default:
+                    break;
+            }
         }
         yaml_event_delete(&event);
     }
