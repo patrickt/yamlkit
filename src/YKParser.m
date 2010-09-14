@@ -196,7 +196,13 @@ typedef union {
     }
     [scanner setScanLocation:0];
 
-    // Integers are automatically casted unless given a !!str tag. I think.
+    // Integers are automatically casted unless given a !!str tag.
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
+        stringValue = [[stringValue stringByReplacingOccurrencesOfString:@"," withString:@""]
+                       stringByReplacingOccurrencesOfString:@"+" withString:@""];
+        scanner = [NSScanner scannerWithString:stringValue];
+    }
+
     if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
         return [NSNumber numberWithDouble:scalar_value.double_value];
     }
@@ -204,11 +210,6 @@ typedef union {
 
     if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
         return [NSNumber numberWithInt:scalar_value.int_value];
-    }
-
-    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
-        stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
-        return [NSNumber numberWithInt:[stringValue intValue]];
     }
 
     if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
