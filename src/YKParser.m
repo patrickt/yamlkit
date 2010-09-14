@@ -123,8 +123,7 @@ static BOOL _isBooleanFalse(NSString *aString);
                     break;
                 case YAML_SEQUENCE_END_EVENT:
                 case YAML_MAPPING_END_EVENT:
-                    // TODO: Check for retain count errors.
-                    temp = [stack lastObject];
+                    temp = [[stack lastObject] retain];
                     [stack removeLastObject];
 
                     id last = [stack lastObject];
@@ -149,6 +148,7 @@ static BOOL _isBooleanFalse(NSString *aString);
                         [[stack lastObject] setObject:temp forKey:obj];
                         [obj release];
                     }
+                    [temp release];
                     break;
                 case YAML_NO_EVENT:
                     break;
