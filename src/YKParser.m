@@ -203,13 +203,13 @@ typedef union {
         scanner = [NSScanner scannerWithString:stringValue];
     }
 
-    if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
-        return [NSNumber numberWithDouble:scalar_value.double_value];
+    if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
+        return [NSNumber numberWithInt:scalar_value.int_value];
     }
     [scanner setScanLocation:0];
 
-    if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
-        return [NSNumber numberWithInt:scalar_value.int_value];
+    if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
+        return [NSNumber numberWithDouble:scalar_value.double_value];
     }
 
     if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
