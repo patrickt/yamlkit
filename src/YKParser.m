@@ -226,9 +226,9 @@ typedef union {
             sexagesimalValue += [component intValue];
         }
         return [NSNumber numberWithInt:sexagesimalValue];
-    // FIXME: Boolean parsing here is not in accordance with the YAML standards.
     }
 
+    // FIXME: Boolean parsing here is not in accordance with the YAML standards.
     if (_isBooleanTrue(stringValue))     {
         return [NSNumber numberWithBool:YES];
     }
@@ -239,6 +239,18 @@ typedef union {
 
     if ([stringValue isEqualToString:@"~"]) {
         return [NSNull null];
+    }
+
+    if ([stringValue isEqualToString:@"-.inf"]) {
+        return (id)kCFNumberNegativeInfinity;
+    }
+
+    if ([stringValue isEqualToString:@".inf"]) {
+        return (id)kCFNumberPositiveInfinity;
+    }
+
+    if ([stringValue isEqualToString:@".NaN"]) {
+        return [NSDecimalNumber notANumber];
     }
     // TODO: add date parsing.
 

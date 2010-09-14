@@ -12,6 +12,8 @@ string: '12345'
 float canonical: 1.23015e+3
 float exponential: 12.3015e+02
 float fixed: 1,230.15
+negative infinity: -.inf
+not a number: .NaN
 customer:
   given:   Dorothy
   family:  Gale
