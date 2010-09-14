@@ -109,6 +109,7 @@ static BOOL _isBooleanFalse(NSString *aString);
                         } else {
                             [[stack lastObject] setObject:obj forKey:temp];
                         }
+                        [temp release];
                     }
                     break;
                 case YAML_SEQUENCE_START_EVENT:
@@ -141,6 +142,7 @@ static BOOL _isBooleanFalse(NSString *aString);
                             }
                         }
                         [[stack lastObject] setObject:temp forKey:obj];
+                        [obj release];
                     }
                     break;
                 case YAML_NO_EVENT:
