@@ -194,16 +194,24 @@ typedef union {
             return [NSNumber numberWithInt:scalar_value.int_value];
         }
     }
+    [scanner setScanLocation:0];
 
     // Integers are automatically casted unless given a !!str tag. I think.
     if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
         return [NSNumber numberWithDouble:scalar_value.double_value];
-    } else if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
+    }
+    [scanner setScanLocation:0];
+
+    if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
         return [NSNumber numberWithInt:scalar_value.int_value];
-    } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
+    }
+
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
         stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
         return [NSNumber numberWithInt:[stringValue intValue]];
-    } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
+    }
+
+    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*"] evaluateWithObject:stringValue]) {
         int sexagesimalValue = 0;
         NSArray *components = [stringValue componentsSeparatedByString:@":"];
         for (NSString *component in components) {
@@ -212,11 +220,17 @@ typedef union {
         }
         return [NSNumber numberWithInt:sexagesimalValue];
     // FIXME: Boolean parsing here is not in accordance with the YAML standards.
-    } else if (_isBooleanTrue(stringValue))     {
+    }
+
+    if (_isBooleanTrue(stringValue))     {
         return [NSNumber numberWithBool:YES];
-    } else if (_isBooleanFalse(stringValue))    {
+    }
+
+    if (_isBooleanFalse(stringValue))    {
         return [NSNumber numberWithBool:NO];
-    } else if ([stringValue isEqualToString:@"~"]) {
+    }
+
+    if ([stringValue isEqualToString:@"~"]) {
         return [NSNull null];
     }
     // TODO: add date parsing.
