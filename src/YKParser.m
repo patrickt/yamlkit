@@ -166,36 +166,42 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 // TODO: oof, add tag support.
 
+typedef union {
+    int int_value;
+    double double_value;
+    unsigned long long hex_value;
+} scalar_value_t;
+
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
     id obj = stringValue;
-    unsigned long long hexValue = 0;
+    scalar_value_t scalar_value;
 
     if (event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
         NSScanner *scanner = [NSScanner scannerWithString:obj];
 
         if ([stringValue hasPrefix:@"0x"] || [stringValue hasPrefix:@"0X"]) {
             [scanner setScanLocation:2];
-            if ([scanner scanHexLongLong:&hexValue] && [scanner isAtEnd]) {
-                obj = [NSNumber numberWithUnsignedLongLong:hexValue];
+            if ([scanner scanHexLongLong:&scalar_value.hex_value] && [scanner isAtEnd]) {
+                obj = [NSNumber numberWithUnsignedLongLong:scalar_value.hex_value];
                 return obj;
             }
         } else if ([stringValue hasPrefix:@"0"]) {
             [scanner setScanLocation:1];
             if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
-                int octalValue = 0;
-                sscanf((const char *)(event.data.scalar.value+1), "%o", &octalValue);
-                obj = [NSNumber numberWithInt:octalValue];
+                scalar_value.int_value = 0;
+                sscanf((const char *)(event.data.scalar.value+1), "%o", &scalar_value.int_value);
+                obj = [NSNumber numberWithInt:scalar_value.int_value];
                 return obj;
             }
         }
 
         // Integers are automatically casted unless given a !!str tag. I think.
-        if ([scanner scanDouble:NULL] && [scanner isAtEnd]) {
-            obj = [NSNumber numberWithDouble:[obj doubleValue]];
-        } else if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
-            obj = [NSNumber numberWithInt:[obj intValue]];
+        if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
+            obj = [NSNumber numberWithDouble:scalar_value.double_value];
+        } else if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
+            obj = [NSNumber numberWithInt:scalar_value.int_value];
         } else if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*"] evaluateWithObject:stringValue]) {
             stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@""];
             obj = [NSNumber numberWithInt:[stringValue intValue]];
