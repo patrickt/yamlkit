@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72C6DBDA1007D396008D7A84 /* libyaml.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C6DBD91007D396008D7A84 /* libyaml.dylib */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,7 +41,6 @@
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit_Prefix.pch; sourceTree = "<group>"; };
-		72C6DBD91007D396008D7A84 /* libyaml.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libyaml.dylib; path = /usr/local/lib/libyaml.dylib; sourceTree = "<absolute>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* YAMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit.h; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
-				72C6DBDA1007D396008D7A84 /* libyaml.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +147,6 @@
 			children = (
 				CD312F620F09A0E50004C345 /* SenTestingKit.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
-				72C6DBD91007D396008D7A84 /* libyaml.dylib */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -221,6 +217,7 @@
 				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
+				EFE280B2124316A5008C5146 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -304,6 +301,22 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		EFE280B2124316A5008C5146 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/extras/lib/libyaml.dylib",
+			);
+			outputPaths = (
+				$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/libyaml.dylib,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Make sure that the Frameworks path exists\nmkdir -p $BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH\n\n# Copy over the framework\nfor path in $LIBRARY_SEARCH_PATHS; do\n\tpath=`echo \"$path\" | sed 's/\\/ *$//'`\n\tif [ -f \"$path/libyaml.dylib\" ]; then\n\t\techo \"Copying '$path/libyaml.dylib' to '$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/'\"\n\t\tcp $path/libyaml.dylib $BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\n\n\t\t# Make sure we change the install name to be relative to the loader path\n\t\tinstall_name_tool -id @loader_path/../Frameworks/libyaml.dylib $BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/libyaml.dylib\n\t\texit 0\n\tfi\ndone\necho \"Error: Unable to find 'libyaml.dylib' in library search path ($LIBRARY_SEARCH_PATHS).\"\nexit 1";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -366,8 +379,17 @@
 				GCC_PREFIX_HEADER = YAMLKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = NO;
+				HEADER_SEARCH_PATHS = (
+					extras/include/,
+					/usr/local/include/,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					extras/lib/,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = "-lyaml";
 				PRODUCT_NAME = YAMLKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -386,8 +408,17 @@
 				GCC_PREFIX_HEADER = YAMLKit_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = NO;
+				HEADER_SEARCH_PATHS = (
+					extras/include/,
+					/usr/local/include/,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					extras/lib/,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = "-lyaml";
 				PRODUCT_NAME = YAMLKit;
 				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = framework;
