@@ -20,10 +20,10 @@ YAMLKit.framework requires libyaml.dylib so that it can successfully compile. Yo
 
 Alternatively, this process has been automated using a Makefile.  You can automatically download, compile, and install the library into **extras/lib** path.
 
-  $ (cd extras && ./bootstrap && make)
+> $ (cd extras && ./bootstrap && make)
 
 If you wish to use the SVN repository instead of tared distribution:
 
-  $ (cd extras && ./bootstrap --with-scm && make)
+> $ (cd extras && ./bootstrap --with-scm && make)
 
 Modify the **extras/src/packages.mak** for changing the libyaml distribution path, libyaml SVN path, and/or libyaml SVN revision number
