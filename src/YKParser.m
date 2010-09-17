@@ -5,6 +5,7 @@
 //  Created by Patrick Thomson on 12/29/08.
 //
 
+#import "yaml.h"
 #import "YKParser.h"
 #import "YKConstants.h"
 
@@ -15,6 +16,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event;
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p;
+- (void)_destroy;
 
 @end
 
@@ -22,16 +24,24 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 @synthesize isReadyToParse=readyToParse;
 
+- (id)init {
+    if (!(self = [super init]))
+        return nil;
+
+    opaque_parser = malloc(sizeof(yaml_parser_t));
+    if (!opaque_parser || !yaml_parser_initialize(opaque_parser))
+    {
+        [self release];
+        return nil;
+    }
+
+    return self;
+}
+
 - (void)reset
 {
-    stringInput = nil;
-
-    if (fileInput) {
-        fclose(fileInput);
-        fileInput = NULL;
-    }
-    yaml_parser_delete(&parser);
-    memset(&parser, 0, sizeof(parser));
+    [self _destroy];
+    yaml_parser_initialize(opaque_parser);
 }
 
 - (BOOL)readFile:(NSString *)path
@@ -41,9 +51,9 @@ static BOOL _isBooleanFalse(NSString *aString);
 
     [self reset];
     fileInput = fopen([path fileSystemRepresentation], "r");
-    readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
+    readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(opaque_parser)));
     if (readyToParse)
-        yaml_parser_set_input_file(&parser, fileInput);
+        yaml_parser_set_input_file(opaque_parser, fileInput);
     return readyToParse;
 }
 
@@ -54,9 +64,9 @@ static BOOL _isBooleanFalse(NSString *aString);
 
     [self reset];
     stringInput = [str UTF8String];
-    readyToParse = yaml_parser_initialize(&parser);
+    readyToParse = yaml_parser_initialize(opaque_parser);
     if (readyToParse)
-        yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
+        yaml_parser_set_input_string(opaque_parser, (const unsigned char *)stringInput, [str length]);
     return readyToParse;
 }
 
@@ -79,9 +89,9 @@ static BOOL _isBooleanFalse(NSString *aString);
     NSMutableArray *stack = [NSMutableArray array];
 
     while (!done) {
-        if (!yaml_parser_parse(&parser, &event)) {
+        if (!yaml_parser_parse(opaque_parser, &event)) {
             if (e != NULL) {
-                *e = [self _constructErrorFromParser:&parser];
+                *e = [self _constructErrorFromParser:opaque_parser];
             }
             // An error occurred, set the stack to null and exit loop
             stack = nil;
@@ -306,15 +316,26 @@ typedef union {
     return [NSError errorWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
+- (void)_destroy {
+    stringInput = nil;
+    if (fileInput) {
+        fclose(fileInput);
+        fileInput = NULL;
+    }
+    yaml_parser_delete(opaque_parser);
+}
+
 - (void)finalize
 {
-    [self reset];
+    [self _destroy];
+    free(opaque_parser), opaque_parser = nil;
     [super finalize];
 }
 
 - (void)dealloc
 {
-    [self reset];
+    [self _destroy];
+    free(opaque_parser), opaque_parser = nil;
     [super dealloc];
 }
 

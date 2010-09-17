@@ -6,6 +6,7 @@
 //
 
 #import "YKEmitter.h"
+#import "yaml.h"
 
 @interface YKEmitter (YKEmitterPrivateMEthods)
 
@@ -19,18 +20,38 @@
 
 - (id)init
 {
-    if ((self = [super init])) {
-        memset(&emitter, 0, sizeof(emitter));
-        yaml_emitter_initialize(&emitter);
-        
-        buffer = [NSMutableData data];
-        // Coincidentally, the order of arguments to CFDataAppendBytes are just right
-        // such that if I pass the buffer as the data parameter, I can just use 
-        // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
-        yaml_emitter_set_output(&emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
-        [self setUsesExplicitDelimiters:NO];
+    if (!(self = [super init]))
+        return nil;
+
+    opaque_emitter = malloc(sizeof(yaml_emitter_t));
+    if (!opaque_emitter || !yaml_emitter_initialize(opaque_emitter))
+    {
+        [self release];
+        return nil;
     }
+
+    buffer = [NSMutableData data];
+    // Coincidentally, the order of arguments to CFDataAppendBytes are just right
+    // such that if I pass the buffer as the data parameter, I can just use
+    // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
+    yaml_emitter_set_output(opaque_emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
+    [self setUsesExplicitDelimiters:NO];
+
 	return self;
+}
+
+- (void)finalize
+{
+    yaml_emitter_delete(opaque_emitter);
+    free(opaque_emitter), opaque_emitter = nil;
+    [super finalize];
+}
+
+- (void)dealloc
+{
+    yaml_emitter_delete(opaque_emitter);
+    free(opaque_emitter), opaque_emitter = nil;
+    [super dealloc];
 }
 
 - (void)emitItem:(id)item
@@ -43,14 +64,14 @@
     yaml_document_initialize(&document, NULL, NULL, NULL, !usesExplicitDelimiters, !usesExplicitDelimiters);
     // TODO: Make this into a proper private method.
     [self _writeItem:item toDocument:&document];
-    yaml_emitter_dump(&emitter, &document);
+    yaml_emitter_dump(opaque_emitter, &document);
     yaml_document_delete(&document);
 }
 
 - (int)_writeItem:(id)item toDocument:(yaml_document_t *)doc
 {
 	int nodeID = 0;
-	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary 
+	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary
 	if ([item respondsToSelector:@selector(keyEnumerator)]) {
 		// Add a mapping node.
 		nodeID = yaml_document_add_mapping(doc, (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG, YAML_ANY_MAPPING_STYLE);
@@ -104,7 +125,7 @@
 			NSLog(@"Unsupported encoding passed to YKEmitter#setEncoding:.");
 			break;
 	}
-	yaml_emitter_set_encoding(&emitter, converted);
+	yaml_emitter_set_encoding(opaque_emitter, converted);
 }
 
 @end

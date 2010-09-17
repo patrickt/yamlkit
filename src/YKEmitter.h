@@ -6,13 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "yaml.h"
 
 @interface YKEmitter : NSObject {
-    yaml_emitter_t emitter;
     NSMutableData *buffer;
     BOOL usesExplicitDelimiters;
     NSStringEncoding encoding;
+    void *opaque_emitter;
 }
 
 - (void)emitItem:(id)item;

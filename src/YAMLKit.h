@@ -7,8 +7,8 @@
  *
  */
 
-#import "YKParser.h"
-#import "YKEmitter.h"
+#import <YAMLKit/YKParser.h>
+#import <YAMLKit/YKEmitter.h>
 
 @interface YAMLKit : NSObject
 {

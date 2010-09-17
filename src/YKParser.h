@@ -6,13 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "yaml.h"
 
 @interface YKParser : NSObject {
     BOOL readyToParse;
     FILE* fileInput;
     const char *stringInput;
-    yaml_parser_t parser;
+    void *opaque_parser;
 }
 
 - (void)reset;
