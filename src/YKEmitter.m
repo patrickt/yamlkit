@@ -30,7 +30,7 @@
         return nil;
     }
 
-    buffer = [NSMutableData data];
+    buffer = [[NSMutableData alloc] init];
     // Coincidentally, the order of arguments to CFDataAppendBytes are just right
     // such that if I pass the buffer as the data parameter, I can just use
     // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
@@ -50,6 +50,7 @@
 - (void)dealloc
 {
     yaml_emitter_delete(opaque_emitter);
+    [buffer release], buffer = nil;
     free(opaque_emitter), opaque_emitter = nil;
     [super dealloc];
 }
