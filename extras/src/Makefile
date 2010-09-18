@@ -32,6 +32,7 @@ endef
 # Rules
 # ***************************************************************************
 all: library
+FLAGS=CFLAGS="-arch ppc -arch i386 -arch x86_64" --disable-dependency-tracking --prefix=$(PREFIX)
 
 # ***************************************************************************
 # yaml
@@ -41,7 +42,7 @@ libyaml:
 	$(SVN) co $(YAML_LIB_SVN_URL) -r $(YAML_LIB_SVN_REVISION) $@
 
 .libyaml: libyaml
-	(cd $<; ./bootstrap && ./configure --prefix=$(PREFIX) && make && make install)
+	(cd $<; ./bootstrap && ./configure $(FLAGS)  && make && make install)
 	touch $@
 else
 yaml-$(YAML_LIB_VERSION).tar.gz:
@@ -51,7 +52,7 @@ libyaml: yaml-$(YAML_LIB_VERSION).tar.gz
 	$(EXTRACT_GZ)
 
 .libyaml: libyaml
-	(cd $<; ./configure --prefix=$(PREFIX) && make && make install)
+	(cd $<;  ./configure $(FLAGS) && make && make install)
 	touch $@
 
 CLEAN_DISTRO += yaml-$(YAML_LIB_VERSION).tar.gz
