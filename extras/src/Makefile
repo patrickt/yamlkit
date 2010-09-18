@@ -31,7 +31,7 @@ endef
 # ***************************************************************************
 # Rules
 # ***************************************************************************
-all: source
+all: library
 
 # ***************************************************************************
 # yaml
@@ -53,14 +53,24 @@ libyaml: yaml-$(YAML_LIB_VERSION).tar.gz
 .libyaml: libyaml
 	(cd $<; ./configure --prefix=$(PREFIX) && make && make install)
 	touch $@
+
+CLEAN_DISTRO += yaml-$(YAML_LIB_VERSION).tar.gz
 endif
 
-SOURCE += libyaml
 CLEAN_FILE += .libyaml
 CLEAN_PKG += libyaml
 
 # ***************************************************************************
 # yaml
+
+# ***************************************************************************
+# Compile
+# ***************************************************************************
+source: $(CLEAN_PKG)
+library: $(CLEAN_DISTRO) $(CLEAN_FILE)
+
+# ***************************************************************************
+# cleanup
 # ***************************************************************************
 clean-dots:
 	rm -f $(CLEAN_FILE)
@@ -69,7 +79,6 @@ clean: clean-dots
 	rm -rf $(CLEAN_PKG)
 
 clean-all: clean
+	rm -f $(CLEAN_DISTRO)
 	rm -rf ../lib
 	rm -rf ../include
-
-source: $(CLEAN_FILE)
