@@ -53,10 +53,12 @@
 
 - (void)testAutomaticIntegerCasting
 {
-    [p readString:@"- 1\n- 2\n- 3"];
+    [p readString:@"- 685230\n- +685_230\n- 02472256\n- 0x_0A_74_AE\n- 0b1010_0111_0100_1010_1110\n- 190:20:30\n"];
     NSArray *o = [[p parse] objectAtIndex:0];
-    STAssertTrue([[o objectAtIndex:0] isKindOfClass:[NSNumber class]], @"was not a number");
-    STAssertEquals(1, [[o objectAtIndex:0] intValue], @"was not equal to 1");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithInt:685230], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
 }
 
 - (void)testAutomaticDoubleCasting

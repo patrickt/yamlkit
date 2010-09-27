@@ -11,6 +11,13 @@
 #import "RegexKitLite.h"
 #import "NSString+YAMLKit.h"
 
+// !!int: tag:yaml.org,2002:int ( http://yaml.org/type/int.html )
+#define YAML_INT_BINARY_REGEX           @"^([-+])?0b([0-1_]+)$"
+#define YAML_INT_OCTAL_REGEX            @"^[-+]?0[0-7_]+$"
+#define YAML_INT_DECIMAL_REGEX          @"^[-+]?(?:0|[1-9][0-9_]*)$"
+#define YAML_INT_HEX_REGEX              @"^[-+]?0x[0-9a-fA-F_]+$"
+#define YAML_INT_SEXAGESIMAL_REGEX      @"^([-+])?(([1-9][0-9_]*)(:[0-5]?[0-9])+)$"
+
 static BOOL _isBooleanTrue(NSString *aString);
 static BOOL _isBooleanFalse(NSString *aString);
 
@@ -178,70 +185,38 @@ static BOOL _isBooleanFalse(NSString *aString);
 
 // TODO: oof, add tag support.
 
-typedef union {
-    int int_value;
-    double double_value;
-    unsigned long long hex_value;
-    NSDecimal decimal_value;
-} scalar_value_t;
-
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
     if (event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE)
         return stringValue;
 
-    scalar_value_t scalar_value;
-    NSScanner *scanner = [NSScanner scannerWithString:stringValue];
+    NSArray *components = nil;
 
-    if ([stringValue hasPrefix:@"0x"] || [stringValue hasPrefix:@"0X"]) {
-        [scanner setScanLocation:2];
-        if ([scanner scanHexLongLong:&scalar_value.hex_value] && [scanner isAtEnd]) {
-            return [NSNumber numberWithUnsignedLongLong:scalar_value.hex_value];
+    // Integer
+    if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_INT_BINARY_REGEX]) count] != 0) {
+        return [NSNumber numberWithInt:([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
+                [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_INT_OCTAL_REGEX]) {
+        return [NSNumber numberWithInt:[stringValue intValueFromBase:8]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_INT_DECIMAL_REGEX]) {
+        return [NSNumber numberWithInt:[stringValue intValueFromBase:10]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_INT_HEX_REGEX]) {
+        return [NSNumber numberWithInt:[stringValue intValueFromBase:16]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_INT_SEXAGESIMAL_REGEX]) {
+        NSInteger resultValue = 0;
+        for (NSString *component in [stringValue componentsSeparatedByString:@":"]) {
+            resultValue = (resultValue * 60) + [component intValueFromBase:10];
         }
-    } else if ([stringValue hasPrefix:@"0"]) {
-        [scanner setScanLocation:1];
-        if ([scanner scanInt:NULL] && [scanner isAtEnd]) {
-            scalar_value.int_value = 0;
-            sscanf((const char *)(event.data.scalar.value+1), "%o", &scalar_value.int_value);
-            return [NSNumber numberWithInt:scalar_value.int_value];
-        }
-    }
-    [scanner setScanLocation:0];
-
-    // Integers are automatically casted unless given a !!str tag.
-    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[\\-+]?\\d{1,3}(\\,\\d{3})*(\\.\\d+)?"] evaluateWithObject:stringValue]) {
-        stringValue = [[stringValue stringByReplacingOccurrencesOfString:@"," withString:@""]
-                       stringByReplacingOccurrencesOfString:@"+" withString:@""];
-        scanner = [NSScanner scannerWithString:stringValue];
-    }
-
-    if ([scanner scanInt:&scalar_value.int_value] && [scanner isAtEnd]) {
-        return [NSNumber numberWithInt:scalar_value.int_value];
-    }
-    [scanner setScanLocation:0];
-
-    if ([scanner scanDecimal:&scalar_value.decimal_value] && [scanner isAtEnd]) {
-        return [NSDecimalNumber decimalNumberWithDecimal:scalar_value.decimal_value];
-    }
-    [scanner setScanLocation:0];
-
-    if ([scanner scanDouble:&scalar_value.double_value] && [scanner isAtEnd]) {
-        return [NSNumber numberWithDouble:scalar_value.double_value];
-    }
-
-    if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-6]?[0-9]((\\:[0-5][0-9])|(\\:60))*(\\.\\d+)?"] evaluateWithObject:stringValue]) {
-        int sexagesimalValue = 0;
-        NSString *decimalComponent = [stringValue pathExtension];
-        NSArray *components = [[stringValue stringByDeletingPathExtension] componentsSeparatedByString:@":"];
-        for (NSString *component in components) {
-            sexagesimalValue *= 60;
-            sexagesimalValue += [component intValue];
-        }
-        if (decimalComponent) {
-            return [NSNumber numberWithFloat:[[NSString stringWithFormat:@"%d.%@", sexagesimalValue, decimalComponent] doubleValue]];
-        }
-        return [NSNumber numberWithInt:sexagesimalValue];
+        return [NSNumber numberWithInt:resultValue];
     }
 
     // FIXME: Boolean parsing here is not in accordance with the YAML standards.
