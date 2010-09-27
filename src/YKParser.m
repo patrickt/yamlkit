@@ -8,6 +8,8 @@
 #import "yaml.h"
 #import "YKParser.h"
 #import "YKConstants.h"
+#import "RegexKitLite.h"
+#import "NSString+YAMLKit.h"
 
 static BOOL _isBooleanTrue(NSString *aString);
 static BOOL _isBooleanFalse(NSString *aString);

@@ -23,6 +23,9 @@
 		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
 		CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CDAD33310F0ACCE20054CF3F /* moderate.yaml */; };
 		CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */; };
+		EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B56612506FFF009BCF6C /* RegexKitLite.m */; };
+		EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */; };
+		EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,10 @@
 		CDAD33310F0ACCE20054CF3F /* moderate.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moderate.yaml; sourceTree = "<group>"; };
 		CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLKit.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		EF40B56512506FFF009BCF6C /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = extras/src/regexlite/RegexKitLite.h; sourceTree = "<group>"; };
+		EF40B56612506FFF009BCF6C /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = extras/src/regexlite/RegexKitLite.m; sourceTree = "<group>"; };
+		EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+YAMLKit.h"; path = "src/NSString+YAMLKit.h"; sourceTree = "<group>"; };
+		EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+YAMLKit.m"; path = "src/NSString+YAMLKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +171,10 @@
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */,
+				EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */,
+				EF40B56512506FFF009BCF6C /* RegexKitLite.h */,
+				EF40B56612506FFF009BCF6C /* RegexKitLite.m */,
 				32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -203,6 +214,7 @@
 				CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */,
 				CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */,
 				CD2913050F0E85930003FE76 /* YKConstants.h in Headers */,
+				EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +338,8 @@
 				CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */,
 				CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */,
 				CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */,
+				EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */,
+				EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +402,10 @@
 					extras/lib/,
 					/usr/local/lib/,
 				);
-				OTHER_LDFLAGS = "-lyaml";
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lyaml",
+				);
 				PRODUCT_NAME = YAMLKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -417,7 +434,10 @@
 					extras/lib/,
 					/usr/local/lib/,
 				);
-				OTHER_LDFLAGS = "-lyaml";
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lyaml",
+				);
 				PRODUCT_NAME = YAMLKit;
 				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = framework;

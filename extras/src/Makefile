@@ -62,7 +62,27 @@ CLEAN_FILE += .libyaml
 CLEAN_PKG += libyaml
 
 # ***************************************************************************
-# yaml
+# RegexKitLite
+# ***************************************************************************
+ifdef HAVE_SCM
+regexlite:
+	$(SVN) co $(REGEX_KIT_LITE_SVN_URL) -r $(REGEX_KIT_LITE_SVN_REVISION) $@
+
+else
+RegexKitLite-$(REGEX_KIT_LITE_VERSION).tar.bz2:
+	$(WGET) $(REGEX_KIT_LITE_URL)
+
+regexlite: RegexKitLite-$(REGEX_KIT_LITE_VERSION).tar.bz2
+	$(EXTRACT_BZ2)
+
+CLEAN_DISTRO += RegexKitLite-$(REGEX_KIT_LITE_VERSION).tar.bz2
+endif
+
+.regexlite: regexlite
+	touch $@
+
+CLEAN_FILE += .regexlite
+CLEAN_PKG += regexlite
 
 # ***************************************************************************
 # Compile
