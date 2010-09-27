@@ -1,23 +1,10 @@
+---
 receipt:     Oz-Ware Purchase Invoice
 date:        2007-08-06
-canonical:   12345
-decimal:     +12,345
-sexagesimal: 3:25:45
-octal:       014
-hexadecimal: 0xC
-null: ~
-"true": y
-"false": n
-string: '12345'
-float canonical: 1.23015e+3
-float exponential: 12.3015e+02
-float sexagesimal: 20:30.15
-float fixed: 1,230.15
-negative infinity: -.inf
-not a number: .NaN
 customer:
   given:   Dorothy
   family:  Gale
+---
 items:
   - part_no:   A4786
     descrip:   Water Bucket (Filled)
