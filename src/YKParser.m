@@ -318,7 +318,8 @@ typedef union {
     return [NSError errorWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
-- (void)_destroy {
+- (void)_destroy
+{
     stringInput = nil;
     if (fileInput) {
         fclose(fileInput);
