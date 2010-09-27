@@ -14,6 +14,7 @@
 
 - (void)testVerySimpleLoadingFromFile;
 - (void)testVerySimpleStringParsing;
+- (void)testDigitPrefixedStringParsing;
 - (void)testModerateLoadingFromFile;
 - (void)testAutomaticIntegerCasting;
 - (void)testAutomaticBooleanCasting;
