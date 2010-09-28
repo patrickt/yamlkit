@@ -102,6 +102,30 @@
     }
 }
 
+- (void)testAutomaticTimestampCasting
+{
+    [p readString:@"- 2001-12-14t21:59:43.10-05:00\n- 2001-12-14 21:59:43.10 -5\n"];
+    NSDate *date = [NSDate dateWithString:@"2001-12-14 23:29:43 +0100"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    for (id value in o) {
+        STAssertEqualObjects(value, date, @"incorrectly cast to NSDate <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+
+    [p readString:@"- 2001-12-15T02:59:43.1Z\n- 2001-12-15 2:59:43.10\n"];
+    date = [NSDate dateWithString:@"2001-12-15 03:59:43 +0100"];
+    o = [[p parse] objectAtIndex:0];
+    for (id value in o) {
+        STAssertEqualObjects(value, date, @"incorrectly cast to NSDate <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+
+    [p readString:@"- 2001-12-14\n"];
+    date = [NSDate dateWithString:@"2001-12-14 01:00:00 +0100"];
+    o = [[p parse] objectAtIndex:0];
+    for (id value in o) {
+        STAssertEqualObjects(value, date, @"incorrectly cast to NSDate <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
 - (void)testWithNonexistentFile
 {
     STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");

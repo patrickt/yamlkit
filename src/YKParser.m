@@ -31,6 +31,11 @@
 // !!null: tag:yaml.org,2002:null ( http://yaml.org/type/null.html )
 #define YAML_NULL_REGEX                 @"^(?:~|[Nn]ull|NULL|)$"
 
+// !!timestamp: tag:yaml.org,2002:timestamp ( http://yaml.org/type/timestamp.html )
+#define YAML_TIMESTAMP_YMD_REGEX        @"^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})$"
+#define YAML_TIMESTAMP_YMDTZ_REGEX      @"^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})(?:[Tt]|[ \\t]+)([0-9]{1,2}):([0-9]{2}):([0-9]{2})(?:\\.([0-9]*))?[ \\t]*(?:Z|(?:([-+][0-9]{1,2})(?::([0-9]{2}))?))?$"
+
+
 @interface YKParser (YKParserPrivateMethods)
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event;
@@ -267,7 +272,40 @@
         return [NSNull null];
     }
 
-    // TODO: add date parsing.
+    // Timestamp
+    if ([stringValue isMatchedByRegex:YAML_TIMESTAMP_YMD_REGEX]) {
+        return [NSDate dateWithString:[stringValue stringByAppendingFormat:@" 00:00:00 +0000"]];
+    }
+
+    if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_TIMESTAMP_YMDTZ_REGEX]) count]) {
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+
+        [dateComponents setYear:[[[components objectAtIndex:0] objectAtIndex:1] intValue]];
+        [dateComponents setMonth:[[[components objectAtIndex:0] objectAtIndex:2] intValue]];
+        [dateComponents setDay:[[[components objectAtIndex:0] objectAtIndex:3] intValue]];
+        [dateComponents setHour:[[[components objectAtIndex:0] objectAtIndex:4] intValue]];
+        [dateComponents setMinute:[[[components objectAtIndex:0] objectAtIndex:5] intValue]];
+        [dateComponents setSecond:[[[components objectAtIndex:0] objectAtIndex:6] intValue]];
+        // TODO: Add support for fractional seconds
+//        [dateComponents setFractional:[[[components objectAtIndex:0] objectAtIndex:7] intValue]];
+
+        NSInteger deltaFromGMTInSeconds = ([[[components objectAtIndex:0] objectAtIndex:8] intValueFromBase:10] * 360) +
+                                          ([[[components objectAtIndex:0] objectAtIndex:9] intValue] * 60);
+        NSTimeZone *timeZone = nil;
+        if (deltaFromGMTInSeconds != 0) {
+            timeZone = [NSTimeZone timeZoneForSecondsFromGMT:deltaFromGMTInSeconds];
+        } else {
+            timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        }
+
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        [gregorian setTimeZone:timeZone];
+        NSDate *resultDate = [gregorian dateFromComponents:dateComponents];
+        [gregorian release];
+        [dateComponents release];
+
+        return resultDate;
+    }
 
     return stringValue;
 }
