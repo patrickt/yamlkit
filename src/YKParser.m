@@ -18,6 +18,12 @@
 #define YAML_INT_HEX_REGEX              @"^[-+]?0x[0-9a-fA-F_]+$"
 #define YAML_INT_SEXAGESIMAL_REGEX      @"^([-+])?(([1-9][0-9_]*)(:[0-5]?[0-9])+)$"
 
+// !!float: tag:yaml.org,2002:float ( http://yaml.org/type/float.html )
+#define YAML_FLOAT_DECIMAL_REGEX        @"^[-+]?(?:[0-9][0-9_]*)?\\.[0-9_]*(?:[eE][-+][0-9]+)?$"
+#define YAML_FLOAT_SEXAGESIMAL_REGEX    @"^[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*$"
+#define YAML_FLOAT_INFINITY_REGEX       @"^[-+]?\\.(?:inf|Inf|INF)$"
+#define YAML_FLOAT_NAN_REGEX            @"^\\.(?:nan|NaN|NAN)$"
+
 static BOOL _isBooleanTrue(NSString *aString);
 static BOOL _isBooleanFalse(NSString *aString);
 
@@ -219,6 +225,32 @@ static BOOL _isBooleanFalse(NSString *aString);
         return [NSNumber numberWithInt:resultValue];
     }
 
+    // Float
+    if ([stringValue isMatchedByRegex:YAML_FLOAT_DECIMAL_REGEX]) {
+        return [NSDecimalNumber decimalNumberWithString:[stringValue stringByReplacingOccurrencesOfString:@"_"
+                                                                                               withString:@""]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_FLOAT_SEXAGESIMAL_REGEX]) {
+        double resultValue = 0;
+        for (NSString *component in [[stringValue stringByReplacingOccurrencesOfString:@"_" withString:@""]
+                                     componentsSeparatedByString:@":"]) {
+            resultValue = (resultValue * 60.0f) + [component doubleValue];
+        }
+        return [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:resultValue] decimalValue]];
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_FLOAT_INFINITY_REGEX]) {
+        if ([stringValue hasPrefix:@"-"])
+            return (id)kCFNumberPositiveInfinity;
+        else
+            return (id)kCFNumberNegativeInfinity;
+    }
+
+    if ([stringValue isMatchedByRegex:YAML_FLOAT_NAN_REGEX]) {
+        return [NSDecimalNumber notANumber];
+    }
+
     // FIXME: Boolean parsing here is not in accordance with the YAML standards.
     if (_isBooleanTrue(stringValue))     {
         return [NSNumber numberWithBool:YES];
@@ -232,17 +264,6 @@ static BOOL _isBooleanFalse(NSString *aString);
         return [NSNull null];
     }
 
-    if ([stringValue isEqualToString:@"-.inf"]) {
-        return (id)kCFNumberNegativeInfinity;
-    }
-
-    if ([stringValue isEqualToString:@".inf"]) {
-        return (id)kCFNumberPositiveInfinity;
-    }
-
-    if ([stringValue isEqualToString:@".NaN"]) {
-        return [NSDecimalNumber notANumber];
-    }
     // TODO: add date parsing.
 
     return stringValue;

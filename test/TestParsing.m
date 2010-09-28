@@ -61,12 +61,14 @@
     }
 }
 
-- (void)testAutomaticDoubleCasting
+- (void)testAutomaticFloatCasting
 {
-    [p readString:@"- 1.5\n"];
+    [p readString:@"- 6.8523015e+5\n- 685.230_15e+03\n- 685_230.15\n- 190:20:30.15\n"];
     NSArray *o = [[p parse] objectAtIndex:0];
-    STAssertTrue([[o objectAtIndex:0] isKindOfClass:[NSNumber class]], @"was not a number");
-    STAssertEqualObjects([o objectAtIndex:0], [NSNumber numberWithDouble:1.5], @"incorrectly cast to NSNumber");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:685230.15], @"incorrectly cast to NSDecimalNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
 }
 
 - (void)testAutomaticBooleanCasting
