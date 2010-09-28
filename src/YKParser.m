@@ -24,8 +24,9 @@
 #define YAML_FLOAT_INFINITY_REGEX       @"^[-+]?\\.(?:inf|Inf|INF)$"
 #define YAML_FLOAT_NAN_REGEX            @"^\\.(?:nan|NaN|NAN)$"
 
-static BOOL _isBooleanTrue(NSString *aString);
-static BOOL _isBooleanFalse(NSString *aString);
+// !!bool: tag:yaml.org,2002:bool ( http://yaml.org/type/bool.html )
+#define YAML_BOOL_TRUE_REGEX            @"^(?:[Yy](?:es)?|YES|[Tt]rue|TRUE|[Oo]n|ON)$"
+#define YAML_BOOL_FALSE_REGEX           @"^(?:[Nn]o?|NO|[Ff]alse|FALSE|[Oo]ff|OFF)$"
 
 @interface YKParser (YKParserPrivateMethods)
 
@@ -251,13 +252,12 @@ static BOOL _isBooleanFalse(NSString *aString);
         return [NSDecimalNumber notANumber];
     }
 
-    // FIXME: Boolean parsing here is not in accordance with the YAML standards.
-    if (_isBooleanTrue(stringValue))     {
-        return [NSNumber numberWithBool:YES];
+    if ([stringValue isMatchedByRegex:YAML_BOOL_TRUE_REGEX]) {
+        return (id)kCFBooleanTrue;
     }
 
-    if (_isBooleanFalse(stringValue))    {
-        return [NSNumber numberWithBool:NO];
+    if ([stringValue isMatchedByRegex:YAML_BOOL_FALSE_REGEX]) {
+        return (id)kCFBooleanFalse;
     }
 
     if ([stringValue isEqualToString:@"~"]) {
@@ -339,37 +339,3 @@ static BOOL _isBooleanFalse(NSString *aString);
 }
 
 @end
-
-static BOOL _isBooleanFalse(NSString *aString)
-{
-    const char *cstr = [aString UTF8String];
-    char *falseValues[] = {
-        "false", "False", "FALSE",
-        "n", "N", "NO", "No", "no",
-        "off", "Off", "OFF"
-    };
-    size_t length = sizeof(falseValues) / sizeof(*falseValues);
-    int index;
-    for (index = 0; index < length; index++) {
-        if (strcmp(cstr, falseValues[index]) == 0)
-            return TRUE;
-    }
-    return FALSE;
-}
-
-static BOOL _isBooleanTrue(NSString *aString)
-{
-    const char *cstr = [aString UTF8String];
-    char *trueValues[] = {
-        "true", "TRUE", "True",
-        "y", "Y", "Yes", "yes", "YES",
-        "on", "On", "ON"
-    };
-    size_t length = sizeof(trueValues) / sizeof(*trueValues);
-    int index;
-    for (index = 0; index < length; index++) {
-        if (strcmp(cstr, trueValues[index]) == 0)
-            return TRUE;
-    }
-    return FALSE;
-}
