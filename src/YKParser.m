@@ -28,6 +28,9 @@
 #define YAML_BOOL_TRUE_REGEX            @"^(?:[Yy](?:es)?|YES|[Tt]rue|TRUE|[Oo]n|ON)$"
 #define YAML_BOOL_FALSE_REGEX           @"^(?:[Nn]o?|NO|[Ff]alse|FALSE|[Oo]ff|OFF)$"
 
+// !!null: tag:yaml.org,2002:null ( http://yaml.org/type/null.html )
+#define YAML_NULL_REGEX                 @"^(?:~|[Nn]ull|NULL|)$"
+
 @interface YKParser (YKParserPrivateMethods)
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event;
@@ -260,7 +263,7 @@
         return (id)kCFBooleanFalse;
     }
 
-    if ([stringValue isEqualToString:@"~"]) {
+    if ([stringValue isMatchedByRegex:YAML_NULL_REGEX]) {
         return [NSNull null];
     }
 

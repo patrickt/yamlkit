@@ -93,6 +93,15 @@
     }
 }
 
+- (void)testAutomaticNullCasting
+{
+    [p readString:@"- null\n- Null\n- NULL\n- ~\n- \n"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    for (id value in o) {
+        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
 - (void)testWithNonexistentFile
 {
     STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");
