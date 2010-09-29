@@ -286,8 +286,7 @@
         [dateComponents setHour:[[[components objectAtIndex:0] objectAtIndex:4] intValue]];
         [dateComponents setMinute:[[[components objectAtIndex:0] objectAtIndex:5] intValue]];
         [dateComponents setSecond:[[[components objectAtIndex:0] objectAtIndex:6] intValue]];
-        // TODO: Add support for fractional seconds
-//        [dateComponents setFractional:[[[components objectAtIndex:0] objectAtIndex:7] intValue]];
+        NSInteger fractional = [[[components objectAtIndex:0] objectAtIndex:7] intValue];
 
         NSInteger deltaFromGMTInSeconds = ([[[components objectAtIndex:0] objectAtIndex:8] intValueFromBase:10] * 360) +
                                           ([[[components objectAtIndex:0] objectAtIndex:9] intValue] * 60);
@@ -304,6 +303,11 @@
         [gregorian release];
         [dateComponents release];
 
+        // This is not the most elegant way of doing it...but update the date with the fractional value
+        if (fractional > 0) {
+            NSTimeInterval fractionalInterval = (double)fractional / pow(10.0, floor(log10((double)fractional))+1.0);
+            resultDate = [resultDate dateByAddingTimeInterval:fractionalInterval];
+        }
         return resultDate;
     }
 
