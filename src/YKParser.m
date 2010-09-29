@@ -177,10 +177,12 @@
                             // An error occurred, set the stack to null and exit loop
                             done = TRUE;
                             stack = nil;
+                        } else {
+                            [[stack lastObject] setObject:temp forKey:obj];
                         }
-                        [[stack lastObject] setObject:temp forKey:obj];
                         [obj release];
                     }
+
                     [temp release];
                     break;
                 case YAML_STREAM_END_EVENT:
