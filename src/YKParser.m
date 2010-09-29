@@ -121,7 +121,6 @@
             stack = nil;
             done = TRUE;
         } else {
-            done = (event.type == YAML_STREAM_END_EVENT);
             switch (event.type) {
                 case YAML_SCALAR_EVENT:
                     temp = [stack lastObject];
@@ -184,8 +183,10 @@
                     }
                     [temp release];
                     break;
-                case YAML_NO_EVENT:
+                case YAML_STREAM_END_EVENT:
+                    done = YES;
                     break;
+                case YAML_NO_EVENT:
                 default:
                     break;
             }
@@ -355,7 +356,7 @@
         [data setObject:NSLocalizedString(@"YAML parser was not ready to parse.", @"") forKey:NSLocalizedFailureReasonErrorKey];
         [data setObject:NSLocalizedString(@"Did you remember to call readFile: or readString:?", @"") forKey:NSLocalizedDescriptionKey];
     }
-
+\
     return [NSError errorWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
