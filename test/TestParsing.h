@@ -32,7 +32,7 @@
 //- (void)testSuccessfulLoadingUsingErrors;
 //- (void)testUnsuccessfulLoadingUsingErrors;
 //- (void)testWhatHappensWhenParseIsCalledTwice;
-//- (void)testDifferentEncodings;
+- (void)testStringEncoding;
 //- (void)testWithCustomInputHandler;
 
 @end

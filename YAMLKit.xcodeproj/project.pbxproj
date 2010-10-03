@@ -26,6 +26,9 @@
 		EF0B4E9F126B863D0064F1A2 /* test.bin in Resources */ = {isa = PBXBuildFile; fileRef = EF0B4E9E126B863D0064F1A2 /* test.bin */; };
 		EF3AE437126C1B2A0052D7E8 /* YKUnknownNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF3AE438126C1B2A0052D7E8 /* YKUnknownNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */; };
+		EF3AE549126C2ADF0052D7E8 /* ascii.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE546126C2ADF0052D7E8 /* ascii.yaml */; };
+		EF3AE54A126C2ADF0052D7E8 /* utf16be.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */; };
+		EF3AE54B126C2ADF0052D7E8 /* utf16le.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */; };
 		EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B56612506FFF009BCF6C /* RegexKitLite.m */; };
 		EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */; };
 		EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */; };
@@ -73,6 +76,9 @@
 		EF0B4E9E126B863D0064F1A2 /* test.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = test.bin; sourceTree = "<group>"; };
 		EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKUnknownNode.h; sourceTree = "<group>"; };
 		EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKUnknownNode.m; sourceTree = "<group>"; };
+		EF3AE546126C2ADF0052D7E8 /* ascii.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ascii.yaml; sourceTree = "<group>"; };
+		EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utf16be.yaml; sourceTree = "<group>"; };
+		EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utf16le.yaml; sourceTree = "<group>"; };
 		EF40B56512506FFF009BCF6C /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = extras/src/regexlite/RegexKitLite.h; sourceTree = "<group>"; };
 		EF40B56612506FFF009BCF6C /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = extras/src/regexlite/RegexKitLite.m; sourceTree = "<group>"; };
 		EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+YAMLKit.h"; path = "src/NSString+YAMLKit.h"; sourceTree = "<group>"; };
@@ -214,6 +220,9 @@
 				CD4669520F0A98330047C2BF /* verysimple.yaml */,
 				CDAD33310F0ACCE20054CF3F /* moderate.yaml */,
 				EF0B4E9E126B863D0064F1A2 /* test.bin */,
+				EF3AE546126C2ADF0052D7E8 /* ascii.yaml */,
+				EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */,
+				EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -312,6 +321,9 @@
 				CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */,
 				CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */,
 				EF0B4E9F126B863D0064F1A2 /* test.bin in Resources */,
+				EF3AE549126C2ADF0052D7E8 /* ascii.yaml in Resources */,
+				EF3AE54A126C2ADF0052D7E8 /* utf16be.yaml in Resources */,
+				EF3AE54B126C2ADF0052D7E8 /* utf16le.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,6 +52,21 @@
     STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
 }
 
+- (void)testStringEncoding
+{
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"ascii" ofType:@"yaml"]];
+    NSArray *o = [p parse];
+    STAssertTrue([@"Example" isEqualToString:[[o objectAtIndex:0] objectAtIndex:0]], @"string should be \"Example\" but was %@", [[o objectAtIndex:0] objectAtIndex:0]);
+
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"utf16le" ofType:@"yaml"]];
+    o = [p parse];
+    STAssertTrue([@"Example" isEqualToString:[[o objectAtIndex:0] objectAtIndex:0]], @"string should be \"Example\" but was %@", [[o objectAtIndex:0] objectAtIndex:0]);
+
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"utf16be" ofType:@"yaml"]];
+    o = [p parse];
+    STAssertTrue([@"Example" isEqualToString:[[o objectAtIndex:0] objectAtIndex:0]], @"string should be \"Example\" but was %@", [[o objectAtIndex:0] objectAtIndex:0]);
+}
+
 - (void)testExplicitStringCasting
 {
     [p readString:@"- !!str 685230\n- !<tag:yaml.org,2002:str> 685230\n"];
