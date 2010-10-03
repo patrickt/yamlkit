@@ -24,6 +24,26 @@
     STAssertEqualObjects(o, needed, @"#parse returned an incorrect object");
 }
 
+- (void)testModerateLoadingFromFile
+{
+    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"moderate" ofType:@"yaml"]];
+    NSArray *o = [p parse];
+    STAssertNotNil(o, @"#parse method failed to return anything.");
+    NSDictionary *first = [o objectAtIndex:0];
+    STAssertEqualObjects([first objectForKey:@"receipt"], @"Oz-Ware Purchase Invoice", @"recieved incorrect data from loaded YAML");
+    STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
+}
+
+- (void)testWithNonexistentFile
+{
+    STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");
+    STAssertFalse([p isReadyToParse], @"returned a false value for #readyToParse");
+    NSError *e;
+    NSArray *o = [p parseWithError:&e];
+    STAssertNil(o, @"did not return nil when everything went wrong.");
+    STAssertEqualObjects([e domain], @"YKErrorDomain", @"returned a different error domain");
+}
+
 - (void)testVerySimpleStringParsing
 {
     [p readString:@"- foo\n- bar\n- baz"];
@@ -42,16 +62,6 @@
     STAssertEqualObjects(o, needed, @"#parse returned an incorrect object");
 }
 
-- (void)testModerateLoadingFromFile
-{
-    [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"moderate" ofType:@"yaml"]];
-    NSArray *o = [p parse];
-    STAssertNotNil(o, @"#parse method failed to return anything.");
-    NSDictionary *first = [o objectAtIndex:0];
-    STAssertEqualObjects([first objectForKey:@"receipt"], @"Oz-Ware Purchase Invoice", @"recieved incorrect data from loaded YAML");
-    STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
-}
-
 - (void)testStringEncoding
 {
     [p readFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"ascii" ofType:@"yaml"]];
@@ -66,6 +76,8 @@
     o = [p parse];
     STAssertTrue([@"Example" isEqualToString:[[o objectAtIndex:0] objectAtIndex:0]], @"string should be \"Example\" but was %@", [[o objectAtIndex:0] objectAtIndex:0]);
 }
+
+//- (void)testWithMalformedStringInput;
 
 - (void)testExplicitStringCasting
 {
@@ -315,14 +327,6 @@
     }
 }
 
-- (void)testWithNonexistentFile
-{
-    STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");
-    STAssertFalse([p isReadyToParse], @"returned a false value for #readyToParse");
-    NSError *e;
-    NSArray *o = [p parseWithError:&e];
-    STAssertNil(o, @"did not return nil when everything went wrong.");
-    STAssertEqualObjects([e domain], @"YKErrorDomain", @"returned a different error domain");
-}
+//- (void)testWithCustomInputHandler;
 
 @end
