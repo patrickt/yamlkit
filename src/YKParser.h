@@ -9,7 +9,7 @@
 
 @interface YKParser : NSObject {
     BOOL readyToParse;
-    FILE* fileInput;
+    FILE *fileInput;
     const char *stringInput;
     void *opaque_parser;
 }
