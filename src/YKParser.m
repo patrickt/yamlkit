@@ -206,9 +206,21 @@
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
-    if (event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE)
+    NSString *tagString = (event.data.scalar.tag == NULL ? nil :
+                           [NSString stringWithUTF8String:(const char *)event.data.scalar.tag]);
+
+    // Special event, if scalar style is not a "plain" style then just return the string representation
+    // Special event, if the tag is set to !!str then do not try to automatically resolve the type of data specified.
+    if ([tagString isEqualToString:YKStringTagDeclaration] ||
+        (tagString == nil && event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE))
         return stringValue;
 
+    // Special event, if the tag is set to !!null then just return null
+    if ([tagString isEqualToString:YKNullTagDeclaration])
+        return [NSNull null];
+
+    // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
+    // the stringValue
     NSArray *components = nil;
 
     // Integer

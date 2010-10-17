@@ -51,6 +51,17 @@
     STAssertTrue(([[first objectForKey:@"specialDelivery"] length] > 25), @"did not parse a multiline string correctly");
 }
 
+- (void)testExplicitStringCasting
+{
+    [p readString:@"- !!str 685230\n- !<tag:yaml.org,2002:str> 685230\n"];
+    id o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSString class]], @"was not a string");
+        STAssertEqualObjects(value, @"685230", @"incorrectly cast to NSString <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
 - (void)testAutomaticIntegerCasting
 {
     [p readString:@"- 685230\n- +685_230\n- 02472256\n- 0x_0A_74_AE\n- 0b1010_0111_0100_1010_1110\n- 190:20:30\n"];
@@ -100,6 +111,22 @@
 - (void)testAutomaticNullCasting
 {
     [p readString:@"- null\n- Null\n- NULL\n- ~\n- \n"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
+- (void)testExplicitNullCasting
+{
+    [p readString:@"- !!null 685230\n- !!null +685_230\n- !!null 02472256\n- !!null 0x_0A_74_AE\n" \
+     "- !!null 0b1010_0111_0100_1010_1110\n- !!null 190:20:30\n- !!null 6.8523015e+5\n- !!null 685.230_15e+03\n" \
+     "- !!null 685_230.15\n- !!null 190:20:30.15\n- !!null true\n- !!null True\n- !!null TRUE\n- !!null y\n" \
+     "- !!null Y- !!null Yes\n- !!null YES\n- !!null yes\n- !!null on\n- !!null On\n- !!null ON\n" \
+     "- !!null false\n- !!null False\n- !!null FALSE\n- !!null n\n- !!null N\n- !!null No\n- !!null NO\n" \
+     "- !!null off\n- !!null Off\n- !!null OFF\n- !!null 2001-12-14t21:59:43.10-05:00\n" \
+     "- !!null 2001-12-14 21:59:43.10 -5\n"];
     NSArray *o = [[p parse] objectAtIndex:0];
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {

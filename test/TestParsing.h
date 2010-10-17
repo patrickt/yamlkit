@@ -16,11 +16,13 @@
 - (void)testVerySimpleStringParsing;
 - (void)testDigitPrefixedStringParsing;
 - (void)testModerateLoadingFromFile;
+- (void)testExplicitStringCasting;
 - (void)testAutomaticIntegerCasting;
 - (void)testAutomaticFloatCasting;
 - (void)testAutomaticFloatCasting;
 - (void)testAutomaticBooleanCasting;
 - (void)testAutomaticNullCasting;
+- (void)testExplicitNullCasting;
 - (void)testAutomaticTimestampCasting;
 - (void)testWithNonexistentFile;
 //- (void)testWithMalformedStringInput;
