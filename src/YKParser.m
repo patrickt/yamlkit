@@ -222,77 +222,55 @@
     // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
     // the stringValue
     NSArray *components = nil;
+    id results = stringValue;
 
-    // Integer
+    // Determine if an 'Integer' was specified
     if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_INT_BINARY_REGEX]) count] != 0) {
-        return [NSNumber numberWithInt:([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
-                [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_INT_OCTAL_REGEX]) {
-        return [NSNumber numberWithInt:[stringValue intValueFromBase:8]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_INT_DECIMAL_REGEX]) {
-        return [NSNumber numberWithInt:[stringValue intValueFromBase:10]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_INT_HEX_REGEX]) {
-        return [NSNumber numberWithInt:[stringValue intValueFromBase:16]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_INT_SEXAGESIMAL_REGEX]) {
+        results = [NSNumber numberWithInt:
+                   ([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
+                   [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
+    } else if ([stringValue isMatchedByRegex:YAML_INT_OCTAL_REGEX]) {
+        results = [NSNumber numberWithInt:[stringValue intValueFromBase:8]];
+    } else if ([stringValue isMatchedByRegex:YAML_INT_DECIMAL_REGEX]) {
+        results = [NSNumber numberWithInt:[stringValue intValueFromBase:10]];
+    } else if ([stringValue isMatchedByRegex:YAML_INT_HEX_REGEX]) {
+        results = [NSNumber numberWithInt:[stringValue intValueFromBase:16]];
+    } else if ([stringValue isMatchedByRegex:YAML_INT_SEXAGESIMAL_REGEX]) {
         NSInteger resultValue = 0;
         for (NSString *component in [stringValue componentsSeparatedByString:@":"]) {
             resultValue = (resultValue * 60) + [component intValueFromBase:10];
         }
-        return [NSNumber numberWithInt:resultValue];
-    }
-
-    // Float
-    if ([stringValue isMatchedByRegex:YAML_FLOAT_DECIMAL_REGEX]) {
-        return [NSDecimalNumber decimalNumberWithString:[stringValue stringByReplacingOccurrencesOfString:@"_"
+        results = [NSNumber numberWithInt:resultValue];
+    // Determine if a 'Float' was specified
+    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_DECIMAL_REGEX]) {
+        results = [NSDecimalNumber decimalNumberWithString:[stringValue stringByReplacingOccurrencesOfString:@"_"
                                                                                                withString:@""]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_FLOAT_SEXAGESIMAL_REGEX]) {
+    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_SEXAGESIMAL_REGEX]) {
         double resultValue = 0;
         for (NSString *component in [[stringValue stringByReplacingOccurrencesOfString:@"_" withString:@""]
                                      componentsSeparatedByString:@":"]) {
             resultValue = (resultValue * 60.0f) + [component doubleValue];
         }
-        return [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:resultValue] decimalValue]];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_FLOAT_INFINITY_REGEX]) {
+        results = [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:resultValue] decimalValue]];
+    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_INFINITY_REGEX]) {
         if ([stringValue hasPrefix:@"-"])
-            return (id)kCFNumberPositiveInfinity;
+            results = (id)kCFNumberPositiveInfinity;
         else
-            return (id)kCFNumberNegativeInfinity;
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_FLOAT_NAN_REGEX]) {
-        return [NSDecimalNumber notANumber];
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_BOOL_TRUE_REGEX]) {
-        return (id)kCFBooleanTrue;
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_BOOL_FALSE_REGEX]) {
-        return (id)kCFBooleanFalse;
-    }
-
-    if ([stringValue isMatchedByRegex:YAML_NULL_REGEX]) {
-        return [NSNull null];
-    }
-
-    // Timestamp
-    if ([stringValue isMatchedByRegex:YAML_TIMESTAMP_YMD_REGEX]) {
-        return [NSDate dateWithString:[stringValue stringByAppendingFormat:@" 00:00:00 +0000"]];
-    }
-
-    if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_TIMESTAMP_YMDTZ_REGEX]) count]) {
+            results = (id)kCFNumberNegativeInfinity;
+    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_NAN_REGEX]) {
+        results = [NSDecimalNumber notANumber];
+    // Determine if a 'Boolean' was specified
+    } else if ([stringValue isMatchedByRegex:YAML_BOOL_TRUE_REGEX]) {
+        results = (id)kCFBooleanTrue;
+    } else if ([stringValue isMatchedByRegex:YAML_BOOL_FALSE_REGEX]) {
+        results = (id)kCFBooleanFalse;
+    // Determine if a 'Null' was specified
+    } else if ([stringValue isMatchedByRegex:YAML_NULL_REGEX]) {
+        results = [NSNull null];
+    // Determine if a 'Timestamp' was specified
+    } else if ([stringValue isMatchedByRegex:YAML_TIMESTAMP_YMD_REGEX]) {
+        results = [NSDate dateWithString:[stringValue stringByAppendingFormat:@" 00:00:00 +0000"]];
+    } else if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_TIMESTAMP_YMDTZ_REGEX]) count]) {
         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 
         [dateComponents setYear:[[[components objectAtIndex:0] objectAtIndex:1] intValue]];
@@ -323,10 +301,44 @@
             NSTimeInterval fractionalInterval = (double)fractional / pow(10.0, floor(log10((double)fractional))+1.0);
             resultDate = [resultDate dateByAddingTimeInterval:fractionalInterval];
         }
-        return resultDate;
+        results = resultDate;
     }
 
-    return stringValue;
+    // If an explict tag to cast to was not specified, then return the automatically casted values
+    if (!tagString)
+        return results;
+
+    // Try to cast results to an 'Integer'
+    if ([tagString isEqualToString:YKIntegerTagDeclaration]) {
+        if (results == [NSNull null])
+            return [NSNumber numberWithInt:0];
+        if (![results isKindOfClass:[NSNumber class]])
+            return [NSNull null];
+        if ([results objCType] == @encode(int))
+            return results;
+        return [NSNumber numberWithInt:[results intValue]];
+    // Try to cast results to a 'Float'
+    } else if ([tagString isEqualToString:YKFloatTagDeclaration]) {
+        if (results == [NSNull null])
+            return [NSNumber numberWithDouble:0.0];
+        if (![results isKindOfClass:[NSNumber class]])
+            return [NSNull null];
+        if ([results objCType] == @encode(float) || [results objCType] == @encode(double)
+            || [results objCType] == @encode(NSDecimal))
+            return results;
+        return [NSNumber numberWithDouble:[results doubleValue]];
+    // Try to cast results to a 'Boolean'
+    } else if ([tagString isEqualToString:YKBooleanTagDeclaration]) {
+        if (results == [NSNull null])
+            return (id)kCFBooleanFalse;
+        if (![results isKindOfClass:[NSNumber class]])
+            return [NSNull null];
+        if ([results objCType] == @encode(BOOL))
+            return results;
+        return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
+    }
+
+    return results;
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p

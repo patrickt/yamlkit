@@ -73,6 +73,49 @@
     }
 }
 
+- (void)testExplicitIntegerCasting
+{
+    [p readString:@"- !!int 6.8523015e+5\n- !!int 685.230_15e+03\n- !!int 685_230.15\n- !!int 190:20:30.15\n" \
+     "- !<tag:yaml.org,2002:int> 6.8523015e+5\n- !<tag:yaml.org,2002:int> 685.230_15e+03\n" \
+     "- !<tag:yaml.org,2002:int> 685_230.15\n- !<tag:yaml.org,2002:int> 190:20:30.15\n"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithInt:685230], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!int true\n- !!int True\n- !!int TRUE\n- !!int y\n- !!int Y\n- !!int Yes\n" \
+     "- !!int YES\n- !!int yes\n- !!int on\n- !!int On\n- !!int ON\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithInt:1.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!int false\n- !!int False\n- !!int FALSE\n- !!int n\n- !!int N\n- !!int No\n" \
+     "- !!int NO\n- !!int off\n- !!int Off\n- !!int OFF\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithInt:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!int null\n- !!int Null\n- !!int NULL\n- !!int ~\n- !!int \n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithInt:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!int 2001-12-14t21:59:43.10-05:00\n- !!int 2001-12-14 21:59:43.10 -5\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
+        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
 - (void)testAutomaticFloatCasting
 {
     [p readString:@"- 6.8523015e+5\n- 685.230_15e+03\n- 685_230.15\n- 190:20:30.15\n"];
@@ -81,6 +124,51 @@
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
         STAssertEqualObjects(value, [NSNumber numberWithDouble:685230.15], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+}
+
+- (void)testExplicitFloatCasting
+{
+    [p readString:@"- !!float 685230\n- !!float +685_230\n- !!float 02472256\n- !!float 0x_0A_74_AE\n" \
+     "- !!float 0b1010_0111_0100_1010_1110\n- !!float 190:20:30\n- !<tag:yaml.org,2002:float> 685230\n" \
+     "- !<tag:yaml.org,2002:float> +685_230\n- !<tag:yaml.org,2002:float> 02472256\n" \
+     "- !<tag:yaml.org,2002:float> 0x_0A_74_AE\n- !<tag:yaml.org,2002:float> 0b1010_0111_0100_1010_1110\n" \
+     "- !<tag:yaml.org,2002:float> 190:20:30\n"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:685230.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!float true\n- !!float True\n- !!float TRUE\n- !!float y\n- !!float Y\n- !!float Yes\n" \
+     "- !!float YES\n- !!float yes\n- !!float on\n- !!float On\n- !!float ON\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:1.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!float false\n- !!float False\n- !!float FALSE\n- !!float n\n- !!float N\n- !!float No\n" \
+     "- !!float NO\n- !!float off\n- !!float Off\n- !!float OFF\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!float null\n- !!float Null\n- !!float NULL\n- !!float ~\n- !!float \n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!float 2001-12-14t21:59:43.10-05:00\n- !!float 2001-12-14 21:59:43.10 -5\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
+        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
@@ -105,6 +193,32 @@
         } else {
             STFail(@"'%@' was not a boolean it was %@ (%d -> %d)", value, NSStringFromClass(value), CFGetTypeID(value), CFBooleanGetTypeID());
         }
+    }
+}
+
+- (void)testExplicitBooleanCasting {
+    [p readString:@"- !!bool 685230\n- !!bool +685_230\n- !!bool 02472256\n- !!bool 0x_0A_74_AE\n" \
+     "- !!bool 0b1010_0111_0100_1010_1110\n- !!bool 190:20:30\n- !!bool 6.8523015e+5\n- !!bool 685.230_15e+03\n" \
+     "- !!bool 685_230.15\n- !!bool 190:20:30.15\n"];
+    NSArray *o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue(CFGetTypeID(value) == CFBooleanGetTypeID(), @"was not a boolean");
+        STAssertEqualObjects(value, (id)kCFBooleanTrue, @"incorrectly cast to kCFBooleanTrue <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!bool null\n- !!bool Null\n- !!bool NULL\n- !!bool ~\n- !!bool \n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue(CFGetTypeID(value) == CFBooleanGetTypeID(), @"was not a boolean");
+        STAssertEqualObjects(value, (id)kCFBooleanFalse, @"incorrectly cast to kCFBooleanFalse <%@(%@)>", NSStringFromClass([value class]), value);
+    }
+    [p readString:@"- !!bool 2001-12-14t21:59:43.10-05:00\n- !!bool 2001-12-14 21:59:43.10 -5\n"];
+    o = [[p parse] objectAtIndex:0];
+    STAssertTrue([o count], @"parser returned nothing.");
+    for (id value in o) {
+        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
+        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 

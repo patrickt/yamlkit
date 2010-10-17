@@ -18,9 +18,11 @@
 - (void)testModerateLoadingFromFile;
 - (void)testExplicitStringCasting;
 - (void)testAutomaticIntegerCasting;
+- (void)testExplicitIntegerCasting;
 - (void)testAutomaticFloatCasting;
-- (void)testAutomaticFloatCasting;
+- (void)testExplicitFloatCasting;
 - (void)testAutomaticBooleanCasting;
+- (void)testExplicitBooleanCasting;
 - (void)testAutomaticNullCasting;
 - (void)testExplicitNullCasting;
 - (void)testAutomaticTimestampCasting;
