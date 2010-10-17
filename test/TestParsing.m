@@ -67,7 +67,7 @@
     NSArray *o = [[p parse] objectAtIndex:0];
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
-        STAssertEqualObjects(value, [NSNumber numberWithDouble:685230.15], @"incorrectly cast to NSDecimalNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertEqualObjects(value, [NSNumber numberWithDouble:685230.15], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
