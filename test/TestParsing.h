@@ -26,6 +26,7 @@
 - (void)testAutomaticNullCasting;
 - (void)testExplicitNullCasting;
 - (void)testAutomaticTimestampCasting;
+- (void)testExplicitBinaryCasting;
 - (void)testWithNonexistentFile;
 //- (void)testWithMalformedStringInput;
 //- (void)testSuccessfulLoadingUsingErrors;

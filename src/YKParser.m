@@ -10,6 +10,7 @@
 #import "YKConstants.h"
 #import "RegexKitLite.h"
 #import "NSString+YAMLKit.h"
+#import "NSData+Base64.h"
 
 // !!int: tag:yaml.org,2002:int ( http://yaml.org/type/int.html )
 #define YAML_INT_BINARY_REGEX           @"^([-+])?0b([0-1_]+)$"
@@ -34,7 +35,6 @@
 // !!timestamp: tag:yaml.org,2002:timestamp ( http://yaml.org/type/timestamp.html )
 #define YAML_TIMESTAMP_YMD_REGEX        @"^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})$"
 #define YAML_TIMESTAMP_YMDTZ_REGEX      @"^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})(?:[Tt]|[ \\t]+)([0-9]{1,2}):([0-9]{2}):([0-9]{2})(?:\\.([0-9]*))?[ \\t]*(?:Z|(?:([-+][0-9]{1,2})(?::([0-9]{2}))?))?$"
-
 
 @interface YKParser (YKParserPrivateMethods)
 
@@ -219,6 +219,11 @@
     if ([tagString isEqualToString:YKNullTagDeclaration])
         return [NSNull null];
 
+    if ([tagString isEqualToString:YKBinaryTagDeclaration]) {
+        stringValue = [stringValue stringByReplacingOccurrencesOfRegex:@"(^\\s+)|(\\s$)" withString:@""];
+        return [NSData dataFromBase64String:stringValue];
+    }
+
     // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
     // the stringValue
     NSArray *components = nil;
@@ -338,7 +343,7 @@
         return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
     }
 
-    return results;
+    return [NSNull null];
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p

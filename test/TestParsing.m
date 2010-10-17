@@ -275,6 +275,30 @@
     }
 }
 
+- (void)testExplicitBinaryCasting
+{
+    NSString *testdataFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"test" ofType:@"bin"];
+    NSAssert(testdataFilePath, @"Unable to find test.bin file.");
+    NSData *data = [NSData dataWithContentsOfFile:testdataFilePath];
+
+    [p readString:@"- !!binary \"\n" \
+     "  R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5\\\n" \
+     "  OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+\\\n" \
+     "  +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC\\\n" \
+     "  AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=\"\n"
+     "- !!binary |\n" \
+     "  R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5\n" \
+     "  OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+\n" \
+     "  +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC\n" \
+     "  AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=\n"];
+    NSError *scopeError = nil;
+    NSArray *o = [[p parseWithError:&scopeError] objectAtIndex:0];
+    STAssertNotNil(o, @"parser returned nothing, error %@", [scopeError userInfo]);
+    for (id value in o) {
+        STAssertEqualObjects(value, data, @"unexpected data value %@", value);
+    }
+}
+
 - (void)testWithNonexistentFile
 {
     STAssertFalse([p readFile:@"test/doesnotexist"], @"#readFile returned true when given a nonexistent file");
