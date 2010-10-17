@@ -18,7 +18,10 @@
 - (void)testModerateLoadingFromFile;
 - (void)testAutomaticIntegerCasting;
 - (void)testAutomaticFloatCasting;
+- (void)testAutomaticFloatCasting;
 - (void)testAutomaticBooleanCasting;
+- (void)testAutomaticNullCasting;
+- (void)testAutomaticTimestampCasting;
 - (void)testWithNonexistentFile;
 //- (void)testWithMalformedStringInput;
 //- (void)testSuccessfulLoadingUsingErrors;
