@@ -225,27 +225,34 @@
     // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
     // the stringValue
     NSArray *components = nil;
+    NSString *resultsTag = YKStringTagDeclaration;
     id results = stringValue;
 
     // Determine if an 'Integer' was specified
     if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_INT_BINARY_REGEX]) count] != 0) {
+        resultsTag = YKIntegerTagDeclaration;
         results = [NSNumber numberWithInt:
                    ([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
                    [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
     } else if ([stringValue isMatchedByRegex:YAML_INT_OCTAL_REGEX]) {
+        resultsTag = YKIntegerTagDeclaration;
         results = [NSNumber numberWithInt:[stringValue intValueFromBase:8]];
     } else if ([stringValue isMatchedByRegex:YAML_INT_DECIMAL_REGEX]) {
+        resultsTag = YKIntegerTagDeclaration;
         results = [NSNumber numberWithInt:[stringValue intValueFromBase:10]];
     } else if ([stringValue isMatchedByRegex:YAML_INT_HEX_REGEX]) {
+        resultsTag = YKIntegerTagDeclaration;
         results = [NSNumber numberWithInt:[stringValue intValueFromBase:16]];
     } else if ([stringValue isMatchedByRegex:YAML_INT_SEXAGESIMAL_REGEX]) {
         NSInteger resultValue = 0;
         for (NSString *component in [stringValue componentsSeparatedByString:@":"]) {
             resultValue = (resultValue * 60) + [component intValueFromBase:10];
         }
+        resultsTag = YKIntegerTagDeclaration;
         results = [NSNumber numberWithInt:resultValue];
     // Determine if a 'Float' was specified
     } else if ([stringValue isMatchedByRegex:YAML_FLOAT_DECIMAL_REGEX]) {
+        resultsTag = YKFloatTagDeclaration;
         results = [NSDecimalNumber decimalNumberWithString:[stringValue stringByReplacingOccurrencesOfString:@"_"
                                                                                                withString:@""]];
     } else if ([stringValue isMatchedByRegex:YAML_FLOAT_SEXAGESIMAL_REGEX]) {
@@ -254,24 +261,31 @@
                                      componentsSeparatedByString:@":"]) {
             resultValue = (resultValue * 60.0f) + [component doubleValue];
         }
+        resultsTag = YKFloatTagDeclaration;
         results = [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:resultValue] decimalValue]];
     } else if ([stringValue isMatchedByRegex:YAML_FLOAT_INFINITY_REGEX]) {
+        resultsTag = YKFloatTagDeclaration;
         if ([stringValue hasPrefix:@"-"])
             results = (id)kCFNumberPositiveInfinity;
         else
             results = (id)kCFNumberNegativeInfinity;
     } else if ([stringValue isMatchedByRegex:YAML_FLOAT_NAN_REGEX]) {
+        resultsTag = YKFloatTagDeclaration;
         results = [NSDecimalNumber notANumber];
     // Determine if a 'Boolean' was specified
     } else if ([stringValue isMatchedByRegex:YAML_BOOL_TRUE_REGEX]) {
+        resultsTag = YKBooleanTagDeclaration;
         results = (id)kCFBooleanTrue;
     } else if ([stringValue isMatchedByRegex:YAML_BOOL_FALSE_REGEX]) {
+        resultsTag = YKBooleanTagDeclaration;
         results = (id)kCFBooleanFalse;
     // Determine if a 'Null' was specified
     } else if ([stringValue isMatchedByRegex:YAML_NULL_REGEX]) {
+        resultsTag = YKNullTagDeclaration;
         results = [NSNull null];
     // Determine if a 'Timestamp' was specified
     } else if ([stringValue isMatchedByRegex:YAML_TIMESTAMP_YMD_REGEX]) {
+        resultsTag = YKTimeStampTagDeclaration;
         results = [NSDate dateWithString:[stringValue stringByAppendingFormat:@" 00:00:00 +0000"]];
     } else if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_TIMESTAMP_YMDTZ_REGEX]) count]) {
         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
@@ -304,41 +318,32 @@
             NSTimeInterval fractionalInterval = (double)fractional / pow(10.0, floor(log10((double)fractional))+1.0);
             resultDate = [resultDate dateByAddingTimeInterval:fractionalInterval];
         }
+        resultsTag = YKTimeStampTagDeclaration;
         results = resultDate;
     }
 
     // If an explict tag to cast to was not specified, then return the automatically casted values
-    if (!tagString)
+    if (!tagString || [tagString isEqualToString:resultsTag])
         return results;
 
     // Try to cast results to an 'Integer'
     if ([tagString isEqualToString:YKIntegerTagDeclaration]) {
-        if (results == [NSNull null])
+        if (resultsTag == YKNullTagDeclaration)
             return [NSNumber numberWithInt:0];
-        if (![results isKindOfClass:[NSNumber class]])
-            return [NSNull null];
-        if ([results objCType] == @encode(int))
-            return results;
-        return [NSNumber numberWithInt:[results intValue]];
+        if ([results isKindOfClass:[NSNumber class]])
+            return [NSNumber numberWithInt:[results intValue]];
     // Try to cast results to a 'Float'
     } else if ([tagString isEqualToString:YKFloatTagDeclaration]) {
         if (results == [NSNull null])
             return [NSNumber numberWithDouble:0.0];
-        if (![results isKindOfClass:[NSNumber class]])
-            return [NSNull null];
-        if ([results objCType] == @encode(float) || [results objCType] == @encode(double)
-            || [results objCType] == @encode(NSDecimal))
-            return results;
-        return [NSNumber numberWithDouble:[results doubleValue]];
+        if ([results isKindOfClass:[NSNumber class]])
+            return [NSNumber numberWithDouble:[results doubleValue]];
     // Try to cast results to a 'Boolean'
     } else if ([tagString isEqualToString:YKBooleanTagDeclaration]) {
         if (results == [NSNull null])
             return (id)kCFBooleanFalse;
-        if (![results isKindOfClass:[NSNumber class]])
-            return [NSNull null];
-        if ([results objCType] == @encode(BOOL))
-            return results;
-        return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
+        if ([results isKindOfClass:[NSNumber class]])
+            return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
     }
 
     return [NSNull null];
