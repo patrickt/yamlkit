@@ -219,10 +219,8 @@
     if ([tagString isEqualToString:YKNullTagDeclaration])
         return [NSNull null];
 
-    if ([tagString isEqualToString:YKBinaryTagDeclaration]) {
-        stringValue = [stringValue stringByReplacingOccurrencesOfRegex:@"(^\\s+)|(\\s$)" withString:@""];
+    if ([tagString isEqualToString:YKBinaryTagDeclaration])
         return [NSData dataFromBase64String:stringValue];
-    }
 
     // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
     // the stringValue
@@ -387,7 +385,7 @@
         [data setObject:NSLocalizedString(@"YAML parser was not ready to parse.", @"") forKey:NSLocalizedFailureReasonErrorKey];
         [data setObject:NSLocalizedString(@"Did you remember to call readFile: or readString:?", @"") forKey:NSLocalizedDescriptionKey];
     }
-\
+
     return [NSError errorWithDomain:YKErrorDomain code:code userInfo:data];
 }
 
