@@ -10,6 +10,7 @@
 #import <YAMLKit/NSData+Base64.h>
 #import <YAMLKit/YKParser.h>
 #import <YAMLKit/YKEmitter.h>
+#import <YAMLKit/YKUnknownNode.h>
 
 @interface YAMLKit : NSObject
 {

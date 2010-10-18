@@ -9,6 +9,7 @@
 #import "YKParser.h"
 #import "YKConstants.h"
 #import "RegexKitLite.h"
+#import "YKUnknownNode.h"
 #import "NSString+YAMLKit.h"
 #import "NSData+Base64.h"
 
@@ -346,7 +347,10 @@
             return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
     }
 
-    return [NSNull null];
+    YKRange range = YKMakeRange(YKMakeMark(event.start_mark.line, event.start_mark.column, event.start_mark.index),
+                                YKMakeMark(event.end_mark.line, event.end_mark.column, event.end_mark.index));
+    return [YKUnknownNode unknownNodeWithStringValue:stringValue resolvedTag:resultsTag castedTag:tagString
+                                            position:range];
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p

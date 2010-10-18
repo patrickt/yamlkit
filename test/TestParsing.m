@@ -6,6 +6,7 @@
 //
 
 #import "TestParsing.h"
+#import "YKConstants.h"
 
 @implementation TestParsing
 
@@ -111,8 +112,8 @@
     o = [[p parse] objectAtIndex:0];
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
-        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
-        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
+        STAssertEqualObjects([value castedTag], YKIntegerTagDeclaration, @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
@@ -167,8 +168,8 @@
     o = [[p parse] objectAtIndex:0];
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
-        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
-        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
+        STAssertEqualObjects([value castedTag], YKFloatTagDeclaration, @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
@@ -217,8 +218,8 @@
     o = [[p parse] objectAtIndex:0];
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
-        STAssertTrue([value isKindOfClass:[NSNull class]], @"was not null");
-        STAssertEqualObjects(value, [NSNull null], @"incorrectly cast to NSNull <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
+        STAssertEqualObjects([value castedTag], YKBooleanTagDeclaration, @"incorrectly cast to CFBoolean <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
