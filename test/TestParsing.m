@@ -6,7 +6,6 @@
 //
 
 #import "TestParsing.h"
-#import "YKConstants.h"
 
 @implementation TestParsing
 

@@ -6,22 +6,22 @@
  *  Copyright 2009 Patrick Thomson. All rights reserved.
  *
  */
-NSString * const YKErrorDomain                  = @"YKErrorDomain";
-NSString * const YKProblemValueKey              = @"YKProblemValue";
-NSString * const YKProblemOffsetKey             = @"YKProblemOffset";
-NSString * const YKProblemIndexKey              = @"YKProblemIndex";
-NSString * const YKProblemLineKey               = @"YKProblemLine";
-NSString * const YKProblemColumnKey             = @"YKProblemColumn";
-NSString * const YKProblemDescriptionKey        = @"YKProblemDescription";
-NSString * const YKErrorContextIndexKey         = @"YKErrorContextIndex";
-NSString * const YKErrorContextLineKey          = @"YKErrorContextLine";
-NSString * const YKErrorContextColumnKey        = @"YKErrorContextColumn";
-NSString * const YKErrorContextDescriptionKey   = @"YKErrorContext";
+extern NSString * const YKErrorDomain;
+extern NSString * const YKProblemValueKey;
+extern NSString * const YKProblemOffsetKey;
+extern NSString * const YKProblemIndexKey;
+extern NSString * const YKProblemLineKey;
+extern NSString * const YKProblemColumnKey;
+extern NSString * const YKProblemDescriptionKey;
+extern NSString * const YKErrorContextIndexKey;
+extern NSString * const YKErrorContextLineKey;
+extern NSString * const YKErrorContextColumnKey;
+extern NSString * const YKErrorContextDescriptionKey;
 
-NSString * const YKStringTagDeclaration         = @"tag:yaml.org,2002:str";
-NSString * const YKIntegerTagDeclaration        = @"tag:yaml.org,2002:int";
-NSString * const YKFloatTagDeclaration          = @"tag:yaml.org,2002:float";
-NSString * const YKBooleanTagDeclaration        = @"tag:yaml.org,2002:bool";
-NSString * const YKNullTagDeclaration           = @"tag:yaml.org,2002:null";
-NSString * const YKTimeStampTagDeclaration      = @"tag:yaml.org,2002:timestamp";
-NSString * const YKBinaryTagDeclaration         = @"tag:yaml.org,2002:binary";
+extern NSString * const YKStringTagDeclaration;
+extern NSString * const YKIntegerTagDeclaration;
+extern NSString * const YKFloatTagDeclaration;
+extern NSString * const YKBooleanTagDeclaration;
+extern NSString * const YKNullTagDeclaration;
+extern NSString * const YKTimeStampTagDeclaration;
+extern NSString * const YKBinaryTagDeclaration;

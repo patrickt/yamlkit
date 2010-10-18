@@ -34,6 +34,7 @@
 		EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */; };
 		EF4D8583126B0FD5005C152A /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4D8581126B0FD5005C152A /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D8582126B0FD5005C152A /* NSData+Base64.m */; };
+		EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCA14126C2DD90097B74B /* YKConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+YAMLKit.m"; path = "src/NSString+YAMLKit.m"; sourceTree = "<group>"; };
 		EF4D8581126B0FD5005C152A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		EF4D8582126B0FD5005C152A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		EFCBCA14126C2DD90097B74B /* YKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				CD2913040F0E85930003FE76 /* YKConstants.h */,
+				EFCBCA14126C2DD90097B74B /* YKConstants.m */,
 				CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */,
 				CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */,
 				CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */,
@@ -372,6 +375,7 @@
 				EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */,
 				EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */,
 				EF3AE438126C1B2A0052D7E8 /* YKUnknownNode.m in Sources */,
+				EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

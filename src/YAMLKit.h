@@ -8,6 +8,7 @@
  */
 
 #import <YAMLKit/NSData+Base64.h>
+#import <YAMLKit/YKConstants.h>
 #import <YAMLKit/YKParser.h>
 #import <YAMLKit/YKEmitter.h>
 #import <YAMLKit/YKUnknownNode.h>
