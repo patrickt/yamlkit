@@ -8,34 +8,8 @@
 #import "yaml.h"
 #import "YKParser.h"
 #import "YKConstants.h"
-#import "RegexKitLite.h"
-#import "YKUnknownNode.h"
-#import "NSString+YAMLKit.h"
-#import "NSData+Base64.h"
-
-// !!int: tag:yaml.org,2002:int ( http://yaml.org/type/int.html )
-#define YAML_INT_BINARY_REGEX           @"^([-+])?0b([0-1_]+)$"
-#define YAML_INT_OCTAL_REGEX            @"^[-+]?0[0-7_]+$"
-#define YAML_INT_DECIMAL_REGEX          @"^[-+]?(?:0|[1-9][0-9_]*)$"
-#define YAML_INT_HEX_REGEX              @"^[-+]?0x[0-9a-fA-F_]+$"
-#define YAML_INT_SEXAGESIMAL_REGEX      @"^([-+])?(([1-9][0-9_]*)(:[0-5]?[0-9])+)$"
-
-// !!float: tag:yaml.org,2002:float ( http://yaml.org/type/float.html )
-#define YAML_FLOAT_DECIMAL_REGEX        @"^[-+]?(?:[0-9][0-9_]*)?\\.[0-9_]*(?:[eE][-+][0-9]+)?$"
-#define YAML_FLOAT_SEXAGESIMAL_REGEX    @"^[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*$"
-#define YAML_FLOAT_INFINITY_REGEX       @"^[-+]?\\.(?:inf|Inf|INF)$"
-#define YAML_FLOAT_NAN_REGEX            @"^\\.(?:nan|NaN|NAN)$"
-
-// !!bool: tag:yaml.org,2002:bool ( http://yaml.org/type/bool.html )
-#define YAML_BOOL_TRUE_REGEX            @"^(?:[Yy](?:es)?|YES|[Tt]rue|TRUE|[Oo]n|ON)$"
-#define YAML_BOOL_FALSE_REGEX           @"^(?:[Nn]o?|NO|[Ff]alse|FALSE|[Oo]ff|OFF)$"
-
-// !!null: tag:yaml.org,2002:null ( http://yaml.org/type/null.html )
-#define YAML_NULL_REGEX                 @"^(?:~|[Nn]ull|NULL|)$"
-
-// !!timestamp: tag:yaml.org,2002:timestamp ( http://yaml.org/type/timestamp.html )
-#define YAML_TIMESTAMP_YMD_REGEX        @"^(?:[0-9]{4}-[0-9]{2}-[0-9]{2})$"
-#define YAML_TIMESTAMP_YMDTZ_REGEX      @"^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})(?:[Tt]|[ \\t]+)([0-9]{1,2}):([0-9]{2}):([0-9]{2})(?:\\.([0-9]*))?[ \\t]*(?:Z|(?:([-+][0-9]{1,2})(?::([0-9]{2}))?))?$"
+#import "YKTag.h"
+#import "YKNativeTagManager.h"
 
 @interface YKParser (YKParserPrivateMethods)
 
@@ -48,8 +22,10 @@
 @implementation YKParser
 
 @synthesize isReadyToParse=readyToParse;
+@synthesize tagsByName;
 
-- (id)init {
+- (id)init
+{
     if (!(self = [super init]))
         return nil;
 
@@ -59,6 +35,8 @@
         [self release];
         return nil;
     }
+
+    tagsByName = [[NSMutableDictionary alloc] initWithDictionary:[[YKNativeTagManager sharedManager] tagsByName]];
 
     return self;
 }
@@ -202,155 +180,34 @@
     return stack;
 }
 
-// TODO: oof, add tag support.
+- (void)addTag:(YKTag *)tag
+{
+    [tagsByName setObject:tag forKey:[tag verbatim]];
+}
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
     NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
-    NSString *tagString = (event.data.scalar.tag == NULL ? nil :
-                           [NSString stringWithUTF8String:(const char *)event.data.scalar.tag]);
+    NSString *explicitTagString = (event.data.scalar.tag == NULL ? nil :
+                                   [NSString stringWithUTF8String:(const char *)event.data.scalar.tag]);
 
     // Special event, if scalar style is not a "plain" style then just return the string representation
-    // Special event, if the tag is set to !!str then do not try to automatically resolve the type of data specified.
-    if ([tagString isEqualToString:YKStringTagDeclaration] ||
-        (tagString == nil && event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE))
+    if (explicitTagString == nil && event.data.scalar.style != YAML_PLAIN_SCALAR_STYLE)
         return stringValue;
 
-    // Special event, if the tag is set to !!null then just return null
-    if ([tagString isEqualToString:YKNullTagDeclaration])
-        return [NSNull null];
-
-    if ([tagString isEqualToString:YKBinaryTagDeclaration])
-        return [NSData dataFromBase64String:stringValue];
-
-    // Try to automatically determine the type of data specified, if we cannot determine the data-type then just return
-    // the stringValue
-    NSArray *components = nil;
-    NSString *resultsTag = YKStringTagDeclaration;
-    id results = stringValue;
-
-    // Determine if an 'Integer' was specified
-    if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_INT_BINARY_REGEX]) count] != 0) {
-        resultsTag = YKIntegerTagDeclaration;
-        results = [NSNumber numberWithInt:
-                   ([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
-                   [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
-    } else if ([stringValue isMatchedByRegex:YAML_INT_OCTAL_REGEX]) {
-        resultsTag = YKIntegerTagDeclaration;
-        results = [NSNumber numberWithInt:[stringValue intValueFromBase:8]];
-    } else if ([stringValue isMatchedByRegex:YAML_INT_DECIMAL_REGEX]) {
-        resultsTag = YKIntegerTagDeclaration;
-        results = [NSNumber numberWithInt:[stringValue intValueFromBase:10]];
-    } else if ([stringValue isMatchedByRegex:YAML_INT_HEX_REGEX]) {
-        resultsTag = YKIntegerTagDeclaration;
-        results = [NSNumber numberWithInt:[stringValue intValueFromBase:16]];
-    } else if ([stringValue isMatchedByRegex:YAML_INT_SEXAGESIMAL_REGEX]) {
-        NSInteger resultValue = 0;
-        for (NSString *component in [stringValue componentsSeparatedByString:@":"]) {
-            resultValue = (resultValue * 60) + [component intValueFromBase:10];
-        }
-        resultsTag = YKIntegerTagDeclaration;
-        results = [NSNumber numberWithInt:resultValue];
-    // Determine if a 'Float' was specified
-    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_DECIMAL_REGEX]) {
-        resultsTag = YKFloatTagDeclaration;
-        results = [NSDecimalNumber decimalNumberWithString:[stringValue stringByReplacingOccurrencesOfString:@"_"
-                                                                                               withString:@""]];
-    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_SEXAGESIMAL_REGEX]) {
-        double resultValue = 0;
-        for (NSString *component in [[stringValue stringByReplacingOccurrencesOfString:@"_" withString:@""]
-                                     componentsSeparatedByString:@":"]) {
-            resultValue = (resultValue * 60.0f) + [component doubleValue];
-        }
-        resultsTag = YKFloatTagDeclaration;
-        results = [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:resultValue] decimalValue]];
-    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_INFINITY_REGEX]) {
-        resultsTag = YKFloatTagDeclaration;
-        if ([stringValue hasPrefix:@"-"])
-            results = (id)kCFNumberPositiveInfinity;
-        else
-            results = (id)kCFNumberNegativeInfinity;
-    } else if ([stringValue isMatchedByRegex:YAML_FLOAT_NAN_REGEX]) {
-        resultsTag = YKFloatTagDeclaration;
-        results = [NSDecimalNumber notANumber];
-    // Determine if a 'Boolean' was specified
-    } else if ([stringValue isMatchedByRegex:YAML_BOOL_TRUE_REGEX]) {
-        resultsTag = YKBooleanTagDeclaration;
-        results = (id)kCFBooleanTrue;
-    } else if ([stringValue isMatchedByRegex:YAML_BOOL_FALSE_REGEX]) {
-        resultsTag = YKBooleanTagDeclaration;
-        results = (id)kCFBooleanFalse;
-    // Determine if a 'Null' was specified
-    } else if ([stringValue isMatchedByRegex:YAML_NULL_REGEX]) {
-        resultsTag = YKNullTagDeclaration;
-        results = [NSNull null];
-    // Determine if a 'Timestamp' was specified
-    } else if ([stringValue isMatchedByRegex:YAML_TIMESTAMP_YMD_REGEX]) {
-        resultsTag = YKTimeStampTagDeclaration;
-        results = [NSDate dateWithString:[stringValue stringByAppendingFormat:@" 00:00:00 +0000"]];
-    } else if ([(components = [stringValue arrayOfCaptureComponentsMatchedByRegex:YAML_TIMESTAMP_YMDTZ_REGEX]) count]) {
-        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-
-        [dateComponents setYear:[[[components objectAtIndex:0] objectAtIndex:1] intValue]];
-        [dateComponents setMonth:[[[components objectAtIndex:0] objectAtIndex:2] intValue]];
-        [dateComponents setDay:[[[components objectAtIndex:0] objectAtIndex:3] intValue]];
-        [dateComponents setHour:[[[components objectAtIndex:0] objectAtIndex:4] intValue]];
-        [dateComponents setMinute:[[[components objectAtIndex:0] objectAtIndex:5] intValue]];
-        [dateComponents setSecond:[[[components objectAtIndex:0] objectAtIndex:6] intValue]];
-        NSInteger fractional = [[[components objectAtIndex:0] objectAtIndex:7] intValue];
-
-        NSInteger deltaFromGMTInSeconds = ([[[components objectAtIndex:0] objectAtIndex:8] intValueFromBase:10] * 360) +
-                                          ([[[components objectAtIndex:0] objectAtIndex:9] intValue] * 60);
-        NSTimeZone *timeZone = nil;
-        if (deltaFromGMTInSeconds != 0) {
-            timeZone = [NSTimeZone timeZoneForSecondsFromGMT:deltaFromGMTInSeconds];
-        } else {
-            timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-        }
-
-        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        [gregorian setTimeZone:timeZone];
-        NSDate *resultDate = [gregorian dateFromComponents:dateComponents];
-        [gregorian release];
-        [dateComponents release];
-
-        // This is not the most elegant way of doing it...but update the date with the fractional value
-        if (fractional > 0) {
-            NSTimeInterval fractionalInterval = (double)fractional / pow(10.0, floor(log10((double)fractional))+1.0);
-            resultDate = [resultDate dateByAddingTimeInterval:fractionalInterval];
-        }
-        resultsTag = YKTimeStampTagDeclaration;
-        results = resultDate;
-    }
-
-    // If an explict tag to cast to was not specified, then return the automatically casted values
-    if (!tagString || [tagString isEqualToString:resultsTag])
+    // If an explicit tag was identified, try to cast it from nil, nil means that the implicit tag (or source tag) has
+    // not been identified yet
+    YKTag *explicitTag = [tagsByName valueForKey:explicitTagString];
+    id results = [explicitTag castValue:stringValue fromTag:nil];
+    if (results)
         return results;
 
-    // Try to cast results to an 'Integer'
-    if ([tagString isEqualToString:YKIntegerTagDeclaration]) {
-        if (resultsTag == YKNullTagDeclaration)
-            return [NSNumber numberWithInt:0];
-        if ([results isKindOfClass:[NSNumber class]])
-            return [NSNumber numberWithInt:[results intValue]];
-    // Try to cast results to a 'Float'
-    } else if ([tagString isEqualToString:YKFloatTagDeclaration]) {
-        if (results == [NSNull null])
-            return [NSNumber numberWithDouble:0.0];
-        if ([results isKindOfClass:[NSNumber class]])
-            return [NSNumber numberWithDouble:[results doubleValue]];
-    // Try to cast results to a 'Boolean'
-    } else if ([tagString isEqualToString:YKBooleanTagDeclaration]) {
-        if (results == [NSNull null])
-            return (id)kCFBooleanFalse;
-        if ([results isKindOfClass:[NSNumber class]])
-            return ([results doubleValue] > 0 ? (id)kCFBooleanTrue : (id)kCFBooleanFalse);
+    for (YKTag *resultsTag in [tagsByName allValues]) {
+        if ((results = [resultsTag decodeFromString:stringValue explicitTag:explicitTag]))
+            return results;
     }
 
-    YKRange range = YKMakeRange(YKMakeMark(event.start_mark.line, event.start_mark.column, event.start_mark.index),
-                                YKMakeMark(event.end_mark.line, event.end_mark.column, event.end_mark.index));
-    return [YKUnknownNode unknownNodeWithStringValue:stringValue resolvedTag:resultsTag castedTag:tagString
-                                            position:range];
+    return stringValue;
 }
 
 - (NSError *)_constructErrorFromParser:(yaml_parser_t *)p
@@ -417,6 +274,7 @@
 
 - (void)dealloc
 {
+    [tagsByName release], tagsByName = nil;
     [self _destroy];
     free(opaque_parser), opaque_parser = nil;
     [super dealloc];

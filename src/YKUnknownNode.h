@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <YAMLKit/YKTag.h>
 
 typedef struct {
     NSUInteger line;
@@ -24,19 +25,19 @@ YKMark YKMakeMark(NSUInteger line, NSUInteger column, NSUInteger index);
 
 @interface YKUnknownNode : NSObject {
     YKRange position;
-    NSString *resolvedTag;
-    NSString *castedTag;
+    YKTag *implicitTag;
+    YKTag *explicitTag;
     NSString *stringValue;
 }
 
-+ (id)unknownNodeWithStringValue:(NSString *)aStringValue resolvedTag:(NSString *)aResolvedTag
-                       castedTag:(NSString *)aCastedTag position:(YKRange)aPosition;
-- (id)initWithStringValue:(NSString *)aStringValue resolvedTag:(NSString *)aResolvedTag castedTag:(NSString *)aCastedTag
++ (id)unknownNodeWithStringValue:(NSString *)aStringValue implicitTag:(YKTag *)aImplicitTag
+                       explicitTag:(YKTag *)aExplicitTag position:(YKRange)aPosition;
+- (id)initWithStringValue:(NSString *)aStringValue implicitTag:(YKTag *)aImplicitTag explicitTag:(YKTag *)aExplicitTag
                  position:(YKRange)aPosition;
 
 @property (readonly) YKRange position;
-@property (readonly) NSString *resolvedTag;
-@property (readonly) NSString *castedTag;
+@property (readonly) YKTag *implicitTag;
+@property (readonly) YKTag *explicitTag;
 @property (readonly) NSString *stringValue;
 
 @end

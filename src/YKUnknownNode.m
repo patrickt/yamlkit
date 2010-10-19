@@ -22,22 +22,22 @@ inline YKMark YKMakeMark(NSUInteger line, NSUInteger column, NSUInteger index)
 
 @implementation YKUnknownNode
 
-+ (id)unknownNodeWithStringValue:(NSString *)aStringValue resolvedTag:(NSString *)aResolvedTag
-                       castedTag:(NSString *)aCastedTag position:(YKRange)aPosition
++ (id)unknownNodeWithStringValue:(NSString *)aStringValue implicitTag:(YKTag *)aImplicitTag
+                       explicitTag:(YKTag *)aExplicitTag position:(YKRange)aPosition
 {
-    return [[[self alloc] initWithStringValue:aStringValue resolvedTag:aResolvedTag castedTag:aCastedTag
+    return [[[self alloc] initWithStringValue:aStringValue implicitTag:aImplicitTag explicitTag:aExplicitTag
                                      position:aPosition] autorelease];
 }
 
-- (id)initWithStringValue:(NSString *)aStringValue resolvedTag:(NSString *)aResolvedTag castedTag:(NSString *)aCastedTag
+- (id)initWithStringValue:(NSString *)aStringValue implicitTag:(YKTag *)aImplicitTag explicitTag:(YKTag *)aExplicitTag
                     position:(YKRange)aPosition
 {
     if (!(self = [super init]))
         return nil;
 
     stringValue = [aStringValue copy];
-    resolvedTag = [aResolvedTag copy];
-    castedTag = [aCastedTag copy];
+    implicitTag = [aImplicitTag retain];
+    explicitTag = [aExplicitTag retain];
     memcpy(&position, &aPosition, sizeof(YKRange));
 
     return self;
@@ -46,20 +46,20 @@ inline YKMark YKMakeMark(NSUInteger line, NSUInteger column, NSUInteger index)
 - (void)dealloc
 {
     [stringValue release], stringValue = nil;
-    [resolvedTag release], resolvedTag = nil;
-    [castedTag release], castedTag = nil;
+    [implicitTag release], implicitTag = nil;
+    [explicitTag release], explicitTag = nil;
     [super dealloc];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"{!<%@> %@ (%d:%d),(%d:%d)}", castedTag, stringValue,
+    return [NSString stringWithFormat:@"{!%@ %@ (%d:%d),(%d:%d)}", explicitTag, stringValue,
             position.start.line, position.start.column, position.end.line, position.end.column];
 }
 
 @synthesize position;
-@synthesize resolvedTag;
-@synthesize castedTag;
+@synthesize implicitTag;
+@synthesize explicitTag;
 @synthesize stringValue;
 
 @end

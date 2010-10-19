@@ -6,12 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <YAMLKit/YKTag.h>
 
 @interface YKParser : NSObject {
     BOOL readyToParse;
     FILE *fileInput;
     const char *stringInput;
     void *opaque_parser;
+    NSMutableDictionary *tagsByName;
 }
 
 - (void)reset;
@@ -20,6 +22,10 @@
 - (NSArray *)parse;
 - (NSArray *)parseWithError:(NSError **)e;
 
+- (void)addTag:(YKTag *)tag;
+
 @property (readonly) BOOL isReadyToParse;
+@property (readonly) NSDictionary *tagsByName;
 
 @end
+

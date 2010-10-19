@@ -139,7 +139,7 @@
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
-        STAssertEqualObjects([value castedTag], YKIntegerTagDeclaration, @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([[[value explicitTag] verbatim] isEqualToString:YKIntegerTagDeclaration], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
@@ -195,7 +195,7 @@
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
-        STAssertEqualObjects([value castedTag], YKFloatTagDeclaration, @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([[[value explicitTag] verbatim] isEqualToString:YKFloatTagDeclaration], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 
@@ -245,7 +245,7 @@
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[YKUnknownNode class]], @"was not unknown");
-        STAssertEqualObjects([value castedTag], YKBooleanTagDeclaration, @"incorrectly cast to CFBoolean <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertTrue([[[value explicitTag] verbatim] isEqualToString:YKBooleanTagDeclaration], @"incorrectly cast to CFBoolean <%@(%@)>", NSStringFromClass([value class]), value);
     }
 }
 

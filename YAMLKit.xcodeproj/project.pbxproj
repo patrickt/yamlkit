@@ -32,9 +32,13 @@
 		EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B56612506FFF009BCF6C /* RegexKitLite.m */; };
 		EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */; };
 		EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */; };
+		EF4A6D89126E3DD6006493C1 /* YKNativeTagManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF4A6D8A126E3DD6006493C1 /* YKNativeTagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */; };
 		EF4D8583126B0FD5005C152A /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4D8581126B0FD5005C152A /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D8582126B0FD5005C152A /* NSData+Base64.m */; };
 		EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCA14126C2DD90097B74B /* YKConstants.m */; };
+		EFCBCA50126C2FD50097B74B /* YKTag.h in Headers */ = {isa = PBXBuildFile; fileRef = EFCBCA4C126C2FD50097B74B /* YKTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFCBCA51126C2FD50097B74B /* YKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCA4D126C2FD50097B74B /* YKTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,9 +88,13 @@
 		EF40B56612506FFF009BCF6C /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = extras/src/regexlite/RegexKitLite.m; sourceTree = "<group>"; };
 		EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+YAMLKit.h"; path = "src/NSString+YAMLKit.h"; sourceTree = "<group>"; };
 		EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+YAMLKit.m"; path = "src/NSString+YAMLKit.m"; sourceTree = "<group>"; };
+		EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKNativeTagManager.h; sourceTree = "<group>"; };
+		EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKNativeTagManager.m; sourceTree = "<group>"; };
 		EF4D8581126B0FD5005C152A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		EF4D8582126B0FD5005C152A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		EFCBCA14126C2DD90097B74B /* YKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKConstants.m; sourceTree = "<group>"; };
+		EFCBCA4C126C2FD50097B74B /* YKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKTag.h; sourceTree = "<group>"; };
+		EFCBCA4D126C2FD50097B74B /* YKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKTag.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +171,10 @@
 				CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */,
 				EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */,
 				EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */,
+				EFCBCA4C126C2FD50097B74B /* YKTag.h */,
+				EFCBCA4D126C2FD50097B74B /* YKTag.m */,
+				EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */,
+				EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */,
 				CD69C2330F0983A90011BAB6 /* YKParser.h */,
 				CD69C2340F0983A90011BAB6 /* YKParser.m */,
 			);
@@ -244,6 +256,8 @@
 				EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */,
 				EF4D8583126B0FD5005C152A /* NSData+Base64.h in Headers */,
 				EF3AE437126C1B2A0052D7E8 /* YKUnknownNode.h in Headers */,
+				EFCBCA50126C2FD50097B74B /* YKTag.h in Headers */,
+				EF4A6D89126E3DD6006493C1 /* YKNativeTagManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +390,8 @@
 				EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */,
 				EF3AE438126C1B2A0052D7E8 /* YKUnknownNode.m in Sources */,
 				EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */,
+				EFCBCA51126C2FD50097B74B /* YKTag.m in Sources */,
+				EF4A6D8A126E3DD6006493C1 /* YKNativeTagManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
