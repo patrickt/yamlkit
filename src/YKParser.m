@@ -176,8 +176,9 @@
 
 - (id)_interpretObjectFromEvent:(yaml_event_t)event
 {
-    NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
-    NSString *explicitTagString = (event.data.scalar.tag == NULL ? nil :
+    NSString *stringValue = (!event.data.scalar.value ? nil :
+                             [NSString stringWithUTF8String:(const char *)event.data.scalar.value]);
+    NSString *explicitTagString = (!event.data.scalar.tag ? nil :
                                    [NSString stringWithUTF8String:(const char *)event.data.scalar.tag]);
 
     // Special event, if scalar style is not a "plain" style then just return the string representation
@@ -223,14 +224,16 @@
         }
         [data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
 
-        [data setObject:[NSString stringWithUTF8String:p->problem] forKey:YKProblemDescriptionKey];
+        [data setObject:(!p->problem ? [NSNull null] : [NSString stringWithUTF8String:p->problem])
+                 forKey:YKProblemDescriptionKey];
         [data setObject:[NSNumber numberWithInt:p->problem_offset] forKey:YKProblemOffsetKey];
         [data setObject:[NSNumber numberWithInt:p->problem_value] forKey:YKProblemValueKey];
         [data setObject:[NSNumber numberWithInt:p->problem_mark.line] forKey:YKProblemLineKey];
         [data setObject:[NSNumber numberWithInt:p->problem_mark.index] forKey:YKProblemIndexKey];
         [data setObject:[NSNumber numberWithInt:p->problem_mark.column] forKey:YKProblemColumnKey];
 
-        [data setObject:[NSString stringWithUTF8String:p->context] forKey:YKErrorContextDescriptionKey];
+        [data setObject:(!p->context ? [NSNull null] : [NSString stringWithUTF8String:p->context])
+                 forKey:YKErrorContextDescriptionKey];
         [data setObject:[NSNumber numberWithInt:p->context_mark.line] forKey:YKErrorContextLineKey];
         [data setObject:[NSNumber numberWithInt:p->context_mark.column] forKey:YKErrorContextColumnKey];
         [data setObject:[NSNumber numberWithInt:p->context_mark.index] forKey:YKErrorContextIndexKey];
