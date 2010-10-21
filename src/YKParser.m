@@ -90,7 +90,7 @@
     BOOL done = NO;
 
     NSMutableArray *documents = [NSMutableArray array];
-    NSMutableArray *container = [NSMutableArray array];
+    NSMutableArray *containerStack = [NSMutableArray array];
     BOOL startNewDocument = FALSE;
     id node;
 
@@ -114,7 +114,7 @@
                 case YAML_DOCUMENT_START_EVENT:
                     startNewDocument = TRUE;
                     node = nil;
-                    [container removeAllObjects];
+                    [containerStack removeAllObjects];
                     break;
                 case YAML_DOCUMENT_END_EVENT:
                     break;
@@ -122,18 +122,18 @@
                     node = [NSMutableDictionary dictionary];
                     break;
                 case YAML_MAPPING_END_EVENT:
-                    [container removeLastObject];
+                    [containerStack removeLastObject];
                     node = nil;
                     break;
                 case YAML_SEQUENCE_START_EVENT:
                     node = [NSMutableArray array];
                     break;
                 case YAML_SEQUENCE_END_EVENT:
-                    [container removeLastObject];
+                    [containerStack removeLastObject];
                     node = nil;
                     break;
                 case YAML_SCALAR_EVENT:
-                    if ([[container lastObject] isKindOfClass:[NSDictionary class]])
+                    if ([[containerStack lastObject] isKindOfClass:[NSDictionary class]])
                         node = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
                     else
                         node = [self _interpretObjectFromEvent:event];
@@ -143,21 +143,21 @@
                     break;
             }
             if (node) {
-                if ([[container lastObject] isKindOfClass:[NSString class]]) {
-                    NSString *key = [[container lastObject] retain];
-                    [container removeLastObject];
-                    [[container lastObject] setValue:node forKey:key];
+                if ([[containerStack lastObject] isKindOfClass:[NSString class]]) {
+                    NSString *key = [[containerStack lastObject] retain];
+                    [containerStack removeLastObject];
+                    [[containerStack lastObject] setValue:node forKey:key];
                     [key release];
-                } else if ([[container lastObject] isKindOfClass:[NSDictionary class]]) {
-                    [container addObject:node];
-                } else if ([[container lastObject] isKindOfClass:[NSArray class]]) {
-                    [[container lastObject] addObject:node];
+                } else if ([[containerStack lastObject] isKindOfClass:[NSDictionary class]]) {
+                    [containerStack addObject:node];
+                } else if ([[containerStack lastObject] isKindOfClass:[NSArray class]]) {
+                    [[containerStack lastObject] addObject:node];
                 } else if (startNewDocument) {
                     [documents addObject:node];
                     startNewDocument = FALSE;
                 }
                 if ([node isKindOfClass:[NSDictionary class]] || [node isKindOfClass:[NSArray class]]) {
-                    [container addObject:node];
+                    [containerStack addObject:node];
                 }
             }
         }
