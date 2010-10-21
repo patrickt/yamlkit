@@ -88,8 +88,11 @@
 
     yaml_event_t event;
     BOOL done = NO;
-    id obj, temp;
-    NSMutableArray *stack = [NSMutableArray array];
+
+    NSMutableArray *documents = [NSMutableArray array];
+    NSMutableArray *container = [NSMutableArray array];
+    BOOL startNewDocument = FALSE;
+    id node;
 
     while (!done) {
         if (!yaml_parser_parse(opaque_parser, &event)) {
@@ -97,79 +100,65 @@
                 *e = [self _constructErrorFromParser:opaque_parser];
             }
             // An error occurred, set the stack to null and exit loop
-            stack = nil;
+            documents = nil;
             done = TRUE;
         } else {
             switch (event.type) {
-                case YAML_SCALAR_EVENT:
-                    temp = [stack lastObject];
-                    if ([temp isKindOfClass:[NSDictionary class]]) {
-                        [stack addObject:[NSString stringWithUTF8String:(const char *)event.data.scalar.value]];
-                    } else {
-                        obj = [self _interpretObjectFromEvent:event];
-                        if ([temp isKindOfClass:[NSArray class]]) {
-                            [temp addObject:obj];
-                        } else {
-                            [temp retain];
-                            [stack removeLastObject];
-
-                            if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]) {
-                                if (e != NULL) {
-                                    *e = [self _constructErrorFromParser:NULL];
-                                }
-                                // An error occurred, set the stack to null and exit loop
-                                done = TRUE;
-                                stack = nil;
-                            } else {
-                                [[stack lastObject] setObject:obj forKey:temp];
-                            }
-                            [temp release];
-                        }
-                    }
-                    break;
-                case YAML_SEQUENCE_START_EVENT:
-                    [stack addObject:[NSMutableArray array]];
-                    break;
-                case YAML_MAPPING_START_EVENT:
-                    [stack addObject:[NSMutableDictionary dictionary]];
-                    break;
-                case YAML_SEQUENCE_END_EVENT:
-                case YAML_MAPPING_END_EVENT:
-                    temp = [[stack lastObject] retain];
-                    [stack removeLastObject];
-
-                    id last = [stack lastObject];
-                    if (last == nil) {
-                        [stack addObject:temp];
-                        break;
-                    } else if ([last isKindOfClass:[NSArray class]]) {
-                        [last addObject:temp];
-                    } else if ([last isKindOfClass:[NSDictionary class]]) {
-                        [stack addObject:temp];
-                    } else if ([last isKindOfClass:[NSString class]] || [last isKindOfClass:[NSNumber class]]) {
-                        obj = [[stack lastObject] retain];
-                        [stack removeLastObject];
-                        if (![[stack lastObject] isKindOfClass:[NSMutableDictionary class]]){
-                            if (e != NULL) {
-                                *e = [self _constructErrorFromParser:NULL];
-                            }
-                            // An error occurred, set the stack to null and exit loop
-                            done = TRUE;
-                            stack = nil;
-                        } else {
-                            [[stack lastObject] setObject:temp forKey:obj];
-                        }
-                        [obj release];
-                    }
-
-                    [temp release];
+                case YAML_STREAM_START_EVENT:
+                    node = nil;
                     break;
                 case YAML_STREAM_END_EVENT:
-                    done = YES;
+                    node = nil;
+                    done = TRUE;
+                    break;
+                case YAML_DOCUMENT_START_EVENT:
+                    startNewDocument = TRUE;
+                    node = nil;
+                    [container removeAllObjects];
+                    break;
+                case YAML_DOCUMENT_END_EVENT:
+                    break;
+                case YAML_MAPPING_START_EVENT:
+                    node = [NSMutableDictionary dictionary];
+                    break;
+                case YAML_MAPPING_END_EVENT:
+                    [container removeLastObject];
+                    node = nil;
+                    break;
+                case YAML_SEQUENCE_START_EVENT:
+                    node = [NSMutableArray array];
+                    break;
+                case YAML_SEQUENCE_END_EVENT:
+                    [container removeLastObject];
+                    node = nil;
+                    break;
+                case YAML_SCALAR_EVENT:
+                    if ([[container lastObject] isKindOfClass:[NSDictionary class]])
+                        node = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
+                    else
+                        node = [self _interpretObjectFromEvent:event];
                     break;
                 case YAML_NO_EVENT:
                 default:
                     break;
+            }
+            if (node) {
+                if ([[container lastObject] isKindOfClass:[NSString class]]) {
+                    NSString *key = [[container lastObject] retain];
+                    [container removeLastObject];
+                    [[container lastObject] setValue:node forKey:key];
+                    [key release];
+                } else if ([[container lastObject] isKindOfClass:[NSDictionary class]]) {
+                    [container addObject:node];
+                } else if ([[container lastObject] isKindOfClass:[NSArray class]]) {
+                    [[container lastObject] addObject:node];
+                } else if (startNewDocument) {
+                    [documents addObject:node];
+                    startNewDocument = FALSE;
+                }
+                if ([node isKindOfClass:[NSDictionary class]] || [node isKindOfClass:[NSArray class]]) {
+                    [container addObject:node];
+                }
             }
         }
         yaml_event_delete(&event);
@@ -177,7 +166,7 @@
 
     // we've reached the end of the stream, nothing additional to parse
     readyToParse = NO;
-    return stack;
+    return documents;
 }
 
 - (void)addTag:(YKTag *)tag
