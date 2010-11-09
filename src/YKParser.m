@@ -92,7 +92,7 @@
     NSMutableArray *documents = [NSMutableArray array];
     NSMutableArray *containerStack = [NSMutableArray array];
     BOOL startNewDocument = FALSE;
-    id node;
+    id node = nil;
 
     while (!done) {
         if (!yaml_parser_parse(opaque_parser, &event)) {
@@ -222,21 +222,21 @@
                 break;
             default: break;
         }
-        [data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
+        [data setObject:[NSNumber numberWithInteger:enc] forKey:NSStringEncodingErrorKey];
 
         [data setObject:(!p->problem ? [NSNull null] : [NSString stringWithUTF8String:p->problem])
                  forKey:YKProblemDescriptionKey];
-        [data setObject:[NSNumber numberWithInt:p->problem_offset] forKey:YKProblemOffsetKey];
-        [data setObject:[NSNumber numberWithInt:p->problem_value] forKey:YKProblemValueKey];
-        [data setObject:[NSNumber numberWithInt:p->problem_mark.line] forKey:YKProblemLineKey];
-        [data setObject:[NSNumber numberWithInt:p->problem_mark.index] forKey:YKProblemIndexKey];
-        [data setObject:[NSNumber numberWithInt:p->problem_mark.column] forKey:YKProblemColumnKey];
+        [data setObject:[NSNumber numberWithInteger:p->problem_offset] forKey:YKProblemOffsetKey];
+        [data setObject:[NSNumber numberWithInteger:p->problem_value] forKey:YKProblemValueKey];
+        [data setObject:[NSNumber numberWithInteger:p->problem_mark.line] forKey:YKProblemLineKey];
+        [data setObject:[NSNumber numberWithInteger:p->problem_mark.index] forKey:YKProblemIndexKey];
+        [data setObject:[NSNumber numberWithInteger:p->problem_mark.column] forKey:YKProblemColumnKey];
 
         [data setObject:(!p->context ? [NSNull null] : [NSString stringWithUTF8String:p->context])
                  forKey:YKErrorContextDescriptionKey];
-        [data setObject:[NSNumber numberWithInt:p->context_mark.line] forKey:YKErrorContextLineKey];
-        [data setObject:[NSNumber numberWithInt:p->context_mark.column] forKey:YKErrorContextColumnKey];
-        [data setObject:[NSNumber numberWithInt:p->context_mark.index] forKey:YKErrorContextIndexKey];
+        [data setObject:[NSNumber numberWithInteger:p->context_mark.line] forKey:YKErrorContextLineKey];
+        [data setObject:[NSNumber numberWithInteger:p->context_mark.column] forKey:YKErrorContextColumnKey];
+        [data setObject:[NSNumber numberWithInteger:p->context_mark.index] forKey:YKErrorContextIndexKey];
     } else if (readyToParse) {
         [data setObject:NSLocalizedString(@"Internal assertion failed, possibly due to specially malformed input.", @"") forKey:NSLocalizedDescriptionKey];
     } else {

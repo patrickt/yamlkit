@@ -125,6 +125,8 @@ static YKNativeTagManager *__sharedManager = nil;
 
 - (id)copyWithZone:(NSZone *)zone
 {
+#pragma unused(zone)
+	
     return self;
 }
 
@@ -156,16 +158,16 @@ static YKNativeTagManager *__sharedManager = nil;
     if (tag == [tagsByName valueForKey:YKIntegerTagDeclaration]) {
         int base = [hint intValue];
         if (base == 2) {
-            return [NSNumber numberWithInt:([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
+            return [NSNumber numberWithInteger:([[[components objectAtIndex:0] objectAtIndex:1] isEqualToString:@"-"] ? -1 : 1) *
                     [[[components objectAtIndex:0] objectAtIndex:2] intValueFromBase:2]];
         } else if (base == 60) {
             NSInteger resultValue = 0;
             for (NSString *component in [stringValue componentsSeparatedByString:@":"]) {
                 resultValue = (resultValue * 60) + [component intValueFromBase:10];
             }
-            return [NSNumber numberWithInt:resultValue];
+            return [NSNumber numberWithInteger:resultValue];
         } else {
-            return [NSNumber numberWithInt:[stringValue intValueFromBase:base]];
+            return [NSNumber numberWithInteger:[stringValue intValueFromBase:base]];
         }
     } else if (tag == [tagsByName valueForKey:YKFloatTagDeclaration]) {
         int base = [hint intValue];

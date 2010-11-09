@@ -117,7 +117,7 @@
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
-        STAssertEqualObjects(value, [NSNumber numberWithInt:1.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertEqualObjects(value, [NSNumber numberWithInt:1], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
     [p readString:@"- !!int false\n- !!int False\n- !!int FALSE\n- !!int n\n- !!int N\n- !!int No\n" \
      "- !!int NO\n- !!int off\n- !!int Off\n- !!int OFF\n"];
@@ -125,14 +125,14 @@
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
-        STAssertEqualObjects(value, [NSNumber numberWithInt:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertEqualObjects(value, [NSNumber numberWithInt:0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
     [p readString:@"- !!int null\n- !!int Null\n- !!int NULL\n- !!int ~\n- !!int \n"];
     o = [[p parse] objectAtIndex:0];
     STAssertTrue([o count], @"parser returned nothing.");
     for (id value in o) {
         STAssertTrue([value isKindOfClass:[NSNumber class]], @"was not a number");
-        STAssertEqualObjects(value, [NSNumber numberWithInt:0.0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
+        STAssertEqualObjects(value, [NSNumber numberWithInt:0], @"incorrectly cast to NSNumber <%@(%@)>", NSStringFromClass([value class]), value);
     }
     [p readString:@"- !!int 2001-12-14t21:59:43.10-05:00\n- !!int 2001-12-14 21:59:43.10 -5\n"];
     o = [[p parse] objectAtIndex:0];

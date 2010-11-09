@@ -87,7 +87,8 @@
 
 - (id)castValue:(id)value toTag:(YKTag *)castingTag
 {
-    id resultingValue = [castingTag castValue:resultingValue fromTag:self];
+	
+    id resultingValue = [castingTag castValue:value fromTag:self];
     if (resultingValue)
        return resultingValue;
 

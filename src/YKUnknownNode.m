@@ -14,9 +14,9 @@ inline YKRange YKMakeRange(YKMark start, YKMark end)
     return results;
 }
 
-inline YKMark YKMakeMark(NSUInteger line, NSUInteger column, NSUInteger index)
+inline YKMark YKMakeMark(NSUInteger line, NSUInteger column, NSUInteger idx)
 {
-    YKMark results = {line, column, index};
+    YKMark results = {line, column, idx};
     return results;
 }
 

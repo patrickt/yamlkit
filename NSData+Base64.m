@@ -72,7 +72,7 @@ void *NewBase64Decode(
 	size_t length,
 	size_t *outputLength)
 {
-	if (length == -1)
+	if ((signed)length == -1)
 	{
 		length = strlen(inputBuffer);
 	}
@@ -88,7 +88,7 @@ void *NewBase64Decode(
 		//
 		// Accumulate 4 valid characters (ignore everything else)
 		//
-		unsigned char accumulated[BASE64_UNIT_SIZE];
+		unsigned char accumulated[BASE64_UNIT_SIZE] = {};
 		size_t accumulateIndex = 0;
 		while (i < length)
 		{
