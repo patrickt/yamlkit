@@ -326,6 +326,28 @@
     }
 }
 
+- (void)testMultipleDocuments
+{
+  NSString *testData =
+    @"--- # Favorite movies\n" \
+    "- Casablanca\n" \
+    "- North by Northwest\n" \
+    "- The Man Who Wasn't There\n" \
+    "--- # Shopping list\n" \
+    "[milk, pumpkin pie, eggs, juice]\n";
+  [p readString:testData];
+
+  NSArray *document1 = [NSArray arrayWithObjects:@"Casablanca", @"North by Northwest", @"The Man Who Wasn't There", nil];
+  NSArray *document2 = [NSArray arrayWithObjects:@"milk", @"pumpkin pie", @"eggs", @"juice", nil];
+
+  NSError *scopeError = nil;
+  NSArray *o = [p parseWithError:&scopeError];
+  STAssertNotNil(o, @"parser returned nothing, error %@", [scopeError userInfo]);
+  STAssertTrue([o count] == 2, @"parser unable parse the multiple documents.");
+  STAssertEqualObjects([o objectAtIndex:0], document1, @"parser did not return expected array.");
+  STAssertEqualObjects([o objectAtIndex:1], document2, @"parser did not return expected array.");
+}
+
 //- (void)testWithCustomInputHandler;
 
 @end
