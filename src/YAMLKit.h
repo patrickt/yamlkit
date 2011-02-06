@@ -14,10 +14,9 @@
 #import <YAMLKit/YKParser.h>
 #import <YAMLKit/YKEmitter.h>
 
-@interface YAMLKit : NSObject
-{
-
+@interface YAMLKit : NSObject {
 }
+
 #pragma mark Parser
 + (id)loadFromString:(NSString *)aString;
 + (id)loadFromFile:(NSString *)path;
