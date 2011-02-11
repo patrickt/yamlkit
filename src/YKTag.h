@@ -18,8 +18,7 @@
 
 @end
 
-@interface YKTag : NSObject
-{
+@interface YKTag : NSObject {
     NSString *verbatim;
     NSString *shorthand;
     id delegate;
@@ -36,8 +35,7 @@
 
 @end
 
-@interface YKRegexTag : YKTag
-{
+@interface YKRegexTag : YKTag {
     NSDictionary *regexDeclarations;
 }
 
