@@ -5,3 +5,5 @@ build
 *.icns
 *.perspectivev3
 test/test.bin.cpgz
+*.xcworkspace
+xcuserdata
