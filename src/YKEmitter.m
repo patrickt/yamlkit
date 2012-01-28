@@ -22,10 +22,10 @@
     if((self = [super init])) {
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
-        
+
         buffer = [NSMutableData data];
         // Coincidentally, the order of arguments to CFDataAppendBytes are just right
-        // such that if I pass the buffer as the data parameter, I can just use 
+        // such that if I pass the buffer as the data parameter, I can just use
         // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
         yaml_emitter_set_output(&emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
         [self setUsesExplicitDelimiters:NO];
@@ -50,7 +50,7 @@
 - (int)_writeItem:(id)item toDocument:(yaml_document_t *)doc
 {
 	int nodeID = 0;
-	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary 
+	// #keyEnumerator covers NSMapTable/NSHashTable/NSDictionary
 	if([item respondsToSelector:@selector(keyEnumerator)]) {
 		// Add a mapping node.
 		nodeID = yaml_document_add_mapping(doc, (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG, YAML_ANY_MAPPING_STYLE);

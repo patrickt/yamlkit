@@ -37,7 +37,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     [self reset];
     fileInput = fopen([path fileSystemRepresentation], "r");
     readyToParse = ((fileInput != NULL) && (yaml_parser_initialize(&parser)));
-    if(readyToParse) 
+    if(readyToParse)
 		yaml_parser_set_input_file(&parser, fileInput);
 	return readyToParse;
 }
@@ -47,7 +47,7 @@ static BOOL _isBooleanFalse(NSString *aString);
     [self reset];
     stringInput = [str UTF8String];
     readyToParse = yaml_parser_initialize(&parser);
-    if(readyToParse) 
+    if(readyToParse)
 		yaml_parser_set_input_string(&parser, (const unsigned char *)stringInput, [str length]);
     return readyToParse;
 }
@@ -69,9 +69,9 @@ static BOOL _isBooleanFalse(NSString *aString);
 				*e = [self _constructErrorFromParser:NULL];
 				return nil;
 			}
-		}		
+		}
 	}
-    
+
     while(!done) {
         if(!yaml_parser_parse(&parser, &event)) {
 			if(e != NULL) {
@@ -84,7 +84,7 @@ static BOOL _isBooleanFalse(NSString *aString);
             case YAML_SCALAR_EVENT:
 				obj = [self _interpretObjectFromEvent:event];
                 temp = [stack lastObject];
-                
+
                 if([temp isKindOfClass:[NSArray class]]) {
                     [temp addObject:obj];
                 } else if([temp isKindOfClass:[NSDictionary class]]) {
@@ -100,7 +100,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 					}
 					[[stack lastObject] setObject:obj forKey:temp];
                 }
-                
+
                 break;
             case YAML_SEQUENCE_START_EVENT:
                 [stack addObject:[NSMutableArray array]];
@@ -113,7 +113,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 				// TODO: Check for retain count errors.
                 temp = [stack lastObject];
                 [stack removeLastObject];
-		                
+
                 id last = [stack lastObject];
 				if(last == nil) {
 					[stack addObject:temp];
@@ -130,7 +130,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 							*e = [self _constructErrorFromParser:NULL];
 							return nil;
 						}
-					}					
+					}
                     [[stack lastObject] setObject:temp forKey:obj];
                 }
                 break;
@@ -150,10 +150,10 @@ static BOOL _isBooleanFalse(NSString *aString);
 {
 	NSString *stringValue = [NSString stringWithUTF8String:(const char *)event.data.scalar.value];
 	id obj = stringValue;
-	
+
 	if(event.data.scalar.style == YAML_PLAIN_SCALAR_STYLE) {
 		NSScanner *scanner = [NSScanner scannerWithString:obj];
-		
+
 		// Integers are automatically casted unless given a !!str tag. I think.
 		if([scanner scanDouble:NULL] && [scanner scanLocation] == [stringValue length]) {
 			obj = [NSNumber numberWithDouble:[obj doubleValue]];
@@ -176,7 +176,7 @@ static BOOL _isBooleanFalse(NSString *aString);
 {
 	int code = 0;
 	NSMutableDictionary *data = [NSMutableDictionary dictionary];
-	
+
 	if(p != NULL) {
 		// actual parser error
 		code = p->error;
@@ -195,26 +195,26 @@ static BOOL _isBooleanFalse(NSString *aString);
 			default: break;
 		}
 		[data setObject:[NSNumber numberWithInt:enc] forKey:NSStringEncodingErrorKey];
-		
+
 		[data setObject:[NSString stringWithUTF8String:p->problem] forKey:YKProblemDescriptionKey];
 		[data setObject:[NSNumber numberWithInt:p->problem_offset] forKey:YKProblemOffsetKey];
 		[data setObject:[NSNumber numberWithInt:p->problem_value] forKey:YKProblemValueKey];
 		[data setObject:[NSNumber numberWithInt:p->problem_mark.line] forKey:YKProblemLineKey];
 		[data setObject:[NSNumber numberWithInt:p->problem_mark.index] forKey:YKProblemIndexKey];
 		[data setObject:[NSNumber numberWithInt:p->problem_mark.column] forKey:YKProblemColumnKey];
-		
+
 		[data setObject:[NSString stringWithUTF8String:p->context] forKey:YKErrorContextDescriptionKey];
 		[data setObject:[NSNumber numberWithInt:p->context_mark.line] forKey:YKErrorContextLineKey];
 		[data setObject:[NSNumber numberWithInt:p->context_mark.column] forKey:YKErrorContextColumnKey];
 		[data setObject:[NSNumber numberWithInt:p->context_mark.index] forKey:YKErrorContextIndexKey];
-		
+
 	} else if(readyToParse) {
 		[data setObject:NSLocalizedString(@"Internal assertion failed, possibly due to specially malformed input.", @"") forKey:NSLocalizedDescriptionKey];
 	} else {
 		[data setObject:NSLocalizedString(@"YAML parser was not ready to parse.", @"") forKey:NSLocalizedFailureReasonErrorKey];
 		[data setObject:NSLocalizedString(@"Did you remember to call readFile: or readString:?", @"") forKey:NSLocalizedDescriptionKey];
 	}
-	
+
 	return [[NSError alloc] initWithDomain:YKErrorDomain code:code userInfo:data];
 }
 

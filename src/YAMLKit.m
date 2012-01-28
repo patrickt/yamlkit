@@ -24,8 +24,8 @@
 
 + (id)loadFromFile:(NSString *)path
 {
-	NSString *contents = [NSString stringWithContentsOfFile:path 
-												   encoding:NSUTF8StringEncoding 
+	NSString *contents = [NSString stringWithContentsOfFile:path
+												   encoding:NSUTF8StringEncoding
 													  error:NULL];
 	if(contents == nil) return nil; // if there was an error reading from the file
 	return [self loadFromString:contents];
@@ -33,8 +33,8 @@
 
 + (id)loadFromURL:(NSURL *)url
 {
-	NSString *contents = [NSString stringWithContentsOfURL:url 
-												  encoding:NSUTF8StringEncoding 
+	NSString *contents = [NSString stringWithContentsOfURL:url
+												  encoding:NSUTF8StringEncoding
 													 error:NULL];
 	if(contents == nil) return nil; // if there was an error reading from the URL
 	return [self loadFromString:contents];
