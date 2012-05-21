@@ -1,0 +1,6 @@
+.lib*
+lib*/
+*.tar.gz
+*.tar.bz2
+regexlite/
+.regexlite

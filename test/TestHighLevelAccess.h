@@ -13,9 +13,8 @@
 }
 
 - (void)testStringLoading;
-- (void)testFileLoading;
-
 - (void)testStringDumping;
-- (void)testFileDumping;
+- (void)testFileDumpingAndLoading;
+- (void)testLoadNilAndEmpty;
 
 @end

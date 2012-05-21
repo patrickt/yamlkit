@@ -6,21 +6,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "yaml.h"
 
 @interface YKEmitter : NSObject {
-    yaml_emitter_t emitter;
     NSMutableData *buffer;
-	BOOL usesExplicitDelimiters;
-	NSStringEncoding encoding;
+    BOOL usesExplicitDelimiters;
+    NSStringEncoding encoding;
+    void *opaque_emitter;
 }
 
 - (void)emitItem:(id)item;
 - (NSString *)emittedString;
 - (NSData *)emittedData;
 
-@property(assign) BOOL usesExplicitDelimiters;
-@property(assign) NSStringEncoding encoding;
-
+@property (assign) BOOL usesExplicitDelimiters;
+@property (assign) NSStringEncoding encoding;
 
 @end

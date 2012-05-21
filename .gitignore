@@ -3,3 +3,7 @@ build
 *.pbxuser
 *.mode1v3
 *.icns
+*.perspectivev3
+test/test.bin.cpgz
+*.xcworkspace
+xcuserdata

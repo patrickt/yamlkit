@@ -7,20 +7,24 @@
  *
  */
 
-#import "YKParser.h"
-#import "YKEmitter.h"
+#import <YAMLKit/NSData+Base64.h>
+#import <YAMLKit/YKConstants.h>
+#import <YAMLKit/YKTag.h>
+#import <YAMLKit/YKUnknownNode.h>
+#import <YAMLKit/YKParser.h>
+#import <YAMLKit/YKEmitter.h>
 
-@interface YAMLKit : NSObject
-{
-
+@interface YAMLKit : NSObject {
 }
 
-+ (NSString *)dumpObject:(id)object;
-+ (BOOL)dumpObject:(id)object toFile:(NSString *)path;
-+ (BOOL)dumpObject:(id)object toURL:(NSURL *)path;
-
+#pragma mark Parser
 + (id)loadFromString:(NSString *)aString;
 + (id)loadFromFile:(NSString *)path;
 + (id)loadFromURL:(NSURL *)url;
+
+#pragma mark Emitter
++ (NSString *)dumpObject:(id)object;
++ (BOOL)dumpObject:(id)object toFile:(NSString *)path;
++ (BOOL)dumpObject:(id)object toURL:(NSURL *)path;
 
 @end

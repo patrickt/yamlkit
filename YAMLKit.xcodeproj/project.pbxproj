@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		72C6DBDA1007D396008D7A84 /* libyaml.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C6DBD91007D396008D7A84 /* libyaml.dylib */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -18,12 +17,28 @@
 		CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CD4669520F0A98330047C2BF /* verysimple.yaml */; };
 		CD4669650F0A996A0047C2BF /* TestParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23A0F098A2F0011BAB6 /* TestParsing.m */; };
 		CD46698D0F0A9A040047C2BF /* YAMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* YAMLKit.framework */; };
-		CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */; };
+		CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */; };
-		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; };
+		CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD69C2330F0983A90011BAB6 /* YKParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2340F0983A90011BAB6 /* YKParser.m */; };
 		CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CDAD33310F0ACCE20054CF3F /* moderate.yaml */; };
 		CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */; };
+		EF0B4E9F126B863D0064F1A2 /* test.bin in Resources */ = {isa = PBXBuildFile; fileRef = EF0B4E9E126B863D0064F1A2 /* test.bin */; };
+		EF3AE437126C1B2A0052D7E8 /* YKUnknownNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF3AE438126C1B2A0052D7E8 /* YKUnknownNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */; };
+		EF3AE549126C2ADF0052D7E8 /* ascii.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE546126C2ADF0052D7E8 /* ascii.yaml */; };
+		EF3AE54A126C2ADF0052D7E8 /* utf16be.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */; };
+		EF3AE54B126C2ADF0052D7E8 /* utf16le.yaml in Resources */ = {isa = PBXBuildFile; fileRef = EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */; };
+		EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B56612506FFF009BCF6C /* RegexKitLite.m */; };
+		EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */; };
+		EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */; };
+		EF4A6D89126E3DD6006493C1 /* YKNativeTagManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF4A6D8A126E3DD6006493C1 /* YKNativeTagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */; };
+		EF4D8583126B0FD5005C152A /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = EF4D8581126B0FD5005C152A /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF4D8582126B0FD5005C152A /* NSData+Base64.m */; };
+		EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCA14126C2DD90097B74B /* YKConstants.m */; };
+		EFCBCA50126C2FD50097B74B /* YKTag.h in Headers */ = {isa = PBXBuildFile; fileRef = EFCBCA4C126C2FD50097B74B /* YKTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFCBCA51126C2FD50097B74B /* YKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCA4D126C2FD50097B74B /* YKTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +57,6 @@
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit_Prefix.pch; sourceTree = "<group>"; };
-		72C6DBD91007D396008D7A84 /* libyaml.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libyaml.dylib; path = /usr/local/lib/libyaml.dylib; sourceTree = "<absolute>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* YAMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit.h; sourceTree = "<group>"; };
@@ -64,6 +78,23 @@
 		CDAD33310F0ACCE20054CF3F /* moderate.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moderate.yaml; sourceTree = "<group>"; };
 		CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLKit.m; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		EF0B4E9E126B863D0064F1A2 /* test.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = test.bin; sourceTree = "<group>"; };
+		EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKUnknownNode.h; sourceTree = "<group>"; };
+		EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKUnknownNode.m; sourceTree = "<group>"; };
+		EF3AE546126C2ADF0052D7E8 /* ascii.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ascii.yaml; sourceTree = "<group>"; };
+		EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utf16be.yaml; sourceTree = "<group>"; };
+		EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = utf16le.yaml; sourceTree = "<group>"; };
+		EF40B56512506FFF009BCF6C /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = extras/src/regexlite/RegexKitLite.h; sourceTree = "<group>"; };
+		EF40B56612506FFF009BCF6C /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = extras/src/regexlite/RegexKitLite.m; sourceTree = "<group>"; };
+		EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+YAMLKit.h"; path = "src/NSString+YAMLKit.h"; sourceTree = "<group>"; };
+		EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+YAMLKit.m"; path = "src/NSString+YAMLKit.m"; sourceTree = "<group>"; };
+		EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKNativeTagManager.h; sourceTree = "<group>"; };
+		EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKNativeTagManager.m; sourceTree = "<group>"; };
+		EF4D8581126B0FD5005C152A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "src/NSData+Base64.h"; sourceTree = "<group>"; };
+		EF4D8582126B0FD5005C152A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "src/NSData+Base64.m"; sourceTree = "<group>"; };
+		EFCBCA14126C2DD90097B74B /* YKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKConstants.m; sourceTree = "<group>"; };
+		EFCBCA4C126C2FD50097B74B /* YKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKTag.h; sourceTree = "<group>"; };
+		EFCBCA4D126C2FD50097B74B /* YKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKTag.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +103,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
-				72C6DBDA1007D396008D7A84 /* libyaml.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,10 +164,17 @@
 			isa = PBXGroup;
 			children = (
 				CD2913040F0E85930003FE76 /* YKConstants.h */,
+				EFCBCA14126C2DD90097B74B /* YKConstants.m */,
 				CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */,
 				CDAD33A10F0AEDCB0054CF3F /* YAMLKit.m */,
 				CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */,
 				CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */,
+				EF3AE435126C1B2A0052D7E8 /* YKUnknownNode.h */,
+				EF3AE436126C1B2A0052D7E8 /* YKUnknownNode.m */,
+				EFCBCA4C126C2FD50097B74B /* YKTag.h */,
+				EFCBCA4D126C2FD50097B74B /* YKTag.m */,
+				EF4A6D87126E3DD6006493C1 /* YKNativeTagManager.h */,
+				EF4A6D88126E3DD6006493C1 /* YKNativeTagManager.m */,
 				CD69C2330F0983A90011BAB6 /* YKParser.h */,
 				CD69C2340F0983A90011BAB6 /* YKParser.m */,
 			);
@@ -150,7 +187,6 @@
 			children = (
 				CD312F620F09A0E50004C345 /* SenTestingKit.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
-				72C6DBD91007D396008D7A84 /* libyaml.dylib */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -168,6 +204,12 @@
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				EF40B57C1250726D009BCF6C /* NSString+YAMLKit.h */,
+				EF40B57D1250726D009BCF6C /* NSString+YAMLKit.m */,
+				EF4D8581126B0FD5005C152A /* NSData+Base64.h */,
+				EF4D8582126B0FD5005C152A /* NSData+Base64.m */,
+				EF40B56512506FFF009BCF6C /* RegexKitLite.h */,
+				EF40B56612506FFF009BCF6C /* RegexKitLite.m */,
 				32DBCF5E0370ADEE00C91783 /* YAMLKit_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -192,6 +234,10 @@
 			children = (
 				CD4669520F0A98330047C2BF /* verysimple.yaml */,
 				CDAD33310F0ACCE20054CF3F /* moderate.yaml */,
+				EF0B4E9E126B863D0064F1A2 /* test.bin */,
+				EF3AE546126C2ADF0052D7E8 /* ascii.yaml */,
+				EF3AE547126C2ADF0052D7E8 /* utf16be.yaml */,
+				EF3AE548126C2ADF0052D7E8 /* utf16le.yaml */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -207,6 +253,11 @@
 				CD69C2200F097CEE0011BAB6 /* YKEmitter.h in Headers */,
 				CD69C2350F0983A90011BAB6 /* YKParser.h in Headers */,
 				CD2913050F0E85930003FE76 /* YKConstants.h in Headers */,
+				EF40B57E1250726D009BCF6C /* NSString+YAMLKit.h in Headers */,
+				EF4D8583126B0FD5005C152A /* NSData+Base64.h in Headers */,
+				EF3AE437126C1B2A0052D7E8 /* YKUnknownNode.h in Headers */,
+				EFCBCA50126C2FD50097B74B /* YKTag.h in Headers */,
+				EF4A6D89126E3DD6006493C1 /* YKNativeTagManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +272,7 @@
 				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
+				EFE280B2124316A5008C5146 /* Copy 'libyaml' from Library Search Paths */,
 			);
 			buildRules = (
 			);
@@ -258,7 +310,11 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "YAMLKit" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* YAMLKit */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -285,6 +341,10 @@
 			files = (
 				CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */,
 				CDAD33320F0ACCE20054CF3F /* moderate.yaml in Resources */,
+				EF0B4E9F126B863D0064F1A2 /* test.bin in Resources */,
+				EF3AE549126C2ADF0052D7E8 /* ascii.yaml in Resources */,
+				EF3AE54A126C2ADF0052D7E8 /* utf16be.yaml in Resources */,
+				EF3AE54B126C2ADF0052D7E8 /* utf16le.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +364,21 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		EFE280B2124316A5008C5146 /* Copy 'libyaml' from Library Search Paths */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy 'libyaml' from Library Search Paths";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Make sure that the Frameworks path exists\nmkdir -p $BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH\n\ntrim()\n{\n  trimmed=$1\n  trimmed=${trimmed%% }\n  trimmed=${trimmed## }\n  echo $trimmed\n}\n\ncopy_framework()\n{\n  path=$1\n  echo \"Trying to copy framework from $path\"\n\n  if [ -f \"$path\" ]; then\n    echo \"Copying '$path' to '$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/'\"\n    cp \"$path\" \"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n    # Make sure we change the install name to be relative to the loader path\n    file_name=`basename $path`\n    file_path=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/$file_name\"\n    install_name=\"@loader_path/Frameworks/$file_name\"\n    \n    echo \"Changing the id of '$file_name' to '$install_name'\"\n    install_name_tool -id \"$install_name\" \"$file_path\"\n    \n    echo \"Changing '$path' to '$install_name'\"\n    install_name_tool -change \"$path\" \"$install_name\" \"$BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\"\n\n    return 1\n  fi\n  echo \"ERROR: Unable to find $path.\"\n  return 0\n}\n\n# Check to see if the path specified by the executable is the framework\nexec_path=\"$(trim `otool -L \"$BUILT_PRODUCTS_DIR/$EXECUTABLE_PATH\" | grep -E libyaml.+\\.dylib | sed 's/^[ ]//' | sed 's/ (compatibility.*//'`)\"\nif [ \"`echo \"$exec_path\" | grep '^@loader_path/Frameworks/libyaml'`\" != \"\" ]; then\n  file_name=`basename $exec_path`\n  if [ -f \"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/$file_name\" ]; then\n    echo \"Library is already installed.\"\n    exit 0\n  fi\nelif [ -f \"$exec_path\" ]; then\n  copy_framework \"$exec_path\"\n  if [ $? == 1 ]; then\n    exit 0\n  fi\nfi\n\n# Copy over the framework\necho \"Looking for framework to copy...\"\nfor path in $LIBRARY_SEARCH_PATHS; do\n  path=`echo \"$path\" | sed 's/\\/ *$//'`\n  copy_framework \"$path/libyaml.dylib\"\n  exit 0\ndone\n\necho \"Error: Unable to find 'libyaml.dylib' in library search path ($LIBRARY_SEARCH_PATHS).\"\nexit 1\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -314,6 +389,13 @@
 				CDB69DA80F28D7F600284BF6 /* YAMLKit.m in Sources */,
 				CD69C2210F097CEE0011BAB6 /* YKEmitter.m in Sources */,
 				CD69C2360F0983A90011BAB6 /* YKParser.m in Sources */,
+				EF40B56812506FFF009BCF6C /* RegexKitLite.m in Sources */,
+				EF40B57F1250726D009BCF6C /* NSString+YAMLKit.m in Sources */,
+				EF4D8584126B0FD5005C152A /* NSData+Base64.m in Sources */,
+				EF3AE438126C1B2A0052D7E8 /* YKUnknownNode.m in Sources */,
+				EFCBCA15126C2DD90097B74B /* YKConstants.m in Sources */,
+				EFCBCA51126C2FD50097B74B /* YKTag.m in Sources */,
+				EF4A6D8A126E3DD6006493C1 /* YKNativeTagManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +435,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -364,10 +445,21 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = YAMLKit_Prefix.pch;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = NO;
+				HEADER_SEARCH_PATHS = (
+					extras/include/,
+					/usr/local/include/,
+				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = (
+					extras/lib/,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lyaml",
+				);
 				PRODUCT_NAME = YAMLKit;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -384,12 +476,22 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = YAMLKit_Prefix.pch;
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = NO;
+				HEADER_SEARCH_PATHS = (
+					extras/include/,
+					/usr/local/include/,
+				);
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = (
+					extras/lib/,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lyaml",
+				);
 				PRODUCT_NAME = YAMLKit;
-				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -401,16 +503,35 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include/;
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
-				WARNING_CFLAGS = "-Wall";
+				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wfloat-equal",
+					"-Wformat",
+					"-Wextra",
+				);
 			};
 			name = Debug;
 		};
@@ -420,16 +541,35 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_GC = supported;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include/;
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
-				WARNING_CFLAGS = "-Wall";
+				SDKROOT = macosx;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wfloat-equal",
+					"-Wformat",
+					"-Wextra",
+				);
 			};
 			name = Release;
 		};

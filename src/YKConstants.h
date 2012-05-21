@@ -6,17 +6,22 @@
  *  Copyright 2009 Patrick Thomson. All rights reserved.
  *
  */
+extern NSString * const YKErrorDomain;
+extern NSString * const YKProblemValueKey;
+extern NSString * const YKProblemOffsetKey;
+extern NSString * const YKProblemIndexKey;
+extern NSString * const YKProblemLineKey;
+extern NSString * const YKProblemColumnKey;
+extern NSString * const YKProblemDescriptionKey;
+extern NSString * const YKErrorContextIndexKey;
+extern NSString * const YKErrorContextLineKey;
+extern NSString * const YKErrorContextColumnKey;
+extern NSString * const YKErrorContextDescriptionKey;
 
-
-
-NSString *YKErrorDomain                = @"YKErrorDomain";
-const NSString *YKProblemValueKey            = @"YKProblemValue";
-const NSString *YKProblemOffsetKey           = @"YKProblemOffset";
-const NSString *YKProblemIndexKey            = @"YKProblemIndex";
-const NSString *YKProblemLineKey             = @"YKProblemLine";
-const NSString *YKProblemColumnKey           = @"YKProblemColumn";
-const NSString *YKProblemDescriptionKey      = @"YKProblemDescription";
-const NSString *YKErrorContextIndexKey       = @"YKErrorContextIndex";
-const NSString *YKErrorContextLineKey        = @"YKErrorContextLine";
-const NSString *YKErrorContextColumnKey      = @"YKErrorContextColumn";
-const NSString *YKErrorContextDescriptionKey = @"YKErrorContext";
+extern NSString * const YKStringTagDeclaration;
+extern NSString * const YKIntegerTagDeclaration;
+extern NSString * const YKFloatTagDeclaration;
+extern NSString * const YKBooleanTagDeclaration;
+extern NSString * const YKNullTagDeclaration;
+extern NSString * const YKTimeStampTagDeclaration;
+extern NSString * const YKBinaryTagDeclaration;

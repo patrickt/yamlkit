@@ -13,16 +13,28 @@
 }
 
 - (void)testVerySimpleLoadingFromFile;
-- (void)testVerySimpleStringParsing;
 - (void)testModerateLoadingFromFile;
-- (void)testAutomaticIntegerCasting;
-- (void)testAutomaticBooleanCasting;
 - (void)testWithNonexistentFile;
-- (void)testWithMalformedStringInput;
-- (void)testSuccessfulLoadingUsingErrors;
-- (void)testUnsuccessfulLoadingUsingErrors;
-- (void)testWhatHappensWhenParseIsCalledTwice;
-- (void)testDifferentEncodings;
-- (void)testWithCustomInputHandler;
+//- (void)testSuccessfulLoadingUsingErrors;
+//- (void)testUnsuccessfulLoadingUsingErrors;
+//- (void)testWhatHappensWhenParseIsCalledTwice;
+
+- (void)testVerySimpleStringParsing;
+- (void)testDigitPrefixedStringParsing;
+- (void)testStringEncoding;
+//- (void)testWithMalformedStringInput;
+
+- (void)testExplicitStringCasting;
+- (void)testAutomaticIntegerCasting;
+- (void)testExplicitIntegerCasting;
+- (void)testAutomaticFloatCasting;
+- (void)testExplicitFloatCasting;
+- (void)testAutomaticBooleanCasting;
+- (void)testExplicitBooleanCasting;
+- (void)testAutomaticNullCasting;
+- (void)testExplicitNullCasting;
+- (void)testAutomaticTimestampCasting;
+- (void)testExplicitBinaryCasting;
+//- (void)testWithCustomInputHandler;
 
 @end
