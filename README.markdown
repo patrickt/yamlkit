@@ -5,7 +5,7 @@ YAMLKit is an Objective-C library wrapping the [LibYAML](http://pyyaml.org/wiki/
 
 It is written by Patrick Thomson and licensed under the MIT License.
 
-It is still very preliminary, but can parse YAML and emit some Cocoa data structures.
+At this point it is quite mature, having been used in commercial projects on Mac and iOS.
 
 Thanks to:
 
