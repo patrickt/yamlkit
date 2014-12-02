@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,6 @@
 		CD1DE6870F0960D3006FDAB3 /* YAMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD2309EA0F0BF9AB00F02DC7 /* TestEmitting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23E0F098A4C0011BAB6 /* TestEmitting.m */; };
 		CD2913050F0E85930003FE76 /* YKConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD2913040F0E85930003FE76 /* YKConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD312F630F09A0E50004C345 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD312F620F09A0E50004C345 /* SenTestingKit.framework */; };
 		CD312F930F09A1A00004C345 /* TestHighLevelAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C2420F098A540011BAB6 /* TestHighLevelAccess.m */; };
 		CD4669530F0A98330047C2BF /* verysimple.yaml in Resources */ = {isa = PBXBuildFile; fileRef = CD4669520F0A98330047C2BF /* verysimple.yaml */; };
 		CD4669650F0A996A0047C2BF /* TestParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = CD69C23A0F098A2F0011BAB6 /* TestParsing.m */; };
@@ -47,8 +46,7 @@
 		8DC2EF5B0486A6940098B216 /* YAMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1DE6860F0960D3006FDAB3 /* YAMLKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLKit.h; sourceTree = "<group>"; };
 		CD2913040F0E85930003FE76 /* YKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKConstants.h; sourceTree = "<group>"; };
-		CD312F560F09A0A40004C345 /* Run Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Run Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD312F620F09A0E50004C345 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		CD312F560F09A0A40004C345 /* Run Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Run Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4669520F0A98330047C2BF /* verysimple.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = verysimple.yaml; sourceTree = "<group>"; };
 		CD69C21E0F097CEE0011BAB6 /* YKEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKEmitter.h; sourceTree = "<group>"; };
 		CD69C21F0F097CEE0011BAB6 /* YKEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKEmitter.m; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD46698D0F0A9A040047C2BF /* YAMLKit.framework in Frameworks */,
-				CD312F630F09A0E50004C345 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* YAMLKit.framework */,
-				CD312F560F09A0A40004C345 /* Run Tests.octest */,
+				CD312F560F09A0A40004C345 /* Run Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,7 +145,6 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CD312F620F09A0E50004C345 /* SenTestingKit.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				72C6DBD91007D396008D7A84 /* libyaml.dylib */,
 			);
@@ -248,8 +244,8 @@
 			);
 			name = "Run Tests";
 			productName = "Run Tests";
-			productReference = CD312F560F09A0A40004C345 /* Run Tests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = CD312F560F09A0A40004C345 /* Run Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -257,9 +253,11 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0610;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "YAMLKit" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -359,7 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -384,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -404,7 +403,6 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -415,7 +413,7 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -423,7 +421,6 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -433,7 +430,7 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -442,8 +439,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -456,13 +454,10 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
-					"-framework",
-					SenTestingKit,
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Run Tests";
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -470,9 +465,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -483,13 +479,10 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
-					"-framework",
-					SenTestingKit,
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Run Tests";
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
 			name = Release;

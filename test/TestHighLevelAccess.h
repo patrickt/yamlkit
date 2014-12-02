@@ -5,10 +5,10 @@
 //  Created by Patrick Thomson on 12/29/08.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <YAMLKit/YAMLKit.h>
 
-@interface TestHighLevelAccess : SenTestCase {
+@interface TestHighLevelAccess : XCTestCase {
 
 }
 

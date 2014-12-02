@@ -15,7 +15,7 @@
 
 @implementation YKEmitter
 
-@synthesize usesExplicitDelimiters, encoding;
+@synthesize usesExplicitDelimiters;
 
 - (id)init
 {
@@ -33,6 +33,7 @@
         // such that if I pass the buffer as the data parameter, I can just use 
         // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
         yaml_emitter_set_output(&emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
+        
         [self setUsesExplicitDelimiters:NO];
         
         yaml_encoding_t converted = YAML_ANY_ENCODING;
