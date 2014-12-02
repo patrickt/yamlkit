@@ -15,12 +15,13 @@
 	NSStringEncoding encoding;
 }
 
+- (instancetype)initWithEncoding:(NSStringEncoding)enc;
 - (void)emitItem:(id)item;
 - (NSString *)emittedString;
 - (NSData *)emittedData;
 
 @property(assign) BOOL usesExplicitDelimiters;
-@property(assign) NSStringEncoding encoding;
+@property(readonly) NSStringEncoding encoding;
 
 
 @end

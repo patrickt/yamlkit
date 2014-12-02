@@ -19,6 +19,11 @@
 
 - (id)init
 {
+    return [self initWithEncoding:NSUTF8StringEncoding];
+}
+
+- (id)initWithEncoding:(NSStringEncoding)enc
+{
     if((self = [super init])) {
         memset(&emitter, 0, sizeof(emitter));
         yaml_emitter_initialize(&emitter);
@@ -29,6 +34,23 @@
         // a pointer to CFDataAppendBytes to tell the emitter to write to the NSMutableData.
         yaml_emitter_set_output(&emitter, (yaml_write_handler_t*)CFDataAppendBytes, buffer);
         [self setUsesExplicitDelimiters:NO];
+        
+        yaml_encoding_t converted = YAML_ANY_ENCODING;
+        switch(encoding) {
+            case NSUTF8StringEncoding:
+                converted = YAML_UTF8_ENCODING;
+                break;
+            case NSUTF16LittleEndianStringEncoding:
+                converted = YAML_UTF16LE_ENCODING;
+                break;
+            case NSUTF16BigEndianStringEncoding:
+                converted = YAML_UTF16BE_ENCODING;
+                break;
+            default:
+                NSLog(@"Unsupported encoding passed to YKEmitter#setEncoding:.");
+                break;
+        }
+        yaml_emitter_set_encoding(&emitter, converted);
     }
 	return self;
 }
@@ -86,25 +108,9 @@
 	return [NSData dataWithData:buffer];
 }
 
-- (void)setEncoding:(NSStringEncoding)newEnc
+- (NSStringEncoding)encoding
 {
-	encoding = newEnc;
-	yaml_encoding_t converted = YAML_ANY_ENCODING;
-	switch(encoding) {
-		case NSUTF8StringEncoding:
-			converted = YAML_UTF8_ENCODING;
-			break;
-		case NSUTF16LittleEndianStringEncoding:
-			converted = YAML_UTF16LE_ENCODING;
-			break;
-		case NSUTF16BigEndianStringEncoding:
-			converted = YAML_UTF16BE_ENCODING;
-			break;
-		default:
-			NSLog(@"Unsupported encoding passed to YKEmitter#setEncoding:.");
-			break;
-	}
-	yaml_emitter_set_encoding(&emitter, converted);
+    return encoding;
 }
 
 @end
