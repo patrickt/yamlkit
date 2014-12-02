@@ -13,9 +13,9 @@
 }
 
 - (void)testStringLoading;
-- (void)testFileLoading;
+//- (void)testFileLoading;
 
 - (void)testStringDumping;
-- (void)testFileDumping;
+//- (void)testFileDumping;
 
 @end

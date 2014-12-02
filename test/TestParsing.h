@@ -18,11 +18,11 @@
 - (void)testAutomaticIntegerCasting;
 - (void)testAutomaticBooleanCasting;
 - (void)testWithNonexistentFile;
-- (void)testWithMalformedStringInput;
-- (void)testSuccessfulLoadingUsingErrors;
-- (void)testUnsuccessfulLoadingUsingErrors;
-- (void)testWhatHappensWhenParseIsCalledTwice;
-- (void)testDifferentEncodings;
-- (void)testWithCustomInputHandler;
+//- (void)testWithMalformedStringInput;
+//- (void)testSuccessfulLoadingUsingErrors;
+//- (void)testUnsuccessfulLoadingUsingErrors;
+//- (void)testWhatHappensWhenParseIsCalledTwice;
+//- (void)testDifferentEncodings;
+//- (void)testWithCustomInputHandler;
 
 @end
